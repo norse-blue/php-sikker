@@ -1,2 +1,2 @@
 # Sikker
-Sikker is a PHP Security package that contains security related implementations in PHP.
+Sikker is a PHP 7.0+ Security package that contains security related implementations.
