@@ -29,7 +29,11 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"NorseBlue\\Sikker\\": "src/",
+			"NorseBlue\\Sikker\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
 			"NorseBlue\\Sikker\\Tests\\": "tests/"
 		}
 	},
