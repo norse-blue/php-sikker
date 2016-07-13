@@ -22,12 +22,15 @@
 		"php": "^7.0.0"
 	},
 	"require-dev": {
-
+		"codeception/codeception": "^2.2.2",
+		"codeception/mockery-module": "^0.2.2",
+		"codeception/specify": "^0.4.3",
+		"mockery/mockery": "^0.9.5"
 	},
 	"autoload": {
 		"psr-4": {
-			"NorseBlue\\Sikker": "src/",
-			"NorseBlue\\Sikker\\Tests": "tests/"
+			"NorseBlue\\Sikker\\": "src/",
+			"NorseBlue\\Sikker\\Tests\\": "tests/"
 		}
 	},
 	"minimum-stability": "stable",
