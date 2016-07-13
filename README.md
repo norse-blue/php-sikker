@@ -1,2 +1,2 @@
-# sikker
-PHP Security package. This pakcage contains security related implementations in PHP.
+# Sikker
+Sikker is a PHP Security package that contains security related implementations in PHP.
