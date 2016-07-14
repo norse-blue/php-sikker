@@ -7,7 +7,7 @@ paths:
     envs: tests/_envs
 settings:
     bootstrap: _bootstrap.php
-    colors: false
+    colors: true
     memory_limit: 1024M
 extensions:
     enabled:
@@ -20,9 +20,9 @@ modules:
             password: ''
             dump: tests/_data/dump.sql
 coverage:
-  enabled: true
-  include:
-    - src/*
-  exclude:
-    - tests/*
-    - vendor/*
+    enabled: true
+    include:
+        - src/*
+    exclude:
+        - tests/*
+        - vendor/*
