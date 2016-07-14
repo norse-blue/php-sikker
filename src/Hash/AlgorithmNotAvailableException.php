@@ -22,6 +22,7 @@ use Throwable;
  * @package NorseBlue\Sikker\Hash
  * @see http://php.net/manual/en/class.runtimeexception.php
  * @since 0.1
+ * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with a property and it's getter.
  */
 class AlgorithmNotAvailableException extends RuntimeException
 {
