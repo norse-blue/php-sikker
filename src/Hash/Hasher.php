@@ -13,6 +13,10 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Hash;
 
+use InvalidArgumentException;
+use NorseBlue\Sikker\FileNotFoundException;
+use RuntimeException;
+
 /**
  * Class Hasher
  *
@@ -84,10 +88,15 @@ class Hasher
      * @param string $file The file to read it's content and generated the hash from it.
      * @param bool $raw_output When set to true, outputs raw binary data. False outputs lowercase hexits. {@link http://php.net/manual/en/function.hash.php hash() function}
      * @return string Returns the message digest generated with the selected hash algorithm.
+     * @throws FileNotFoundException When the file is not found.
      * @since 0.1
      */
     public function hashFile(string $file, bool $raw_output = false) : string
     {
+        if (!file_exists($file)) {
+            throw new FileNotFoundException($file, "The given file does not exist.");
+        }
+
         return hash_file($this->algorithm, $file, $raw_output);
     }
 
@@ -97,19 +106,26 @@ class Hasher
      * @param string $file The file to generate the hash from.
      * @param bool $raw_output When set to true, outputs raw binary data. False outputs lowercase hexits. {@link http://php.net/manual/en/function.hash.php hash() function}
      * @return string Returns the message digest generated for the file's info.
+     * @throws FileNotFoundException When the file is not found.
+     * @throws RuntimeException When the FileInfo module is not available.
+     * @throws InvalidArgumentException When no information can be retrieved from the given file.
      * @since 0.1
      */
     public function hashFileInfo(string $file, bool $raw_output = false) : string
     {
-        if(!file_exists($file)) {
+        if (!file_exists($file)) {
             throw new FileNotFoundException($file, "The given file does not exist.");
         }
 
-        // TODO: Define how to calculate the hash (what elements are to be used?)
-        if(class_exists('\finfo')) {
-            $finfo = new \finfo(FILEINFO_MIME | FILEINFO_PRESERVE_ATIME, $file);
-        } else {
-            filemtime($file);
+        if (class_exists('\finfo')) {
+            throw new RuntimeException("The FileInfo module is not available.");
         }
+
+        if (!$finfo = new \finfo(FILEINFO_MIME | FILEINFO_PRESERVE_ATIME)) {
+            throw new InvalidArgumentException('Cannot retrieve information about the given file.');
+        }
+
+        $payload = $finfo->file($file);
+        return $this->hash($payload, $raw_output);
     }
 }
