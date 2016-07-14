@@ -1,4 +1,9 @@
 .idea/
 vendor/
-tests/_output/*
 composer.lock
+
+# codeception
+tests/_output/
+tests/_support/_generated/
+tests/_temp/*
+!tests/_temp/.gitkeep
