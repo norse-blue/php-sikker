@@ -67,6 +67,7 @@ class Hasher
             throw new AlgorithmNotAvailableException($algorithm,
                 "The given algorithm is not available in the current platform stack.");
         }
+        $this->algorithm = $algorithm;
     }
 
     /**
