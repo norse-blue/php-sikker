@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Hash;
+namespace NorseBlue\Sikker\Hashes;
 
 use NorseBlue\Sikker\FileNotFoundException;
 use RuntimeException;
@@ -20,7 +20,7 @@ use UnexpectedValueException;
 /**
  * Class Hasher
  *
- * @package NorseBlue\Sikker\Hash
+ * @package NorseBlue\Sikker\Hashes
  * @uses Algorithm
  * @since 0.1
  */

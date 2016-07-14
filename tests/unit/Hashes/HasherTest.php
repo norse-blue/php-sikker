@@ -11,14 +11,14 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Hash;
+namespace NorseBlue\Sikker\Tests\Hashes;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use NorseBlue\Sikker\FileNotFoundException;
-use NorseBlue\Sikker\Hash\Algorithm;
-use NorseBlue\Sikker\Hash\AlgorithmNotAvailableException;
-use NorseBlue\Sikker\Hash\Hasher;
+use NorseBlue\Sikker\Hashes\Algorithm;
+use NorseBlue\Sikker\Hashes\AlgorithmNotAvailableException;
+use NorseBlue\Sikker\Hashes\Hasher;
 use RuntimeException;
 
 class HasherTest extends Unit

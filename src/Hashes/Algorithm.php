@@ -11,12 +11,12 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Hash;
+namespace NorseBlue\Sikker\Hashes;
 
 /**
  * Class Hasher
  *
- * @package NorseBlue\Sikker\Hash
+ * @package NorseBlue\Sikker\Hashes
  * @since 0.1
  */
 abstract class Algorithm

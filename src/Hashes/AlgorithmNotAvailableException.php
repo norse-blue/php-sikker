@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Hash;
+namespace NorseBlue\Sikker\Hashes;
 
 use RuntimeException;
 use Throwable;
@@ -19,7 +19,7 @@ use Throwable;
 /**
  * Class AlgorithmNotAvailableException
  *
- * @package NorseBlue\Sikker\Hash
+ * @package NorseBlue\Sikker\Hashes
  * @see http://php.net/manual/en/class.runtimeexception.php
  * @since 0.1
  * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with a property and it's getter.
