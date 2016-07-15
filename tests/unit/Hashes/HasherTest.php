@@ -37,6 +37,15 @@ class HasherTest extends Unit
     }
 
     // tests
+    public function testGetSetAlgorithm()
+    {
+        $this->specify('Sets the algorithm and returns the same instance for fluent usage.', function () {
+            $hasher = new Hasher();
+            $this->assertSame($hasher, $hasher->setAlgorithm(Algorithm::SHA1));
+            $this->assertEquals(Algorithm::SHA1, $hasher->getAlgorithm());
+        });
+    }
+
     /**
      * Tests the exceptions thrown in the setAlgorithm method through the constructor.
      */
