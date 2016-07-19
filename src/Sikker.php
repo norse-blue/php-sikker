@@ -30,6 +30,8 @@ abstract class Sikker
      * Verifies if the OpenSSL extension is loaded.
      *
      * @return bool Whether the OpenSSL extension is loaded or not.
+     * @since 0.1
+     * @codeCoverageIgnore Ignore as it is platform dependent.
      */
     public static function isOpenSSLAvailable()
     {
