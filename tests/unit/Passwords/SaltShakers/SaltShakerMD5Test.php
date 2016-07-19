@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace Passwords\SaltShakers;
+namespace NorseBlue\Sikker\Tests\Passwords\SaltShakers;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
@@ -70,7 +70,7 @@ class SaltShakerMD5Test extends Unit
         $this->specify('Encodes a random generated salt.', function () {
             $saltShaker = new SaltShakerMD5();
             $encodedSalt = $saltShaker->encode();
-            Debug::debug(sprintf("Random encoded salt generated: %s\r\n", $encodedSalt));
+            Debug::debug(sprintf("Random MD5 encoded salt generated: %s\r\n", $encodedSalt));
             $this->assertEquals(12, strlen($encodedSalt));
         });
     }

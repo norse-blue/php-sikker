@@ -41,6 +41,14 @@ class SaltShakerMD5 implements SaltShaker
     const MAX_LENGTH = 8;
 
     /**
+     * SaltShakerMD5 constructor.
+     * @since 0.1
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * Encodes the given salt in MD5 format. If no salt is given a random token with max length is generated as the salt.
      *
      * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
