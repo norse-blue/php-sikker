@@ -60,6 +60,7 @@ class TokenFactory
      *
      * @param string $token The token to calculate the factor.
      * @return float Returns the calculated repeatability factor.
+     * @since 0.1
      */
     public static function calculateRepeatabilityFactor(string $token) : float
     {
@@ -133,6 +134,7 @@ class TokenFactory
      * Important: The generated token will be more secure if the alphabet is long enough.
      *
      * @return string Returns the generated token.
+     * @since 0.1
      */
     public function forgeToken() : string
     {
@@ -145,5 +147,21 @@ class TokenFactory
         }
 
         return $token;
+    }
+
+    /**
+     * Generates a hexadecimal token using the configured length.
+     * Important: The alphabet is not used with this method. Output chars are [0-1][a-f].
+     *            The length is the length of the resulting string (it is not the length in bytes).
+     *
+     * @return string Returns the generated hex token in lowercase.
+     * @since 0.1
+     */
+    public function forgeHexToken() : string
+    {
+        $bytes = random_bytes((int)round($this->length / 2, 0, PHP_ROUND_HALF_UP));
+        $token = bin2hex($bytes);
+
+        return substr($token, 0, $this->length);
     }
 }

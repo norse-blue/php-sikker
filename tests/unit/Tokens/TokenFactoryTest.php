@@ -91,10 +91,35 @@ class TokenFactoryTest extends Unit
      */
     public function testCalculateRepeatabilityFactor()
     {
-        $this->specify('', function () {
+        $this->specify('Calculates the char repeatability factor on the given token.', function () {
             $token = 'CnRwh61ygUUEAs8o2JphrOGrfZ8sxSLr';
             $repeatabilityFactor = 0.1875;      //  6(repeats) / 32(length)
             $this->assertEquals($repeatabilityFactor, TokenFactory::calculateRepeatabilityFactor($token));
+        });
+    }
+
+    /**
+     * Tests the forge hex method.
+     */
+    public function testForgeHexToken()
+    {
+        $this->specify('Generates a random hex token using the given length.', function () {
+            $tokenFactory = new TokenFactory();
+            $token = $tokenFactory->forgeHexToken();
+            Debug::debug(sprintf("Forged random hex token with length %d:\r\n%s\r\n",
+                $tokenFactory->getLength(), $token));
+            $this->assertEquals(TokenFactory::DEFAULT_LENGTH, strlen($token));
+            $this->assertEquals(0, preg_match('/[^' . preg_quote('0123456789abcdef') . ']/', $token));
+        });
+
+        $this->specify('Generates a random hex token using the given length.', function () {
+            $tokenLen = 3;
+            $tokenFactory = new TokenFactory($tokenLen);
+            $token = $tokenFactory->forgeHexToken();
+            Debug::debug(sprintf("Forged random hex token with length %d:\r\n%s\r\n",
+                $tokenFactory->getLength(), $token));
+            $this->assertEquals($tokenLen, strlen($token));
+            $this->assertEquals(0, preg_match('/[^' . preg_quote('0123456789abcdef') . ']/', $token));
         });
     }
 }
