@@ -42,7 +42,7 @@ class Hasher
      * @param string|null $algorithm The selected algorithm or null to use the default.
      * @since 0.1
      */
-    public function __construct(string $algorithm = null)
+    public function __construct(string $algorithm = self::DEFAULT_ALGORITHM)
     {
         $this->setAlgorithm($algorithm);
     }

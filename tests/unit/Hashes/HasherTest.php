@@ -25,18 +25,26 @@ class HasherTest extends Unit
 {
     use Specify;
 
+    /**
+     * @var string Helper payload to hash.
+     */
     const PAYLOAD = 'You know nothing Jon Snow! Winter is coming!';
-    const PAYLOAD_FILE = 'tests/_data/hash_payload.txt';
 
-    protected function _before()
-    {
-    }
+    /**
+     * @var string Helper payload file path to hash.
+     */
+    const PAYLOAD_FILE = 'tests/_data/hash_payload.txt';
 
     protected function _after()
     {
     }
 
+    protected function _before()
+    {
+    }
+
     // tests
+
     public function testGetSetAlgorithm()
     {
         $this->specify('Sets the algorithm and returns the same instance for fluent usage.', function () {
