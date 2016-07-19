@@ -19,8 +19,13 @@ namespace NorseBlue\Sikker\Tokens;
  * @package NorseBlue\Sikker\Tokens
  * @since 0.1
  */
-class Tokenizer
+class TokenFactory
 {
+    /**
+     * @var int The default length of the tokens to be generated.
+     */
+    const DEFAULT_LENGTH = 32;
+
     /**
      * @var string The default alphabet that is used by the Tokenizer (alphanumeric characters).
      */
@@ -43,10 +48,34 @@ class Tokenizer
      * @param string $alphabet The alphabet to be used by the Tokenizer.
      * @since 0.1
      */
-    public function __construct($length = 16, $alphabet = self::DEFAULT_ALPHABET)
+    public function __construct(int $length = self::DEFAULT_LENGTH, string $alphabet = self::DEFAULT_ALPHABET)
     {
         $this->setLength($length);
         $this->setAlphabet($alphabet);
+    }
+
+    /**
+     * Calculates the repeatability factor
+     * @param string $token
+     * @return mixed
+     */
+    public static function calculateRepeatabilityFactor(string $token)
+    {
+        $tokenChars = str_split($token);
+        $tokenLen = count($tokenChars);
+        $chars = [];
+        foreach ($tokenChars as $char) {
+            $char = strval($char);
+            if (key_exists($char, $chars)) {
+                $chars[$char]++;
+            } else {
+                $chars[$char] = 1;
+            }
+        }
+
+        $repeats = array_sum($chars) - count($chars);
+        $factor = $repeats / $tokenLen;
+        return $factor;
     }
 
     /**
@@ -64,10 +93,10 @@ class Tokenizer
      * Sets the length of the tokens to be generated.
      *
      * @param int $length The length to be used by the Tokenizer. (Minimum value = 1)
-     * @return Tokenizer Returns this instance for fluent interface.
+     * @return TokenFactory Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setLength($length) : Tokenizer
+    public function setLength(int $length) : TokenFactory
     {
         $this->length = max(1, $length);
         return $this;
@@ -88,13 +117,12 @@ class Tokenizer
      * Sets the alphabet to be used by the Tokenizer.
      *
      * @param string $alphabet The alphabet to be used by the tokenizer.
-     * @return Tokenizer Returns this instance for fluent interface.
+     * @return TokenFactory Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setAlphabet($alphabet) : Tokenizer
+    public function setAlphabet(string $alphabet) : TokenFactory
     {
-        // TODO: validate string is not null
-        $this->alphabet = $alphabet;
+        $this->alphabet = $alphabet ?? self::DEFAULT_ALPHABET;
         return $this;
     }
 
@@ -104,7 +132,7 @@ class Tokenizer
      *
      * @return string Returns the generated token.
      */
-    public function randomToken()
+    public function forgeToken() : string
     {
         $chars = $this->alphabet;
         $chars_ubound = strlen($chars) - 1;
