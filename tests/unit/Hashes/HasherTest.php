@@ -45,6 +45,9 @@ class HasherTest extends Unit
 
     // tests
 
+    /**
+     * Tests getter and setter of the algorithm property.
+     */
     public function testGetSetAlgorithm()
     {
         $this->specify('Sets the algorithm and returns the same instance for fluent usage.', function () {

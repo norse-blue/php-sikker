@@ -55,11 +55,13 @@ class TokenFactory
     }
 
     /**
-     * Calculates the repeatability factor
-     * @param string $token
-     * @return mixed
+     * Calculates the character repeatability factor for the given token.
+     * Important: The repeatability factor is depends on the length of the token.
+     *
+     * @param string $token The token to calculate the factor.
+     * @return float Returns the calculated repeatability factor.
      */
-    public static function calculateRepeatabilityFactor(string $token)
+    public static function calculateRepeatabilityFactor(string $token) : float
     {
         $tokenChars = str_split($token);
         $tokenLen = count($tokenChars);
@@ -128,7 +130,7 @@ class TokenFactory
 
     /**
      * Generates a token using the configured length and alphabet.
-     * Note: The generated token will be more secure if the alphabet is long enough.
+     * Important: The generated token will be more secure if the alphabet is long enough.
      *
      * @return string Returns the generated token.
      */

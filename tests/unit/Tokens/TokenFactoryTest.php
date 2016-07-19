@@ -32,6 +32,9 @@ class TokenFactoryTest extends Unit
 
     // tests
 
+    /**
+     * Tests getter and setter of the length property.
+     */
     public function testGetSetLength()
     {
         $this->specify('Sets and gets the length correctly.', function () {
@@ -43,6 +46,9 @@ class TokenFactoryTest extends Unit
         });
     }
 
+    /**
+     * Tests getter and setter of the alphabet property.
+     */
     public function testGetSetAlphabet()
     {
         $this->specify('Sets and gets the alphabet correctly.', function () {
@@ -54,6 +60,9 @@ class TokenFactoryTest extends Unit
         });
     }
 
+    /**
+     * Tests the forge token method.
+     */
     public function testForgeToken()
     {
         $this->specify('Generates a random token using the given alphabet and length.', function () {
@@ -77,6 +86,9 @@ class TokenFactoryTest extends Unit
         });
     }
 
+    /**
+     * Tests the repeatability factor calculation.
+     */
     public function testCalculateRepeatabilityFactor()
     {
         $this->specify('', function () {
