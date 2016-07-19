@@ -63,8 +63,8 @@ class Hasher
      *
      * @param string|null $algorithm The algorithm to select for the Hasher. If null is given, the default algorithm will be used.
      * @throws AlgorithmNotAvailableException When the given algorithm is not available to be used.
-     * @since 0.1
      * @return Hasher Returns this instance for fluent interface.
+     * @since 0.1
      */
     public function setAlgorithm(string $algorithm = null)
     {

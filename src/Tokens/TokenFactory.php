@@ -123,7 +123,7 @@ class TokenFactory
      * @return TokenFactory Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setAlphabet(string $alphabet) : TokenFactory
+    public function setAlphabet(string $alphabet = null) : TokenFactory
     {
         $this->alphabet = $alphabet ?? self::DEFAULT_ALPHABET;
         return $this;
