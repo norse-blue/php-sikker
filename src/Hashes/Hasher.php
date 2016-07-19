@@ -21,7 +21,7 @@ use UnexpectedValueException;
  * Class Hasher
  *
  * @package NorseBlue\Sikker\Hashes
- * @uses Algorithm
+ * @uses NorseBlue\Sikker\Hashes\Algorithm
  * @since 0.1
  */
 class Hasher
