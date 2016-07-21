@@ -20,6 +20,7 @@ use NorseBlue\Sikker\Tokens\TokenFactory;
  * Class SaltShakerSHA512
  *
  * @package NorseBlue\Sikker\Passwords\SaltShakers
+ * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
  * @uses NorseBlue\Sikker\Tokens\TokenFactory
  * @since 0.1
  */
