@@ -111,7 +111,7 @@ class SaltShakerSHA256 implements SaltShaker
      *
      * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
      * @param string|null $salt The salt to encode (up to 8 chars). The salt will also be truncated at the first $ found.
-     * @return string Returns the encoded salt in MD5 format according to {@link http://php.net/manual/es/function.crypt.php PHP crypt function reference.}
+     * @return string Returns the encoded salt in SHA256 format according to {@link http://php.net/manual/es/function.crypt.php PHP crypt function reference.}
      * @since 0.1
      */
     public function encode(string $salt = null) : string
