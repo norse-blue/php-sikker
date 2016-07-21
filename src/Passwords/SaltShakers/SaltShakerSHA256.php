@@ -72,7 +72,7 @@ class SaltShakerSHA256 implements SaltShaker
     protected $rounds;
 
     /**
-     * SaltShakerSH256 constructor.
+     * SaltShakerSHA256 constructor.
      *
      * @param int $rounds The number of rounds to use. The default is 5000.
      * @since 0.1
@@ -111,7 +111,7 @@ class SaltShakerSHA256 implements SaltShaker
      * Encodes the given salt in SHA256 format. If no salt is given a random token with max length is generated as the salt.
      *
      * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
-     * @param string|null $salt The salt to encode (up to 8 chars). The salt will also be truncated at the first $ found.
+     * @param string|null $salt The salt to encode (up to 16 chars). The salt will also be truncated at the first $ found.
      * @return string Returns the encoded salt in SHA256 format according to {@link http://php.net/manual/es/function.crypt.php PHP crypt function reference.}
      * @since 0.1
      */
