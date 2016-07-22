@@ -91,4 +91,30 @@ class SaltShakerSHA512Test extends Unit
             $this->assertEquals(32, strlen($encodedSalt));
         });
     }
+
+    /**
+     * Tests isValid function.
+     */
+    public function testIsValid()
+    {
+        $this->specify('Validates the correct given salt.', function(){
+            $salt = '$6$rounds=5000$usesomesillystri$';
+            $this->assertTrue(SaltShakerSHA512::isValid($salt));
+        });
+
+        $this->specify('Detects the incorrect given salt.', function(){
+            $salt = '$6$rounds=5000$usesomesillystringforsalt$';    // Longer than what is expected
+            $this->assertFalse(SaltShakerSHA512::isValid($salt));
+        });
+
+        $this->specify('Detects the incorrect rounds out of range (lower) given salt.', function(){
+            $salt = '$6$rounds=999$usesomesillystri$';    // Rounds out of range
+            $this->assertFalse(SaltShakerSHA512::isValid($salt));
+        });
+
+        $this->specify('Detects the incorrect rounds out of range (higher) given salt.', function(){
+            $salt = '$6$rounds=1000000000$usesomesillystri$';    // Rounds out of range
+            $this->assertFalse(SaltShakerSHA512::isValid($salt));
+        });
+    }
 }

@@ -68,7 +68,7 @@ class SaltShakerBlowfishTest extends Unit
     }
 
     /**
-     * Tests encode method.
+     * Tests encode function.
      */
     public function testEncode()
     {
@@ -115,6 +115,32 @@ class SaltShakerBlowfishTest extends Unit
             $saltShaker = new SaltShakerBlowfish();
             $this->expectException(InvalidArgumentException::class);
             $encodedSalt = $saltShaker->encode($salt);
+        });
+    }
+
+    /**
+     * Tests isValid function.
+     */
+    public function testIsValid()
+    {
+        $this->specify('Validates the correct given salt.', function(){
+            $salt = '$2a$07$usesomesillystringfor$';
+            $this->assertTrue(SaltShakerBlowfish::isValid($salt));
+        });
+
+        $this->specify('Detects the incorrect longer given salt.', function(){
+            $salt = '$2a$07$usesomesillystringforsalt$';    // Longer than what is expected
+            $this->assertFalse(SaltShakerBlowfish::isValid($salt));
+        });
+
+        $this->specify('Detects the incorrect cost out of range (lower) given salt.', function(){
+            $salt = '$2a$03$usesomesillystringfor$';    // Cost out of range
+            $this->assertFalse(SaltShakerBlowfish::isValid($salt));
+        });
+
+        $this->specify('Detects the incorrect cost out of range (higher) given salt.', function(){
+            $salt = '$2a$32$usesomesillystringfor$';    // Cost out of range
+            $this->assertFalse(SaltShakerBlowfish::isValid($salt));
         });
     }
 }

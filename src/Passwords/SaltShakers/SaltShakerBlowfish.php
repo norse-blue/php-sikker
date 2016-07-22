@@ -190,4 +190,18 @@ class SaltShakerBlowfish implements SaltShaker
 
         return $this->mode . $cost . $encoded . self::POSTFIX;
     }
+
+    /**
+     * Validates the given salt string.
+     * Important: A valid salt is one with 33 chars of length. Starting with $2a$, $2x$ or $2y$ following with
+     * two digits in the range 04-31 then a $ and a 21 long string from the alphabet ./0-9A-Za-z and ending with a $.
+     *
+     * @param string $salt The salt to validate.
+     * @return bool Returns true if the salt is correctly Blowfish encoded, false otherwise.
+     */
+    public static function isValid(string $salt) : bool
+    {
+        $regex = '/^\$2[axy]\$(?:0[4-9]|[1-2][0-9]|3[0-1])\$[\.\/0-9A-Za-z]{21}\$$/';
+        return (bool)preg_match($regex, $salt);
+    }
 }

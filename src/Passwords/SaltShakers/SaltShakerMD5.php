@@ -72,4 +72,17 @@ class SaltShakerMD5 implements SaltShaker
 
         return self::PREFIX . $encoded . self::POSTFIX;
     }
+
+    /**
+     * Validates the given salt string.
+     * Important: A valid salt is one with 12 chars of length starting with $1$ and ending with $.
+     *
+     * @param string $salt The salt to validate.
+     * @return bool Returns true if the salt is correctly MD5 encoded, false otherwise.
+     */
+    public static function isValid(string $salt) : bool
+    {
+        $regex = '/^\$1\$.{8}\$$/';
+        return (bool)preg_match($regex, $salt);
+    }
 }

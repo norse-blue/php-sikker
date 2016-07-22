@@ -132,4 +132,24 @@ class SaltShakerSHA512 implements SaltShaker
 
         return self::PREFIX . $rounds . $encoded . self::POSTFIX;
     }
+
+    /**
+     * Validates the given salt string.
+     * Important: A valid salt is one starting with $5$ having an optional rounds=<N>$ mid part followed by a 16 long
+     * string and ending with $. The rounds value must be between 1000 and 999999999.
+     *
+     * @param string $salt The salt to validate.
+     * @return bool Returns true if the salt is correctly SHA512 encoded, false otherwise.
+     */
+    public static function isValid(string $salt) : bool
+    {
+        $matches = [];
+        $regex = '/^\$6\$(?:rounds=(?<rounds>\d{4,9})\$)?.{16}\$$/';
+        if (!(bool)preg_match($regex, $salt, $matches)) {
+            return false;
+        }
+
+        $rounds = intval($matches['rounds']);
+        return ($rounds >= self::MIN_ROUNDS && $rounds <= self::MAX_ROUNDS);
+    }
 }

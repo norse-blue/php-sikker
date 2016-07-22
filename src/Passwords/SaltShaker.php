@@ -26,6 +26,14 @@ namespace NorseBlue\Sikker\Passwords;
 interface SaltShaker
 {
     /**
+     * Validates if the given salt is valid.
+     *
+     * @param string $salt The salt to validate.
+     * @return bool Returns true if the given salt is valid, false otherwise.
+     */
+    public static function isValid(string $salt) : bool;
+
+    /**
      * Encodes the given salt. If no salt is given a random token is generated as the salt.
      *
      * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
