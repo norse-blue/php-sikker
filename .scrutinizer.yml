@@ -2,6 +2,9 @@ build:
   environment:
     php:
       version: 7.0.8
+  tests:
+    override:
+      - ./vendor/bin/codecept run --config .codeception.coverage.yml run --html --xml --coverage --coverage-xml --coverage-html --debug
 filter:
   excluded_paths: [docs/*, tests/*, vendor/*]
 tools:
