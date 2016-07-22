@@ -71,7 +71,7 @@ class TokenFactoryTest extends Unit
             Debug::debug(sprintf("Forged random token with length %d from alphabet '%s':\r\n%s\r\n",
                 $tokenFactory->getLength(), $tokenFactory->getAlphabet(), $token));
             $this->assertEquals(TokenFactory::DEFAULT_LENGTH, strlen($token));
-            $this->assertEquals(0, preg_match('/[^' . preg_quote(TokenFactory::DEFAULT_ALPHABET) . ']/', $token));
+            $this->assertEquals(0, preg_match('/[^'.preg_quote(TokenFactory::DEFAULT_ALPHABET).']/', $token));
         });
 
         $this->specify('Generates a random token using the given reduced alphabet and length.', function () {
@@ -82,7 +82,7 @@ class TokenFactoryTest extends Unit
             Debug::debug(sprintf("Forged random token with length %d from alphabet '%s':\r\n%s\r\n",
                 $tokenFactory->getLength(), $tokenFactory->getAlphabet(), $token));
             $this->assertEquals($tokenLen, strlen($token));
-            $this->assertEquals(0, preg_match('/[^' . preg_quote($reducedAlphabet) . ']/', $token));
+            $this->assertEquals(0, preg_match('/[^'.preg_quote($reducedAlphabet).']/', $token));
         });
     }
 
@@ -109,7 +109,7 @@ class TokenFactoryTest extends Unit
             Debug::debug(sprintf("Forged random hex token with length %d:\r\n%s\r\n",
                 $tokenFactory->getLength(), $token));
             $this->assertEquals(TokenFactory::DEFAULT_LENGTH, strlen($token));
-            $this->assertEquals(0, preg_match('/[^' . preg_quote('0123456789abcdef') . ']/', $token));
+            $this->assertEquals(0, preg_match('/[^'.preg_quote('0123456789abcdef').']/', $token));
         });
 
         $this->specify('Generates a random hex token using the given length.', function () {
@@ -119,7 +119,7 @@ class TokenFactoryTest extends Unit
             Debug::debug(sprintf("Forged random hex token with length %d:\r\n%s\r\n",
                 $tokenFactory->getLength(), $token));
             $this->assertEquals($tokenLen, strlen($token));
-            $this->assertEquals(0, preg_match('/[^' . preg_quote('0123456789abcdef') . ']/', $token));
+            $this->assertEquals(0, preg_match('/[^'.preg_quote('0123456789abcdef').']/', $token));
         });
     }
 }

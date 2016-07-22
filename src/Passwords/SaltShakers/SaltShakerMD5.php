@@ -70,7 +70,7 @@ class SaltShakerMD5 implements SaltShaker
             $encoded = substr($encoded, 0, $dollar);
         }
 
-        return self::PREFIX . $encoded . self::POSTFIX;
+        return self::PREFIX.$encoded.self::POSTFIX;
     }
 
     /**
@@ -83,6 +83,6 @@ class SaltShakerMD5 implements SaltShaker
     public static function isValid(string $salt) : bool
     {
         $regex = '/^\$1\$.{8}\$$/';
-        return (bool)preg_match($regex, $salt);
+        return (bool) preg_match($regex, $salt);
     }
 }

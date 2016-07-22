@@ -159,7 +159,7 @@ class TokenFactory
      */
     public function forgeHexToken() : string
     {
-        $bytes = random_bytes((int)round($this->length / 2, 0, PHP_ROUND_HALF_UP));
+        $bytes = random_bytes((int) round($this->length / 2, 0, PHP_ROUND_HALF_UP));
         $token = bin2hex($bytes);
 
         return substr($token, 0, $this->length);

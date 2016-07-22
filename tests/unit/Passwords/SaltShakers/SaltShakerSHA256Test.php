@@ -97,22 +97,22 @@ class SaltShakerSHA256Test extends Unit
      */
     public function testIsValid()
     {
-        $this->specify('Validates the correct given salt.', function(){
+        $this->specify('Validates the correct given salt.', function () {
             $salt = '$5$rounds=5000$usesomesillystri$';
             $this->assertTrue(SaltShakerSHA256::isValid($salt));
         });
 
-        $this->specify('Detects the incorrect given salt.', function(){
+        $this->specify('Detects the incorrect given salt.', function () {
             $salt = '$5$rounds=5000$usesomesillystringforsalt$';    // Longer than what is expected
             $this->assertFalse(SaltShakerSHA256::isValid($salt));
         });
 
-        $this->specify('Detects the incorrect rounds out of range (lower) given salt.', function(){
+        $this->specify('Detects the incorrect rounds out of range (lower) given salt.', function () {
             $salt = '$5$rounds=999$usesomesillystri$';    // Rounds out of range
             $this->assertFalse(SaltShakerSHA256::isValid($salt));
         });
 
-        $this->specify('Detects the incorrect rounds out of range (higher) given salt.', function(){
+        $this->specify('Detects the incorrect rounds out of range (higher) given salt.', function () {
             $salt = '$5$rounds=1000000000$usesomesillystri$';    // Rounds out of range
             $this->assertFalse(SaltShakerSHA256::isValid($salt));
         });

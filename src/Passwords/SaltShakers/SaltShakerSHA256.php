@@ -128,9 +128,9 @@ class SaltShakerSHA256 implements SaltShaker
             $encoded = substr($encoded, 0, $dollar);
         }
 
-        $rounds = self::ROUNDS_OPEN . $this->rounds . self::ROUNDS_CLOSE;
+        $rounds = self::ROUNDS_OPEN.$this->rounds.self::ROUNDS_CLOSE;
 
-        return self::PREFIX . $rounds . $encoded . self::POSTFIX;
+        return self::PREFIX.$rounds.$encoded.self::POSTFIX;
     }
 
     /**
@@ -145,7 +145,7 @@ class SaltShakerSHA256 implements SaltShaker
     {
         $matches = [];
         $regex = '/^\$5\$(?:rounds=(?<rounds>\d{4,9})\$)?.{16}\$$/';
-        if (!(bool)preg_match($regex, $salt, $matches)) {
+        if (!(bool) preg_match($regex, $salt, $matches)) {
             return false;
         }
 

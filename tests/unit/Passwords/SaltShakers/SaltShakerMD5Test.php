@@ -80,12 +80,12 @@ class SaltShakerMD5Test extends Unit
      */
     public function testIsValid()
     {
-        $this->specify('Validates the correct given salt.', function(){
+        $this->specify('Validates the correct given salt.', function () {
             $salt = '$1$rasmusle$';
             $this->assertTrue(SaltShakerMD5::isValid($salt));
         });
 
-        $this->specify('Detects the incorrect given salt.', function(){
+        $this->specify('Detects the incorrect given salt.', function () {
             $salt = '$1$rasmuslerdorf$';    // Longer than what is expected
             $this->assertFalse(SaltShakerMD5::isValid($salt));
         });

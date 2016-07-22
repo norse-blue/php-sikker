@@ -40,8 +40,12 @@ class FileNotFoundException extends RuntimeException
      * @param Throwable|null $previous The previous exception used for the exception chaining. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @since 0.1
      */
-    public function __construct(string $notFoundFile = "", string $message = "", int $code = 0, Throwable $previous = null)
-    {
+    public function __construct(
+        string $notFoundFile = "",
+        string $message = "",
+        int $code = 0,
+        Throwable $previous = null
+    ) {
         $this->notFoundFile = $notFoundFile;
         parent::__construct($message, $code, $previous);
     }

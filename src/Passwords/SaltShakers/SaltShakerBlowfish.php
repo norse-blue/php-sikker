@@ -173,22 +173,20 @@ class SaltShakerBlowfish implements SaltShaker
             $tokenFactory = new TokenFactory(self::LENGTH, self::ALPHABET);
             $encoded = $tokenFactory->forgeToken();
         } else {
-
-            if (preg_match('/[^' . preg_quote(self::ALPHABET, '/') . ']/', $salt) !== 0) {
+            if (preg_match('/[^'.preg_quote(self::ALPHABET, '/').']/', $salt) !== 0) {
                 throw new InvalidArgumentException('The given salt has characters that are not part of the supported alphabet.');
             }
 
             if (($len = strlen($salt)) < self::LENGTH) {
                 $tokenFactory = new TokenFactory(self::LENGTH - $len, self::ALPHABET);
-                $encoded = $salt . $tokenFactory->forgeToken();
+                $encoded = $salt.$tokenFactory->forgeToken();
             } else {
                 $encoded = substr($salt, 0, min(self::LENGTH, $len));
             }
         }
 
-        $cost = sprintf('%02d', $this->cost) . self::COST_POSTFIX;
-
-        return $this->mode . $cost . $encoded . self::POSTFIX;
+        $cost = sprintf('%02d', $this->cost).self::COST_POSTFIX;
+        return $this->mode.$cost.$encoded.self::POSTFIX;
     }
 
     /**
@@ -202,6 +200,6 @@ class SaltShakerBlowfish implements SaltShaker
     public static function isValid(string $salt) : bool
     {
         $regex = '/^\$2[axy]\$(?:0[4-9]|[1-2][0-9]|3[0-1])\$[\.\/0-9A-Za-z]{21}\$$/';
-        return (bool)preg_match($regex, $salt);
+        return (bool) preg_match($regex, $salt);
     }
 }
