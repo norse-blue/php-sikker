@@ -7,7 +7,7 @@ build:
       - composer update
   tests:
     override:
-      - php ./vendor/codeception/codeception/codecept run --config .codeception.coverage.yml run --html --xml --coverage --coverage-xml --coverage-html --debug
+      - vendor/bin/codecept run functional,unit --config .codeception.coverage.yml run --html --xml --coverage --coverage-xml --coverage-html --debug
 filter:
   excluded_paths: [docs/*, tests/*, vendor/*]
 tools:
