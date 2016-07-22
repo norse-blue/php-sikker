@@ -15,22 +15,22 @@ tools:
       enabled: true
       filter:
         excluded_paths: [docs/*, tests/*, vendor/*]
-    php_cpd:
-      enabled: true
-      excluded_dirs: [docs/*, tests/*, vendor/*]
-      filter:
-        excluded_paths: [docs/*, tests/*, vendor/*]
-    php_hhvm:
-      enabled: true
-      filter:
-        excluded_paths: [docs/*, tests/*, vendor/*]
-    php_loc:
-      enabled: true
-      excluded_dirs: [docs/*, tests/*, vendor/*]
-    php_pdepend:
-      enabled: true
-      excluded_dirs: [docs/*, tests/*, vendor/*]
-    php_analyzer:
-      enabled: true
-      filter:
-        excluded_paths: [docs/*, tests/*, vendor/*]
+  php_cpd:
+    enabled: true
+    excluded_dirs: [docs/*, tests/*, vendor/*]
+    filter:
+      excluded_paths: [docs/*, tests/*, vendor/*]
+  php_hhvm:
+    enabled: true
+    filter:
+      excluded_paths: [docs/*, tests/*, vendor/*]
+  php_loc:
+    enabled: true
+    excluded_dirs: [docs/*, tests/*, vendor/*]
+  php_pdepend:
+    enabled: true
+    excluded_dirs: [docs/*, tests/*, vendor/*]
+  php_analyzer:
+    enabled: true
+    filter:
+      excluded_paths: [docs/*, tests/*, vendor/*]
