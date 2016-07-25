@@ -21,7 +21,7 @@ use NorseBlue\Sikker\Tokens\TokenFactory;
  * Class SaltShakerBlowfish
  *
  * @package NorseBlue\Sikker\Passwords\SaltShakers
- * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
+ * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
  * @see http://php.net/security/crypt_blowfish.php CRYPT_BLOWFISH security fix details.
  * @uses NorseBlue\Sikker\Tokens\TokenFactory
  * @since 0.1
@@ -162,9 +162,9 @@ class SaltShakerBlowfish implements SaltShaker
     /**
      * Encodes the given salt in Blowfish format. If no salt is given a random token with max length is generated as the salt.
      *
-     * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
+     * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
      * @param string|null $salt The salt to encode (up to 22 chars).
-     * @return string Returns the encoded salt in Blowfish format according to {@link http://php.net/manual/es/function.crypt.php PHP crypt function reference.}
+     * @return string Returns the encoded salt in Blowfish format according to {@link http://php.net/manual/en/function.crypt.php PHP crypt function reference.}
      * @since 0.1
      */
     public function encode(string $salt = null) : string

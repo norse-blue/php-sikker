@@ -18,9 +18,9 @@ namespace NorseBlue\Sikker\Passwords;
  *
  * @package NorseBlue\Sikker\Passwords
  * @uses NorseBlue\Sikker\Tokens\TokenFactory
- * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
- * @see http://php.net/manual/es/function.password-hash.php PHP password_hash function reference.
- * @see http://php.net/manual/es/function.password-verify.php PHP password_verify function reference.
+ * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
+ * @see http://php.net/manual/en/function.password-hash.php PHP password_hash function reference.
+ * @see http://php.net/manual/en/function.password-verify.php PHP password_verify function reference.
  * @since 0.1
  */
 interface SaltShaker
@@ -36,7 +36,7 @@ interface SaltShaker
     /**
      * Encodes the given salt. If no salt is given a random token is generated as the salt.
      *
-     * @see http://php.net/manual/es/function.crypt.php PHP crypt function reference.
+     * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
      * @param string|null $salt The salt to encode.
      * @return string Returns the encoded salt.
      */
