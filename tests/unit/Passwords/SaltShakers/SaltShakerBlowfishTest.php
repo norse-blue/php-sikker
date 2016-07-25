@@ -128,6 +128,11 @@ class SaltShakerBlowfishTest extends Unit
             $this->assertTrue(SaltShakerBlowfish::isValid($salt));
         });
 
+        $this->specify('Detects the incorrect shorter given salt.', function () {
+            $salt = '$2a$07$usesomesilly$';    // Shorter than what is expected
+            $this->assertFalse(SaltShakerBlowfish::isValid($salt));
+        });
+
         $this->specify('Detects the incorrect longer given salt.', function () {
             $salt = '$2a$07$usesomesillystringforsalt$';    // Longer than what is expected
             $this->assertFalse(SaltShakerBlowfish::isValid($salt));
