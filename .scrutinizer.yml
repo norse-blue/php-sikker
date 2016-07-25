@@ -7,7 +7,11 @@ build:
       - composer update
   tests:
     override:
-      - vendor/bin/codecept --config .codeception.coverage.yml run functional,unit --html --xml --coverage --coverage-xml --coverage-html --debug
+      -
+        command: vendor/bin/codecept --config .codeception.coverage.yml run functional,unit --html --xml --coverage --coverage-xml --coverage-html --debug
+        coverage:
+          file: 'tests/_output/coverage.xml'
+          format: 'clover'
 filter:
   excluded_paths: [docs/*, tests/*, vendor/*]
 tools:
