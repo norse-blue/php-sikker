@@ -199,7 +199,7 @@ class SaltShakerBlowfish implements SaltShaker
      */
     public static function isValid(string $salt) : bool
     {
-        $regex = '/^\$2[axy]\$(?:0[4-9]|[1-2][0-9]|3[0-1])\$[\.\/0-9A-Za-z]{21}\$$/';
+        $regex = '/^\$2[axy]\$(?:0[4-9]|[1-2][0-9]|3[0-1])\$['.preg_quote(self::ALPHABET, '/').']{21}\$$/';
         return (bool) preg_match($regex, $salt);
     }
 }
