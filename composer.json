@@ -1,5 +1,5 @@
 {
-	"name": "NorseBlue/Sikker",
+	"name": "norseblue/sikker",
 	"description": "Sikker is a PHP 7.0+ Security package that contains security related implementations.",
 	"keywords": ["security", "hash", "token", "password", "crypt", "encryption"],
 	"homepage": "http://opensource.norse.blue/sikker",
