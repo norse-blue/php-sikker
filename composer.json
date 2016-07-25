@@ -1,0 +1,42 @@
+{
+	"name": "NorseBlue/Sikker",
+	"description": "Sikker is a PHP 7.0+ Security package that contains security related implementations.",
+	"keywords": ["security", "hash", "token", "password", "crypt", "encryption"],
+	"homepage": "http://opensource.norse.blue/sikker",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Axel Pardemann",
+			"email": "axelitusdev@gmail.com",
+			"homepage": "http://axelitus.mx",
+			"role": "Lead Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/NorseBlue/Sikker/issues",
+		"wiki": "https://github.com/NorseBlue/Sikker/wiki",
+		"source": "https://github.com/NorseBlue/Sikker",
+		"docs": "https://readthedocs.org/projects/sikker/"
+	},
+	"require": {
+		"php": "^7.0.0"
+	},
+	"require-dev": {
+		"codeception/codeception": "^2.2.2",
+		"codeception/mockery-module": "^0.2.2",
+		"codeception/specify": "^0.4.3",
+		"mockery/mockery": "^0.9.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"NorseBlue\\Sikker\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"NorseBlue\\Sikker\\Tests\\": "tests/"
+		}
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true
+}

@@ -1,0 +1,46 @@
+build:
+  environment:
+    php:
+      version: 7.0.8
+  dependencies:
+    override:
+      - composer update
+  tests:
+    override:
+      -
+        command: vendor/bin/codecept --config .codeception.coverage.yml run functional,unit --html --xml --coverage --coverage-xml --coverage-html --debug
+        coverage:
+          file: 'tests/_output/coverage.xml'
+          format: 'clover'
+filter:
+  excluded_paths: [docs/*, tests/*, vendor/*]
+tools:
+  php_code_sniffer:
+      enabled: true
+      config:
+        standard: "PSR2"
+      filter:
+        excluded_paths: [docs/*, tests/*, vendor/*]
+  php_mess_detector:
+      enabled: true
+      filter:
+        excluded_paths: [docs/*, tests/*, vendor/*]
+  php_cpd:
+    enabled: true
+    excluded_dirs: [docs/*, tests/*, vendor/*]
+    filter:
+      excluded_paths: [docs/*, tests/*, vendor/*]
+  php_hhvm:
+    enabled: true
+    filter:
+      excluded_paths: [docs/*, tests/*, vendor/*]
+  php_loc:
+    enabled: true
+    excluded_dirs: [docs/*, tests/*, vendor/*]
+  php_pdepend:
+    enabled: true
+    excluded_dirs: [docs/*, tests/*, vendor/*]
+  php_analyzer:
+    enabled: true
+    filter:
+      excluded_paths: [docs/*, tests/*, vendor/*]
