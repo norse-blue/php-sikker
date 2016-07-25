@@ -49,7 +49,7 @@ class SaltShakerStdDES implements SaltShaker
      * Encodes the given salt in StdDES format. If no salt is given a random token with max length is generated as the salt.
      *
      * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
-     * @param string|null $salt The salt to encode (up to 8 chars). The salt will also be truncated at the first $ found.
+     * @param string|null $salt The salt to encode (up to 2 chars from the supported alphabet).
      * @return string Returns the encoded salt in StdDES format according to {@link http://php.net/manual/en/function.crypt.php PHP crypt function reference.}
      * @since 0.1
      */
