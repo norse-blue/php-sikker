@@ -20,9 +20,9 @@ use Throwable;
  * Class AlgorithmNotAvailableException
  *
  * @package NorseBlue\Sikker\Hashes
- * @see http://php.net/manual/en/class.runtimeexception.php
+ * @see http://php.net/manual/en/class.runtimeexception.php The RuntimeException class
  * @since 0.1
- * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with a property and it's getter.
+ * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with an additional property and it's getter.
  */
 class AlgorithmNotAvailableException extends RuntimeException
 {

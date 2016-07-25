@@ -22,6 +22,11 @@ namespace NorseBlue\Sikker;
 abstract class Sikker
 {
     /**
+     * @var string Sikker packge version.
+     */
+    const VERSION = '0.1';
+
+    /**
      * @var bool|null Whether OpenSSL module is available.
      */
     protected static $openSSLAvailable = null;

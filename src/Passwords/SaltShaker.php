@@ -30,6 +30,7 @@ interface SaltShaker
      *
      * @param string $salt The salt to validate.
      * @return bool Returns true if the given salt is valid, false otherwise.
+     * @since 0.1
      */
     public static function isValid(string $salt) : bool;
 
@@ -39,6 +40,7 @@ interface SaltShaker
      * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
      * @param string|null $salt The salt to encode.
      * @return string Returns the encoded salt.
+     * @since 0.1
      */
     public function encode(string $salt = null) : string;
 }

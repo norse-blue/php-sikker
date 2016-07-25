@@ -64,6 +64,7 @@ class SaltShakerExtDES implements SaltShaker
 
     /**
      * SaltShakerExtDES constructor.
+     *
      * @param int $rounds The number of rounds to use. The default is 266305.
      * @since 0.1
      */
@@ -78,6 +79,7 @@ class SaltShakerExtDES implements SaltShaker
      * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
      * @param int $rounds The number of rounds to encode.
      * @return string The xtDES format encoded rounds.
+     * @since 0.1
      */
     protected function encodeRounds(int $rounds) : string
     {
@@ -152,6 +154,7 @@ class SaltShakerExtDES implements SaltShaker
      *
      * @param string $salt The salt to validate.
      * @return bool Returns true if the salt is correctly ExtDES encoded, false otherwise.
+     * @since 0.1
      */
     public static function isValid(string $salt) : bool
     {
