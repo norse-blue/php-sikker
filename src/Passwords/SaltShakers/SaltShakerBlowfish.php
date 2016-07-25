@@ -84,7 +84,7 @@ class SaltShakerBlowfish implements SaltShaker
     const MAX_COST = 31;
 
     /**
-     * @var
+     * @var string The Blowfish mode used.
      */
     protected $mode;
 
@@ -196,6 +196,7 @@ class SaltShakerBlowfish implements SaltShaker
      *
      * @param string $salt The salt to validate.
      * @return bool Returns true if the salt is correctly Blowfish encoded, false otherwise.
+     * @since 0.1
      */
     public static function isValid(string $salt) : bool
     {

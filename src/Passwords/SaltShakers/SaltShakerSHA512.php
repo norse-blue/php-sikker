@@ -140,6 +140,7 @@ class SaltShakerSHA512 implements SaltShaker
      *
      * @param string $salt The salt to validate.
      * @return bool Returns true if the salt is correctly SHA512 encoded, false otherwise.
+     * @since 0.1
      */
     public static function isValid(string $salt) : bool
     {

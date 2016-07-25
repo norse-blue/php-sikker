@@ -39,6 +39,7 @@ class SaltShakerStdDES implements SaltShaker
 
     /**
      * SaltShakerStdDES constructor.
+     *
      * @since 0.1
      */
     public function __construct()
@@ -80,6 +81,7 @@ class SaltShakerStdDES implements SaltShaker
      *
      * @param string $salt The salt to validate.
      * @return bool Returns true if the salt is correctly StdDES encoded, false otherwise.
+     * @since 0.1
      */
     public static function isValid(string $salt) : bool
     {

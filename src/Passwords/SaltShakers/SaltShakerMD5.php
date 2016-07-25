@@ -43,6 +43,7 @@ class SaltShakerMD5 implements SaltShaker
 
     /**
      * SaltShakerMD5 constructor.
+     *
      * @since 0.1
      */
     public function __construct()
@@ -79,6 +80,7 @@ class SaltShakerMD5 implements SaltShaker
      *
      * @param string $salt The salt to validate.
      * @return bool Returns true if the salt is correctly MD5 encoded, false otherwise.
+     * @since 0.1
      */
     public static function isValid(string $salt) : bool
     {

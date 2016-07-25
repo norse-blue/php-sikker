@@ -32,7 +32,7 @@ class Hasher
     const DEFAULT_ALGORITHM = Algorithm::SHA256;
 
     /**
-     * @var string The hashing algorithm to use. Defaults ot SHA256.
+     * @var string The hashing algorithm to use. Defaults to SHA256.
      */
     protected $algorithm;
 
