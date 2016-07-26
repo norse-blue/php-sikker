@@ -87,18 +87,6 @@ class TokenFactoryTest extends Unit
     }
 
     /**
-     * Tests the repeatability factor calculation.
-     */
-    public function testCalculateRepeatabilityFactor()
-    {
-        $this->specify('Calculates the char repeatability factor on the given token.', function () {
-            $token = 'CnRwh61ygUUEAs8o2JphrOGrfZ8sxSLr';
-            $repeatabilityFactor = 0.1875;      //  6(repeats) / 32(length)
-            $this->assertEquals($repeatabilityFactor, TokenFactory::calculateRepeatabilityFactor($token));
-        });
-    }
-
-    /**
      * Tests the forge hex method.
      */
     public function testForgeHexToken()
