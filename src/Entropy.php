@@ -22,29 +22,49 @@ namespace NorseBlue\Sikker;
 class Entropy
 {
     /**
-     * Calculates the character repeatability factor for the given token.
-     * Important: The repeatability factor is depends on the length of the token.
+     * Gets the count of unique characters in a string.
      *
-     * @param string $token The token to calculate the factor.
+     * @param string $str The string to get the chars count from.
+     * @return array Returns an array with the unique chars as the key and the count as the value.
+     * @since 0.2
+     */
+    public static function charsCount(string $str)
+    {
+        if ($str == '') {
+            return [];
+        }
+
+        $arrChars = str_split($str);
+        return array_count_values($arrChars);
+    }
+
+    /**
+     * Calculates the character repeatability factor for a string.
+     * Important: The repeatability factor depends on the length of the string.
+     *
+     * @param string $str The string to calculate the factor.
      * @return float Returns the calculated repeatability factor.
      * @since 0.2
      */
-    public static function calculateRepeatFactor(string $token) : float
+    public static function repeatFactor(string $str) : float
     {
-        $tokenChars = str_split($token);
-        $tokenLen = count($tokenChars);
-        $chars = [];
-        foreach ($tokenChars as $char) {
-            $char = strval($char);
-            if (key_exists($char, $chars)) {
-                $chars[$char]++;
-            } else {
-                $chars[$char] = 1;
+        $strLen = strlen($str);
+        $arrCharsCount = self::charsCount($str);
+        $uniqueChars = count($arrCharsCount);
+        if ($uniqueChars == $strLen) {
+            return 0;
+        } elseif ($uniqueChars == 1) {
+            return 1;
+        }
+
+        $repeats = 0;
+        foreach ($arrCharsCount as $char => $value) {
+            if ($value > 1) {
+                $repeats += $value;
             }
         }
 
-        $repeats = array_sum($chars) - count($chars);
-        $factor = $repeats / $tokenLen;
+        $factor = $repeats / strlen($str);
         return $factor;
     }
 }
