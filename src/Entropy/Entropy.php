@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Entropy;
 
+use NorseBlue\Sikker\Entropy\Adapters\EntropyAdapter;
 use NorseBlue\Sikker\Entropy\Adapters\EntropyAdapterSimple;
 use NorseBlue\Sikker\Sikker;
 

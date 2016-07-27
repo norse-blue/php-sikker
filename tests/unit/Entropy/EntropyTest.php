@@ -16,8 +16,8 @@ namespace NorseBlue\Sikker\Tests\Entropy;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use Mockery;
+use NorseBlue\Sikker\Entropy\Adapters\EntropyAdapter;
 use NorseBlue\Sikker\Entropy\Entropy;
-use NorseBlue\Sikker\Entropy\EntropyAdapter;
 
 class EntropyTest extends Unit
 {
