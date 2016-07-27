@@ -14,12 +14,12 @@ declare(strict_types = 1);
 namespace NorseBlue\Sikker\Hashes;
 
 /**
- * Class Hasher
+ * Class HashAlgorithm
  *
  * @package NorseBlue\Sikker\Hashes
  * @since 0.1
  */
-abstract class Algorithm
+abstract class HashAlgorithm
 {
     /**
      * @var string MD2 hash algorithm.
