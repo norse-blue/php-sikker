@@ -121,10 +121,6 @@ class Entropy
      */
     public static function charsDistances(string $str, bool $includeAllChars = false) : array
     {
-        if ($str == '') {
-            return [];
-        }
-
         $sepDegrees = [];
         $charsCount = self::charsCounts($str);
         foreach ($charsCount as $char => $charTimes) {
