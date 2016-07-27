@@ -3,23 +3,23 @@ Sikker is a PHP 7.0+ Security package that contains security related implementat
 
 ## Package Information
 
-The Source Code can be found at [GitHub/NorseBlue/Sikker](https://github.com/NorseBlue/Sikker).
+The Source Code can be found at [GitHub/NorseBlue/Sikker]().
 
-[![Latest Stable Release][packagist-release-badge]]([scrutinizer-buildstatus-develop-link])
-[![Downloads][packagist-downloads-badge]]([packagist-downloads-link])
-[![License][opensource-license-badge]]([opensource-license-link])
+[![Latest Stable Release][packagist-release-badge]][scrutinizer-buildstatus-develop-link]
+[![Downloads][packagist-downloads-badge]][packagist-downloads-link]
+[![License][opensource-license-badge]][opensource-license-link]
 
 **Stable (master):**
 
-[![Build Status][scrutinizer-buildstatus-master-badge]]([scrutinizer-buildstatus-master-link])
-[![Scrutinizer Code Quality][scrutinizer-quality-master-badge]]([scrutinizer-quality-master-link])
-[![Code Coverage][scrutinizer-codecoverage-master-badge]]([scrutinizer-codecoverage-master-link])
+[![Build Status][scrutinizer-buildstatus-master-badge]][scrutinizer-buildstatus-master-link]
+[![Scrutinizer Code Quality][scrutinizer-quality-master-badge]][scrutinizer-quality-master-link]
+[![Code Coverage][scrutinizer-codecoverage-master-badge]][scrutinizer-codecoverage-master-link]
 
 **Latest (develop):**
 
-[![Build Status][scrutinizer-buildstatus-develop-badge]]([scrutinizer-buildstatus-develop-link])
-[![Scrutinizer Code Quality][scrutinizer-quality-develop-badge]]([scrutinizer-quality-develop-link])
-[![Code Coverage][scrutinizer-codecoverage-develop-badge]]([scrutinizer-codecoverage-develop-link])
+[![Build Status][scrutinizer-buildstatus-develop-badge]][scrutinizer-buildstatus-develop-link]
+[![Scrutinizer Code Quality][scrutinizer-quality-develop-badge]][scrutinizer-quality-develop-link]
+[![Code Coverage][scrutinizer-codecoverage-develop-badge]][scrutinizer-codecoverage-develop-link]
 
 [opensource-license-link]: https://opensource.org/licenses/MIT
 [opensource-license-badge]: https://img.shields.io/github/license/NorseBlue/Sikker.svg
