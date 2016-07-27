@@ -13,7 +13,6 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Passwords\SaltShakers;
 
-use NorseBlue\Sikker\Passwords\SaltShaker;
 use NorseBlue\Sikker\Tokens\TokenFactory;
 
 /**

@@ -17,7 +17,7 @@ use Codeception\Specify;
 use Codeception\Test\Unit;
 use Mockery;
 use NorseBlue\Sikker\Passwords\Password;
-use NorseBlue\Sikker\Passwords\SaltShaker;
+use NorseBlue\Sikker\Passwords\SaltShakers\SaltShaker;
 use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerBlowfish;
 use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerExtDES;
 use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerMD5;
@@ -120,7 +120,8 @@ class PasswordTest extends Unit
     public function testVerify()
     {
         $this->specify('Test the password against the BLOWFISH hash.', function () {
-            $this->assertTrue(Password::verify('rasmuslerdorf', '$2a$07$usesomesillystringfore2uDLvp1Ii2e./U9C8sBjqp8I90dH6hi'));
+            $this->assertTrue(Password::verify('rasmuslerdorf',
+                '$2a$07$usesomesillystringfore2uDLvp1Ii2e./U9C8sBjqp8I90dH6hi'));
             $this->assertFalse(Password::verify('rasmuslerdorf', 'incorrecthash'));
         });
 
@@ -137,13 +138,15 @@ class PasswordTest extends Unit
         });
 
         $this->specify('Test the password against the SHA256 hash.', function () {
-            $this->assertTrue(Password::verify('rasmuslerdorf', '$5$rounds=5000$usesomesillystri$KqJWpanXZHKq2BOB43TSaYhEWsQ1Lr5QNyPCDH/Tp.6'));
+            $this->assertTrue(Password::verify('rasmuslerdorf',
+                '$5$rounds=5000$usesomesillystri$KqJWpanXZHKq2BOB43TSaYhEWsQ1Lr5QNyPCDH/Tp.6'));
             $this->assertFalse(Password::verify('rasmuslerdorf', 'incorrecthash'));
 
         });
 
         $this->specify('Test the password against the SHA512 hash.', function () {
-            $this->assertTrue(Password::verify('rasmuslerdorf', '$6$rounds=5000$usesomesillystri$D4IrlXatmP7rx3P3InaxBeoomnAihCKRVQP22JZ6EY47Wc6BkroIuUUBOov1i.S5KPgErtP/EN5mcO.ChWQW21'));
+            $this->assertTrue(Password::verify('rasmuslerdorf',
+                '$6$rounds=5000$usesomesillystri$D4IrlXatmP7rx3P3InaxBeoomnAihCKRVQP22JZ6EY47Wc6BkroIuUUBOov1i.S5KPgErtP/EN5mcO.ChWQW21'));
             $this->assertFalse(Password::verify('rasmuslerdorf', 'incorrecthash'));
 
         });

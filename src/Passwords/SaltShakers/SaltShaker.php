@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Passwords;
+namespace NorseBlue\Sikker\Passwords\SaltShakers;
 
 /**
  * Interface SaltShaker
