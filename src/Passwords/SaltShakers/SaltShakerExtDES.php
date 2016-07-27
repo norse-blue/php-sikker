@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -98,7 +98,7 @@ class SaltShakerExtDES implements SaltShaker
      * @return int Returns the number of rounds.
      * @since 0.1
      */
-    public function getRounds(): int
+    public function getRounds() : int
     {
         return $this->rounds;
     }

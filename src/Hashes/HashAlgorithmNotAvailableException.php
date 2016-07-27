@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -52,7 +52,7 @@ class HashAlgorithmNotAvailableException extends RuntimeException
      * @return string Returns the algorithm that was not found.
      * @since 0.1
      */
-    public function getAlgorithm()
+    public function getAlgorithm() : string
     {
         return $this->algorithm;
     }
@@ -63,7 +63,7 @@ class HashAlgorithmNotAvailableException extends RuntimeException
      * @return string Returns the string representation of the exception.
      * @since 0.1
      */
-    public function __toString()
+    public function __toString() : string
     {
         return sprintf("For algorithm '%s' %s", $this->algorithm, parent::__toString());
     }

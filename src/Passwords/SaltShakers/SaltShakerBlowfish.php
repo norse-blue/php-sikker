@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -111,7 +111,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return string Returns the mode.
      * @since 0.1
      */
-    public function getMode(): string
+    public function getMode() : string
     {
         return $this->mode;
     }

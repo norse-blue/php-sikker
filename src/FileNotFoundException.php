@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -56,7 +56,7 @@ class FileNotFoundException extends RuntimeException
      * @return string Returns the file that was not found.
      * @since 0.1
      */
-    public function getNotFoundFile()
+    public function getNotFoundFile() : string
     {
         return $this->notFoundFile;
     }
@@ -67,7 +67,7 @@ class FileNotFoundException extends RuntimeException
      * @return string Returns the string representation of the exception.
      * @since 0.1
      */
-    public function __toString()
+    public function __toString() : string
     {
         return sprintf("For file '%s' %s", $this->notFoundFile, parent::__toString());
     }
