@@ -34,7 +34,7 @@ class Entropy
             return [];
         }
 
-        $arrChars = str_split($str);
+        $arrChars = preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
         return array_count_values($arrChars);
     }
 

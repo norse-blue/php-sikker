@@ -123,6 +123,42 @@ class EntropyTest extends Unit
             $this->assertEquals(0, count($charsCount));
             $this->assertEquals([], $charsCount);
         });
+
+        $this->specify('Get the char count in a string with upper and lower case characters.', function () {
+            $str = 'AaEeIiOoUuA';
+            $charsCount = Entropy::charsCount($str);
+            $this->assertEquals(10, count($charsCount));
+            $this->assertEquals([
+                'A' => 2,
+                'a' => 1,
+                'E' => 1,
+                'e' => 1,
+                'I' => 1,
+                'i' => 1,
+                'O' => 1,
+                'o' => 1,
+                'U' => 1,
+                'u' => 1
+            ], $charsCount);
+        });
+
+        $this->specify('Get the char count in a string with extended characters.', function () {
+            $str = 'áéíóúäëïöü';
+            $charsCount = Entropy::charsCount($str);
+            $this->assertEquals(10, count($charsCount));
+            $this->assertEquals([
+                'á' => 1,
+                'é' => 1,
+                'í' => 1,
+                'ó' => 1,
+                'ú' => 1,
+                'ä' => 1,
+                'ë' => 1,
+                'ï' => 1,
+                'ö' => 1,
+                'ü' => 1
+            ], $charsCount);
+        });
     }
 
     /**
