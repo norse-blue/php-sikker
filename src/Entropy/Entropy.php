@@ -67,8 +67,9 @@ class Entropy
      * @param string $str The string to measure the char distances of.
      * @param string $char The char to measure the distances from.
      * @return array Returns an array of char distances.
+     * @since 0.2
      */
-    protected static function measureCharDistances(string $str, string $char)
+    protected static function measureCharDistances(string $str, string $char) : array
     {
         $charDistances = [];
         $currChar = Sikker::strpos($str, $char);
@@ -81,6 +82,24 @@ class Entropy
         } while ($nextChar !== false);
 
         return $charDistances;
+    }
+
+    /**
+     * Aggregates the count value of every char, filtering the ones that are not repeated.
+     *
+     * @param array $charsCounts The char count array.
+     * @return int Returns the aggregate number of repeated chars.
+     */
+    protected static function countCharRepeats(array $charsCounts) : int
+    {
+        $repeats = 0;
+        foreach ($charsCounts as $char => $value) {
+            if ($value > 1) {
+                $repeats += (int) $value;
+            }
+        }
+
+        return $repeats;
     }
 
     /**
@@ -145,20 +164,13 @@ class Entropy
         $strLen = Sikker::strlen($str);
         $arrCharsCount = self::charsCounts($str);
         $uniqueChars = count($arrCharsCount);
-        if ($uniqueChars == $strLen) {
-            return 0;
-        } elseif ($uniqueChars == 1) {
+        if ($uniqueChars == 1) {
             return 1;
+        } elseif ($uniqueChars == $strLen) {
+            return 0;
         }
 
-        $repeats = 0;
-        foreach ($arrCharsCount as $char => $value) {
-            if ($value > 1) {
-                $repeats += $value;
-            }
-        }
-
-        $factor = $repeats / $strLen;
+        $factor = self::countCharRepeats($arrCharsCount) / $strLen;
         return $factor;
     }
 
@@ -167,6 +179,7 @@ class Entropy
      *
      * @param string $str The string toi get the spatial dimension of.
      * @return int Returns the spatial dimension.
+     * @since 0.2
      */
     public static function spatialDimension(string $str)
     {
