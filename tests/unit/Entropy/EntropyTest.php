@@ -66,13 +66,13 @@ class EntropyTest extends Unit
     }
 
     /**
-     * Tests the charCounts function.
+     * Tests the charsCounts function.
      */
     public function testCharCounts()
     {
         $this->specify('Get the char count in a non-repeating char string.', function () {
             $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ012345';
-            $charsCount = Entropy::charCounts($str);
+            $charsCount = Entropy::charsCounts($str);
             $this->assertEquals(32, count($charsCount));
             $this->assertEquals([
                 'A' => 1,
@@ -112,7 +112,7 @@ class EntropyTest extends Unit
 
         $this->specify('Get the char count in a some-repeating char string.', function () {
             $str = 'CnRwh61ygUUEAs8o2JphrOGrfZ8sxSLr';
-            $charsCount = Entropy::charCounts($str);
+            $charsCount = Entropy::charsCounts($str);
             $this->assertEquals(26, count($charsCount));
             $this->assertEquals([
                 'C' => 1,
@@ -146,21 +146,21 @@ class EntropyTest extends Unit
 
         $this->specify('Get the char count in an all-repeating char string.', function () {
             $str = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
-            $charsCount = Entropy::charCounts($str);
+            $charsCount = Entropy::charsCounts($str);
             $this->assertEquals(1, count($charsCount));
             $this->assertEquals(['A' => 32], $charsCount);
         });
 
         $this->specify('Get the char count in an empty string.', function () {
             $str = '';
-            $charsCount = Entropy::charCounts($str);
+            $charsCount = Entropy::charsCounts($str);
             $this->assertEquals(0, count($charsCount));
             $this->assertEquals([], $charsCount);
         });
 
         $this->specify('Get the char count in a string with upper and lower case characters.', function () {
             $str = 'AaEeIiOoUuA';
-            $charsCount = Entropy::charCounts($str);
+            $charsCount = Entropy::charsCounts($str);
             $this->assertEquals(10, count($charsCount));
             $this->assertEquals([
                 'A' => 2,
@@ -178,7 +178,7 @@ class EntropyTest extends Unit
 
         $this->specify('Get the char count in a string with unicode characters.', function () {
             $str = 'áéíóúäëïöü';
-            $charsCount = Entropy::charCounts($str);
+            $charsCount = Entropy::charsCounts($str);
             $this->assertEquals(10, count($charsCount));
             $this->assertEquals([
                 'á' => 1,
@@ -196,7 +196,7 @@ class EntropyTest extends Unit
     }
 
     /**
-     * Tests the charDistances function.
+     * Tests the charsDistances function.
      */
     public function testCharDistances()
     {
@@ -211,7 +211,7 @@ class EntropyTest extends Unit
                 'i' => [0 => 15, 1 => 6, 2 => 6,],
                 'g' => [0 => 27,],
                 '!' => [0 => 18, 1 => 1]
-            ], Entropy::charDistances($str));
+            ], Entropy::charsDistances($str));
         });
 
         $this->specify('Calculates the degrees of separation between characters (return all chars).', function () {
@@ -237,12 +237,12 @@ class EntropyTest extends Unit
                 's' => [],
                 'c' => [],
                 'm' => []
-            ], Entropy::charDistances($str, true));
+            ], Entropy::charsDistances($str, true));
         });
 
         $this->specify('Calculates the degrees of separation between characters in an empty string.', function () {
             $str = '';
-            $this->assertEquals([], Entropy::charDistances($str));
+            $this->assertEquals([], Entropy::charsDistances($str));
         });
     }
 

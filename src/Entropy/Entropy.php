@@ -62,6 +62,28 @@ class Entropy
     }
 
     /**
+     * Measures the given char distances in string.
+     *
+     * @param string $str The string to measure the char distances of.
+     * @param string $char The char to measure the distances from.
+     * @return array Returns an array of char distances.
+     */
+    protected static function measureCharDistances(string $str, string $char)
+    {
+        $charDistances = [];
+        $currChar = Sikker::strpos($str, $char);
+        do {
+            $nextChar = Sikker::strpos($str, $char, $currChar + 1);
+            if ($nextChar > $currChar) {
+                $charDistances[] = $nextChar - $currChar;
+                $currChar = $nextChar;
+            }
+        } while ($nextChar !== false);
+
+        return $charDistances;
+    }
+
+    /**
      * Splits the given string into an array of chars.
      *
      * @param string $str The string to split.
@@ -84,7 +106,7 @@ class Entropy
      * @return array Returns an array with the unique chars as the key and the count as the value.
      * @since 0.2
      */
-    public static function charCounts(string $str) : array
+    public static function charsCounts(string $str) : array
     {
         return array_count_values(self::splitChars($str));
     }
@@ -97,28 +119,17 @@ class Entropy
      * @return array Returns the distances between repeated characters in the string for each repeated char.
      * @since 0.2
      */
-    public static function charDistances(string $str, bool $includeAllChars = false) : array
+    public static function charsDistances(string $str, bool $includeAllChars = false) : array
     {
         if ($str == '') {
             return [];
         }
 
         $sepDegrees = [];
-        $charsCount = self::charCounts($str);
+        $charsCount = self::charsCounts($str);
         foreach ($charsCount as $char => $charTimes) {
-            if (!$includeAllChars && $charTimes < 2) {
-                continue;
-            }
-
-            $sepDegrees[$char] = [];
-            $currChar = Sikker::strpos($str, $char);
-            $nextChar = 0;
-            while ($nextChar > -1) {
-                $nextChar = Sikker::strpos($str, $char, $currChar + 1);
-                if ($nextChar > 0) {
-                    $sepDegrees[$char][] = $nextChar - $currChar;
-                    $currChar = $nextChar;
-                }
+            if ($includeAllChars || $charTimes > 1) {
+                $sepDegrees[$char] = self::measureCharDistances($str, $char);
             }
         }
 
@@ -136,7 +147,7 @@ class Entropy
     public static function repeatFactor(string $str) : float
     {
         $strLen = Sikker::strlen($str);
-        $arrCharsCount = self::charCounts($str);
+        $arrCharsCount = self::charsCounts($str);
         $uniqueChars = count($arrCharsCount);
         if ($uniqueChars == $strLen) {
             return 0;
@@ -164,14 +175,18 @@ class Entropy
     public static function spatialDimension(string $str)
     {
         $spatial = 0;
-        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_DIGITS, '/').']/', $str))
-            ? Sikker::strlen(Entropy::CHAR_CLASS_DIGITS) : 0;
-        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_LOWERCASE_ASCII, '/').']/', $str))
-            ? Sikker::strlen(Entropy::CHAR_CLASS_LOWERCASE_ASCII) : 0;
-        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_UPPERCASE_ASCII, '/').']/', $str))
-            ? Sikker::strlen(Entropy::CHAR_CLASS_UPPERCASE_ASCII) : 0;
-        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_SYMBOLS_ASCII, '/').']/', $str))
-            ? Sikker::strlen(Entropy::CHAR_CLASS_SYMBOLS_ASCII) : 0;
+        $charClasses = [
+            Entropy::CHAR_CLASS_DIGITS,
+            Entropy::CHAR_CLASS_LOWERCASE_ASCII,
+            Entropy::CHAR_CLASS_UPPERCASE_ASCII,
+            Entropy::CHAR_CLASS_SYMBOLS_ASCII
+        ];
+
+        foreach ($charClasses as $charClass) {
+            if (preg_match('/['.preg_quote($charClass, '/').']/', $str) === 1) {
+                $spatial += Sikker::strlen($charClass);
+            }
+        }
 
         return $spatial;
     }
