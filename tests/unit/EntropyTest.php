@@ -142,7 +142,7 @@ class EntropyTest extends Unit
             ], $charsCount);
         });
 
-        $this->specify('Get the char count in a string with extended characters.', function () {
+        $this->specify('Get the char count in a string with unicode characters.', function () {
             $str = 'áéíóúäëïöü';
             $charsCount = Entropy::charsCount($str);
             $this->assertEquals(10, count($charsCount));
@@ -189,6 +189,16 @@ class EntropyTest extends Unit
         $this->specify('Calculates the char repeatability factor on an empty string.', function () {
             $str = '';
             $this->assertEquals(0, Entropy::repeatFactor($str));     // All repeats
+        });
+
+        $this->specify('Calculates the char repeatability factor on a string with upper and lower case characters.', function () {
+            $str = 'AaEeIiOoUuA';
+            $this->assertEquals(0.1818181818, Entropy::repeatFactor($str));     // Upper and lower case repeats
+        });
+
+        $this->specify('Calculates the char repeatability factor on a string with unicode characters.', function () {
+            $str = 'áéíóúäëïöüá';
+            $this->assertEquals(0.1818181818, Entropy::repeatFactor($str));     // Unicode chars repeats
         });
     }
 }

@@ -48,7 +48,7 @@ class Entropy
      */
     public static function repeatFactor(string $str) : float
     {
-        $strLen = strlen($str);
+        $strLen = (function_exists('mb_strlen')) ? mb_strlen($str) : strlen($str);
         $arrCharsCount = self::charsCount($str);
         $uniqueChars = count($arrCharsCount);
         if ($uniqueChars == $strLen) {
@@ -64,7 +64,7 @@ class Entropy
             }
         }
 
-        $factor = $repeats / strlen($str);
+        $factor = $repeats / $strLen;
         return $factor;
     }
 }
