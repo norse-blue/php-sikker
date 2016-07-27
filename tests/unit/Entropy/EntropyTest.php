@@ -11,11 +11,13 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests;
+namespace NorseBlue\Sikker\Tests\Entropy;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
-use NorseBlue\Sikker\Entropy;
+use Mockery;
+use NorseBlue\Sikker\Entropy\Entropy;
+use NorseBlue\Sikker\Entropy\EntropyAdapter;
 
 class EntropyTest extends Unit
 {
@@ -30,6 +32,22 @@ class EntropyTest extends Unit
     }
 
     // tests
+
+    /**
+     * Tests getter and setter of the EntropyAdapter property.
+     */
+    public function testGetSetAdapter()
+    {
+        $this->specify('Sets and gets the EntropyAdapter correctly.', function () {
+            $entropyAdapter = Mockery::mock(EntropyAdapter::class);
+            $entropyAdapterNew = Mockery::mock(EntropyAdapter::class);
+            $entropy = new Entropy($entropyAdapter);
+            $this->assertSame($entropyAdapter, $entropy->getAdapter());
+            $entropy->setAdapter($entropyAdapterNew);
+            $this->assertNotSame($entropyAdapter, $entropy->getAdapter());
+            $this->assertSame($entropyAdapterNew, $entropy->getAdapter());
+        });
+    }
 
     /**
      * Tests the splitChars function.
@@ -267,6 +285,110 @@ class EntropyTest extends Unit
         $this->specify('Calculates the char repeatability factor on a string with unicode characters.', function () {
             $str = 'áéíóúäëïöüá';
             $this->assertEquals(0.1818181818, Entropy::repeatFactor($str));     // Unicode chars repeats
+        });
+    }
+
+    /**
+     * Tests the spatialDimension function.
+     * @see https://pthree.org/2011/03/07/strong-passwords-need-entropy/ Strong Passwords NEED Entropy by Aaron Toponce
+     */
+    public function testSpatialDimension()
+    {
+        $this->specify('Gets the spatial dimension of an only-digits string.', function () {
+            $str = '6541981';
+            $this->assertEquals(10, Entropy::spatialDimension($str));
+        });
+
+        $this->specify('Gets the spatial dimension of an only-lowercase letters string.', function () {
+            $str = 'password';
+            $this->assertEquals(26, Entropy::spatialDimension($str));
+        });
+
+        $this->specify('Gets the spatial dimension of an only-uppercase letters string.', function () {
+            $str = 'MYSECRETSTRING';
+            $this->assertEquals(26, Entropy::spatialDimension($str));
+        });
+
+        $this->specify('Gets the spatial dimension of an only-symbols string.', function () {
+            $str = '&_\'./*_:;,.\\';
+            $this->assertEquals(32, Entropy::spatialDimension($str));
+        });
+
+        $this->specify('Gets the spatial dimension of a string containing lowercase and uppercase letters character classes.',
+            function () {
+                $str = 'RedSox';
+                $this->assertEquals(52, Entropy::spatialDimension($str));
+            });
+
+        $this->specify('Gets the spatial dimension of a string containing all character classes.', function () {
+            $str = 'B1gbRother|$alw4ysriGHt!?';
+            $this->assertEquals(94, Entropy::spatialDimension($str));
+        });
+
+        $this->specify('Gets the spatial dimension of a string containing lowercase letters and digits character classes.',
+            function () {
+                $str = 'deer2010';
+                $this->assertEquals(36, Entropy::spatialDimension($str));
+            });
+    }
+
+    /**
+     * Tests the estimate function with the default adapter.
+     * This implementation of the estimation of entropy does not round up the values, instead it does a floor
+     * (it "fails" to the secure side) so some values are different form the ones in Aaron's page.
+     * In particular two cases are also miscalculated in the page, this are: '!Aaron08071999Keri|' and '4pRte!aii@3',
+     * in both cases the length of the string is wrong.
+     *
+     * @see https://pthree.org/2011/03/07/strong-passwords-need-entropy/ Strong Passwords NEED Entropy by Aaron Toponce
+     */
+    public function testEstimate()
+    {
+        $this->specify('Estimate the entropy of the given string \'password\'', function () {
+            $str = 'password';
+            $entropy = new Entropy();
+            $this->assertEquals(37, $entropy->estimate($str));
+        });
+
+        $this->specify('Estimate the entropy of the given string \'RedSox\'', function () {
+            $str = 'RedSox';
+            $entropy = new Entropy();
+            $this->assertEquals(34, $entropy->estimate($str));
+        });
+
+        $this->specify('Estimate the entropy of the given string \'B1gbRother|$alw4ysriGHt!?\'', function () {
+            $str = 'B1gbRother|$alw4ysriGHt!?';
+            $entropy = new Entropy();
+            $this->assertEquals(163, $entropy->estimate($str));
+        });
+
+        $this->specify('Estimate the entropy of the given string \'deer2010\'', function () {
+            $str = 'deer2010';
+            $entropy = new Entropy();
+            $this->assertEquals(41, $entropy->estimate($str));
+        });
+
+        $this->specify('Estimate the entropy of the given string \'l33th4x0r\'', function () {
+            $str = 'l33th4x0r';
+            $entropy = new Entropy();
+            $this->assertEquals(46, $entropy->estimate($str));
+        });
+
+        $this->specify('Estimate the entropy of the given string \'!Aaron08071999Keri|\'', function () {
+            $str = '!Aaron08071999Keri|';
+            $entropy = new Entropy();
+            $this->assertEquals(124, $entropy->estimate($str));
+        });
+
+        $this->specify('Estimate the entropy of the given string \'PassWord\'', function () {
+            $str = 'PassWord';
+            $entropy = new Entropy();
+            $this->assertEquals(45, $entropy->estimate($str));
+        });
+
+        $this->specify('Estimate the entropy of the given string \'4pRte!aii@3\'', function () {
+            $str = '4pRte!aii@3';
+            $entropy = new Entropy();
+            $this->assertEquals(72, $entropy->estimate($str));
         });
     }
 }

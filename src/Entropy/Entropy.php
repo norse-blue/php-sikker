@@ -1,0 +1,213 @@
+<?php
+/**
+ * Sikker is a PHP 7.0+ Security package that contains security related implementations.
+ *
+ * @package    NorseBlue\Sikker
+ * @version    0.1.1
+ * @author     NorseBlue
+ * @license    MIT License
+ * @copyright  2016 NorseBlue
+ * @link       https://github.com/NorseBlue/Sikker
+ */
+declare(strict_types = 1);
+
+namespace NorseBlue\Sikker\Entropy;
+
+use NorseBlue\Sikker\Entropy\Adapters\EntropyAdapterSimple;
+use NorseBlue\Sikker\Sikker;
+
+/**
+ * Class Entropy
+ *
+ * @package NorseBlue\Sikker\Entropy
+ * @since 0.2
+ */
+class Entropy
+{
+    /**
+     * @var string Character class digits.
+     */
+    const CHAR_CLASS_DIGITS = '0123456789';
+
+    /**
+     * @var string Character class upper case ascii letters.
+     */
+    const CHAR_CLASS_UPPERCASE_ASCII = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    /**
+     * @var string Character class lower case ascii letters.
+     */
+    const CHAR_CLASS_LOWERCASE_ASCII = 'abcdefghijklmnopqrstuvwxyz';
+
+    /**
+     * @var string Character class ascii symbols.
+     */
+    const CHAR_CLASS_SYMBOLS_ASCII = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+
+    /**
+     * @var EntropyAdapter The entropy adapter to use for estimation.
+     */
+    protected $adapter;
+
+    /**
+     * Entropy constructor.
+     *
+     * @param EntropyAdapter|null $adapter The entropy adapter to use for estimation.
+     * @since 0.2
+     */
+    public function __construct(EntropyAdapter $adapter = null)
+    {
+        $this->setAdapter($adapter);
+    }
+
+    /**
+     * Splits the given string into an array of chars.
+     *
+     * @param string $str The string to split.
+     * @return array Returns an array of chars contained in the string in the original order.
+     * @since 0.2
+     */
+    public static function splitChars(string $str) : array
+    {
+        if ($str == '') {
+            return [];
+        }
+
+        return preg_split('//u', $str, -1, PREG_SPLIT_NO_EMPTY);
+    }
+
+    /**
+     * Gets the count of unique characters in a string.
+     *
+     * @param string $str The string to get the chars count from.
+     * @return array Returns an array with the unique chars as the key and the count as the value.
+     * @since 0.2
+     */
+    public static function charCounts(string $str) : array
+    {
+        return array_count_values(self::splitChars($str));
+    }
+
+    /**
+     * Calculates the distance of separation between repeated chars in the string.
+     *
+     * @param string $str The string to calculate the separation distances from.
+     * @param bool $includeAllChars Whether to include non-repeated chars also.
+     * @return array Returns the distances between repeated characters in the string for each repeated char.
+     * @since 0.2
+     */
+    public static function charDistances(string $str, bool $includeAllChars = false) : array
+    {
+        if ($str == '') {
+            return [];
+        }
+
+        $sepDegrees = [];
+        $charsCount = self::charCounts($str);
+        foreach ($charsCount as $char => $charTimes) {
+            if (!$includeAllChars && $charTimes < 2) {
+                continue;
+            }
+
+            $sepDegrees[$char] = [];
+            $currChar = Sikker::strpos($str, $char);
+            $nextChar = 0;
+            while ($nextChar > -1) {
+                $nextChar = Sikker::strpos($str, $char, $currChar + 1);
+                if ($nextChar > 0) {
+                    $sepDegrees[$char][] = $nextChar - $currChar;
+                    $currChar = $nextChar;
+                }
+            }
+        }
+
+        return $sepDegrees;
+    }
+
+    /**
+     * Calculates the character repeatability factor for a string.
+     * Important: The repeatability factor depends on the length of the string.
+     *
+     * @param string $str The string to calculate the factor.
+     * @return float Returns the calculated repeatability factor.
+     * @since 0.2
+     */
+    public static function repeatFactor(string $str) : float
+    {
+        $strLen = Sikker::strlen($str);
+        $arrCharsCount = self::charCounts($str);
+        $uniqueChars = count($arrCharsCount);
+        if ($uniqueChars == $strLen) {
+            return 0;
+        } elseif ($uniqueChars == 1) {
+            return 1;
+        }
+
+        $repeats = 0;
+        foreach ($arrCharsCount as $char => $value) {
+            if ($value > 1) {
+                $repeats += $value;
+            }
+        }
+
+        $factor = $repeats / $strLen;
+        return $factor;
+    }
+
+    /**
+     * Gets the spatial dimension of the given string.
+     *
+     * @param string $str The string toi get the spatial dimension of.
+     * @return int Returns the spatial dimension.
+     */
+    public static function spatialDimension(string $str)
+    {
+        $spatial = 0;
+        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_DIGITS, '/').']/', $str))
+            ? Sikker::strlen(Entropy::CHAR_CLASS_DIGITS) : 0;
+        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_LOWERCASE_ASCII, '/').']/', $str))
+            ? Sikker::strlen(Entropy::CHAR_CLASS_LOWERCASE_ASCII) : 0;
+        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_UPPERCASE_ASCII, '/').']/', $str))
+            ? Sikker::strlen(Entropy::CHAR_CLASS_UPPERCASE_ASCII) : 0;
+        $spatial += (preg_match('/['.preg_quote(Entropy::CHAR_CLASS_SYMBOLS_ASCII, '/').']/', $str))
+            ? Sikker::strlen(Entropy::CHAR_CLASS_SYMBOLS_ASCII) : 0;
+
+        return $spatial;
+    }
+
+    /**
+     * Gets the EntropyAdapter.
+     *
+     * @return EntropyAdapter The loaded EntropyAdapter.
+     * @since 0.2
+     */
+    public function getAdapter() : EntropyAdapter
+    {
+        return $this->adapter;
+    }
+
+    /**
+     * Sets the EntropyAdapter.
+     *
+     * @param EntropyAdapter|null $adapter The new EntropyAdapter
+     * @return Entropy Return this instance for fluent interface.
+     * @since 0.2
+     */
+    public function setAdapter(EntropyAdapter $adapter = null) : Entropy
+    {
+        $this->adapter = $adapter ?? new EntropyAdapterSimple();
+        return $this;
+    }
+
+    /**
+     * Estimates the entropy of the given string using the loaded EntropyAdapter.
+     *
+     * @param string $str The string to calculate the entropy of.
+     * @return float Returns the estimated entropy.
+     * @since 0.2
+     */
+    public function estimate(string $str) : float
+    {
+        return $this->adapter->estimateEntropy($str);
+    }
+}
