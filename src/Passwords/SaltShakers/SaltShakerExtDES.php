@@ -111,7 +111,7 @@ class SaltShakerExtDES implements SaltShaker
      * @return SaltShakerExtDES Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setRounds(int $rounds = null): SaltShakerExtDES
+    public function setRounds(int $rounds = null) : SaltShakerExtDES
     {
         $this->rounds = $rounds ?? self::DEFAULT_ROUNDS;
         $this->rounds = max(self::MIN_ROUNDS, min(self::MAX_ROUNDS, $this->rounds));

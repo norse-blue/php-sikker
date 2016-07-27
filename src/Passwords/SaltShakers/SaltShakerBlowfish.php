@@ -124,7 +124,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return SaltShakerBlowfish Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setMode(string $mode = null): SaltShakerBlowfish
+    public function setMode(string $mode = null) : SaltShakerBlowfish
     {
         if ($mode === null || !in_array($mode, [self::MODE_A, self::MODE_X, self::MODE_Y])) {
             $this->mode = self::DEFAULT_MODE;
@@ -140,7 +140,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return int Returns the cost.
      * @since 0.1
      */
-    public function getCost(): int
+    public function getCost() : int
     {
         return $this->cost;
     }
@@ -152,7 +152,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return SaltShakerBlowfish Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setCost(int $cost = null): SaltShakerBlowfish
+    public function setCost(int $cost = null) : SaltShakerBlowfish
     {
         $this->cost = $cost ?? self::DEFAULT_COST;
         $this->cost = max(self::MIN_COST, min(self::MAX_COST, $this->cost));

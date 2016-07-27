@@ -88,7 +88,7 @@ class SaltShakerSHA256 implements SaltShaker
      * @return int Returns the number of rounds.
      * @since 0.1
      */
-    public function getRounds(): int
+    public function getRounds() : int
     {
         return $this->rounds;
     }
@@ -100,7 +100,7 @@ class SaltShakerSHA256 implements SaltShaker
      * @return SaltShakerSHA256 Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setRounds(int $rounds = null): SaltShakerSHA256
+    public function setRounds(int $rounds = null) : SaltShakerSHA256
     {
         $this->rounds = $rounds ?? self::DEFAULT_ROUNDS;
         $this->rounds = max(self::MIN_ROUNDS, min(self::MAX_ROUNDS, $this->rounds));

@@ -66,7 +66,7 @@ class Hasher
      * @return Hasher Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setAlgorithm(string $algorithm = null)
+    public function setAlgorithm(string $algorithm = null) : Hasher
     {
         $algorithm = $algorithm ?? self::DEFAULT_ALGORITHM;
         if (!Algorithm::isAvailable($algorithm)) {

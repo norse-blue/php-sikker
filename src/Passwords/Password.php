@@ -47,7 +47,7 @@ class Password
      * @return bool Returns true if the password and hash match, false otherwise.
      * @since 0.2
      */
-    public static function verify(string $password, string $hashedPwd)
+    public static function verify(string $password, string $hashedPwd) : bool
     {
         return password_verify($password, $hashedPwd);
     }
@@ -58,7 +58,7 @@ class Password
      * @return SaltShaker Returns the salt shaker being used for hashing the passwords.
      * @since 0.2
      */
-    public function getSaltShaker()
+    public function getSaltShaker() : SaltShaker
     {
         return $this->saltShaker;
     }
@@ -70,7 +70,7 @@ class Password
      * @return Password Returns this instance for fluent interface.
      * @since 0.2
      */
-    public function setSaltShaker(SaltShaker $saltShaker = null)
+    public function setSaltShaker(SaltShaker $saltShaker = null) : Password
     {
         $this->saltShaker = $saltShaker ?? new SaltShakerSHA256();
         return $this;
@@ -84,7 +84,7 @@ class Password
      * @return string Returns the hashed password.
      * @since 0.2
      */
-    public function hash(string $password, string $salt = null)
+    public function hash(string $password, string $salt = null) : string
     {
         $encodedSalt = $this->saltShaker->encode($salt);
         return crypt($password, $encodedSalt);

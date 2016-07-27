@@ -39,6 +39,7 @@ abstract class Sikker
      * @codeCoverageIgnore Ignore as it is platform dependent.
      */
     public static function isOpenSSLAvailable()
+    public static function isOpenSSLAvailable() : bool
     {
         if (self::$openSSLAvailable == null) {
             extension_loaded('openssl');
