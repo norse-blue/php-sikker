@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -29,7 +29,7 @@ class Hasher
     /**
      * @var string The default hashing algorithm.
      */
-    const DEFAULT_ALGORITHM = Algorithm::SHA256;
+    const DEFAULT_ALGORITHM = HashAlgorithm::SHA256;
 
     /**
      * @var string The hashing algorithm to use. Defaults to SHA256.
@@ -62,15 +62,15 @@ class Hasher
      * Sets the Hasher algorithm.
      *
      * @param string|null $algorithm The algorithm to select for the Hasher. If null is given, the default algorithm will be used.
-     * @throws AlgorithmNotAvailableException When the given algorithm is not available to be used.
+     * @throws HashAlgorithmNotAvailableException When the given algorithm is not available to be used.
      * @return Hasher Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setAlgorithm(string $algorithm = null)
+    public function setAlgorithm(string $algorithm = null) : Hasher
     {
         $algorithm = $algorithm ?? self::DEFAULT_ALGORITHM;
-        if (!Algorithm::isAvailable($algorithm)) {
-            throw new AlgorithmNotAvailableException($algorithm,
+        if (!HashAlgorithm::isAvailable($algorithm)) {
+            throw new HashAlgorithmNotAvailableException($algorithm,
                 "The given algorithm is not available in the current platform stack.");
         }
         $this->algorithm = $algorithm;

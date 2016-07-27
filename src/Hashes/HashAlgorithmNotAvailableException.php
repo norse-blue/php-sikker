@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -17,14 +17,14 @@ use RuntimeException;
 use Throwable;
 
 /**
- * Class AlgorithmNotAvailableException
+ * Class HashAlgorithmNotAvailableException
  *
  * @package NorseBlue\Sikker\Hashes
  * @see http://php.net/manual/en/class.runtimeexception.php The RuntimeException class
  * @since 0.1
  * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with an additional property and it's getter.
  */
-class AlgorithmNotAvailableException extends RuntimeException
+class HashAlgorithmNotAvailableException extends RuntimeException
 {
     /**
      * @var string The algorithm that was not found.
@@ -52,7 +52,7 @@ class AlgorithmNotAvailableException extends RuntimeException
      * @return string Returns the algorithm that was not found.
      * @since 0.1
      */
-    public function getAlgorithm()
+    public function getAlgorithm() : string
     {
         return $this->algorithm;
     }
@@ -63,7 +63,7 @@ class AlgorithmNotAvailableException extends RuntimeException
      * @return string Returns the string representation of the exception.
      * @since 0.1
      */
-    public function __toString()
+    public function __toString() : string
     {
         return sprintf("For algorithm '%s' %s", $this->algorithm, parent::__toString());
     }

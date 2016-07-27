@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -14,12 +14,12 @@ declare(strict_types = 1);
 namespace NorseBlue\Sikker\Hashes;
 
 /**
- * Class Hasher
+ * Class HashAlgorithm
  *
  * @package NorseBlue\Sikker\Hashes
  * @since 0.1
  */
-abstract class Algorithm
+abstract class HashAlgorithm
 {
     /**
      * @var string MD2 hash algorithm.
@@ -230,7 +230,7 @@ abstract class Algorithm
      * @var string HAVAL224,5 hash algorithm.
      */
     const HAVAL224_5 = 'haval224,5';
-    
+
     /**
      * @var string HAVAL256,5 hash algorithm.
      */

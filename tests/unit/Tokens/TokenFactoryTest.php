@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -83,18 +83,6 @@ class TokenFactoryTest extends Unit
                 $tokenFactory->getLength(), $tokenFactory->getAlphabet(), $token));
             $this->assertEquals($tokenLen, strlen($token));
             $this->assertEquals(0, preg_match('/[^'.preg_quote($reducedAlphabet).']/', $token));
-        });
-    }
-
-    /**
-     * Tests the repeatability factor calculation.
-     */
-    public function testCalculateRepeatabilityFactor()
-    {
-        $this->specify('Calculates the char repeatability factor on the given token.', function () {
-            $token = 'CnRwh61ygUUEAs8o2JphrOGrfZ8sxSLr';
-            $repeatabilityFactor = 0.1875;      //  6(repeats) / 32(length)
-            $this->assertEquals($repeatabilityFactor, TokenFactory::calculateRepeatabilityFactor($token));
         });
     }
 

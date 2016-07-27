@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.1.1
+ * @version    0.2
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -14,7 +14,6 @@ declare(strict_types = 1);
 namespace NorseBlue\Sikker\Passwords\SaltShakers;
 
 use InvalidArgumentException;
-use NorseBlue\Sikker\Passwords\SaltShaker;
 use NorseBlue\Sikker\Tokens\TokenFactory;
 
 /**
@@ -112,7 +111,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return string Returns the mode.
      * @since 0.1
      */
-    public function getMode(): string
+    public function getMode() : string
     {
         return $this->mode;
     }
@@ -124,7 +123,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return SaltShakerBlowfish Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setMode(string $mode = null): SaltShakerBlowfish
+    public function setMode(string $mode = null) : SaltShakerBlowfish
     {
         if ($mode === null || !in_array($mode, [self::MODE_A, self::MODE_X, self::MODE_Y])) {
             $this->mode = self::DEFAULT_MODE;
@@ -140,7 +139,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return int Returns the cost.
      * @since 0.1
      */
-    public function getCost(): int
+    public function getCost() : int
     {
         return $this->cost;
     }
@@ -152,7 +151,7 @@ class SaltShakerBlowfish implements SaltShaker
      * @return SaltShakerBlowfish Returns this instance for fluent interface.
      * @since 0.1
      */
-    public function setCost(int $cost = null): SaltShakerBlowfish
+    public function setCost(int $cost = null) : SaltShakerBlowfish
     {
         $this->cost = $cost ?? self::DEFAULT_COST;
         $this->cost = max(self::MIN_COST, min(self::MAX_COST, $this->cost));
