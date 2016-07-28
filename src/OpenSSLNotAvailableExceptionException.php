@@ -16,13 +16,13 @@ namespace NorseBlue\Sikker;
 use RuntimeException;
 
 /**
- * Class OpenSSLNotAvailable
+ * Class OpenSSLNotAvailableException
  *
  * @package NorseBlue\Sikker
  * @see http://php.net/manual/en/class.runtimeexception.php
  * @since 0.3
  * @codeCoverageIgnore This class does not need to be covered by tests.
  */
-class OpenSSLNotAvailable extends RuntimeException
+class OpenSSLNotAvailableException extends RuntimeException
 {
 }

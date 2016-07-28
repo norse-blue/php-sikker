@@ -32,7 +32,7 @@ class OpenSSL
      * @param bool $throwException Whether to throw an exception is the extension is not loaded.
      * @return bool Whether the OpenSSL extension is loaded or not.
      * @since 0.1
-     * @throws OpenSSLNotAvailable When the extension is not loaded and throwException is true.
+     * @throws OpenSSLNotAvailableException When the extension is not loaded and throwException is true.
      * @codeCoverageIgnore Ignore as it is platform dependent.
      */
     public static function isAvailable(bool $throwException = false) : bool
@@ -42,7 +42,7 @@ class OpenSSL
         }
 
         if (!self::$extensionAvailable && $throwException) {
-            throw new OpenSSLNotAvailable('OpenSSL extension is not available.');
+            throw new OpenSSLNotAvailableException('OpenSSL extension is not available.');
         }
 
         return self::$extensionAvailable;
