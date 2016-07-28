@@ -27,27 +27,6 @@ abstract class Sikker
     const VERSION = '0.1.1';
 
     /**
-     * @var bool|null Whether OpenSSL module is available.
-     */
-    protected static $openSSLAvailable = null;
-
-    /**
-     * Verifies if the OpenSSL extension is loaded.
-     *
-     * @return bool Whether the OpenSSL extension is loaded or not.
-     * @since 0.1
-     * @codeCoverageIgnore Ignore as it is platform dependent.
-     */
-    public static function isOpenSSLAvailable() : bool
-    {
-        if (self::$openSSLAvailable == null) {
-            extension_loaded('openssl');
-        }
-
-        return self::$openSSLAvailable;
-    }
-
-    /**
      * Get string length. Uses multi-byte function if exists.
      *
      * @param string $str The string being measured for length.
