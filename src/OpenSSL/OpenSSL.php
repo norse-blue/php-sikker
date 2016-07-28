@@ -31,7 +31,7 @@ class OpenSSL
      *
      * @param bool $throwException Whether to throw an exception is the extension is not loaded.
      * @return bool Whether the OpenSSL extension is loaded or not.
-     * @since 0.1
+     * @since 0.3
      * @throws OpenSSLNotAvailableException When the extension is not loaded and throwException is true.
      * @codeCoverageIgnore Ignore as it is platform dependent.
      */
@@ -52,6 +52,7 @@ class OpenSSL
      * Gets all OpenSSL errors.
      *
      * @return array Returns an array containing all openssl errors at the moment.
+     * @since 0.3
      */
     public static function getErrors() : array
     {
