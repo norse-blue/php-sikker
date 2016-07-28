@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker;
+namespace NorseBlue\Sikker\OpenSSL;
 
 use RuntimeException;
 use Throwable;
