@@ -22,18 +22,8 @@ use NorseBlue\Sikker\OpenSSL\OpenSSLException;
  * @package NorseBlue\Sikker\Keys
  * @since 0.3
  */
-class PublicKey
+class PublicKey extends CryptoKey
 {
-    /**
-     * @var string The public key string in PEM format.
-     */
-    protected $key;
-
-    /**
-     * @var resource The public key openssl resource.
-     */
-    protected $resource;
-
     /**
      * PublicKey constructor.
      *
@@ -48,16 +38,5 @@ class PublicKey
         if (($this->resource = openssl_pkey_get_public($this->key)) === false) {
             throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given public key.');
         }
-    }
-
-    /**
-     * Gets the public key's string in PEM format.
-     *
-     * @return string Returns the key's public string in PEM format.
-     * @since 0.3
-     */
-    public function getKey(): string
-    {
-        return $this->key;
     }
 }
