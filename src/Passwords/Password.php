@@ -13,8 +13,8 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Passwords;
 
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShaker;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerSHA256;
+use NorseBlue\Sikker\SaltShakers\SaltShaker;
+use NorseBlue\Sikker\SaltShakers\SaltShakerSHA256;
 
 /**
  * Class Password

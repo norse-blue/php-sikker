@@ -11,12 +11,12 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Passwords\SaltShakers;
+namespace NorseBlue\Sikker\SaltShakers;
 
 /**
  * Interface SaltShaker
  *
- * @package NorseBlue\Sikker\Passwords
+ * @package NorseBlue\Sikker\SaltShakers
  * @uses NorseBlue\Sikker\Tokens\TokenFactory
  * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
  * @see http://php.net/manual/en/function.password-hash.php PHP password_hash function reference.

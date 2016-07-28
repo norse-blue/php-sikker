@@ -11,12 +11,12 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Passwords\SaltShakers;
+namespace NorseBlue\Sikker\Tests\SaltShakers;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use Codeception\Util\Debug;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerSHA256;
+use NorseBlue\Sikker\SaltShakers\SaltShakerSHA256;
 
 class SaltShakerSHA256Test extends Unit
 {
