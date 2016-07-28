@@ -33,19 +33,35 @@ class OpenSSL
      * @return bool Whether the OpenSSL extension is loaded or not.
      * @since 0.3
      * @throws OpenSSLNotAvailableException When the extension is not loaded and throwException is true.
-     * @codeCoverageIgnore Ignore as it is platform dependent.
      */
     public static function isAvailable(bool $throwException = false) : bool
     {
-        if (self::$extensionAvailable == null) {
+        if (self::$extensionAvailable === null) {
             self::$extensionAvailable = extension_loaded('openssl');
         }
 
         if (!self::$extensionAvailable && $throwException) {
-            throw new OpenSSLNotAvailableException('OpenSSL extension is not available.');
+            throw new OpenSSLNotAvailableException('OpenSSL extension is not available.');  // @codeCoverageIgnore
         }
 
         return self::$extensionAvailable;
+    }
+
+    /**
+     * Gets the OpenSSL configuration.
+     *
+     * @see http://php.net/manual/en/openssl.installation.php PHP OpenSSL Installation
+     * @return string Returns the OpenSSL configuration.
+     * @since 0.3
+     */
+    public static function getConfiguration()
+    {
+        OpenSSL::isAvailable(true);
+        if ($openSSLConf = getenv('OPENSSL_CONF') === false) {
+            $openSSLConf = getenv('SSLEAY_CONF');       // @codeCoverageIgnore
+        }
+
+        return $openSSLConf;
     }
 
     /**
@@ -57,10 +73,9 @@ class OpenSSL
     public static function getErrors() : array
     {
         OpenSSL::isAvailable(true);
-
         $errors = [];
         while ($error = openssl_error_string()) {
-            $errors[] = $error;
+            $errors[] = $error;     // @codeCoverageIgnore
         }
 
         return $errors;
