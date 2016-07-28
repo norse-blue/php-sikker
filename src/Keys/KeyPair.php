@@ -13,6 +13,9 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Keys;
 
+use NorseBlue\Sikker\OpenSSL\OpenSSL;
+use NorseBlue\Sikker\OpenSSL\OpenSSLException;
+
 /**
  * Class KeyPair
  *
@@ -45,12 +48,32 @@ class KeyPair
     }
 
     /**
+     * Generates a new KeyPair.
+     *
+     * @param array $config The OpenSSL configuration.
+     * @return KeyPair Returns the newly generated KeyPair.
+     * @since 0.3
+     */
+    public static function generate(array $config = CryptoKey::DEFAULT_CONFIG) : KeyPair
+    {
+        OpenSSL::isAvailable(true);
+        if (($resource = openssl_pkey_new($config)) === false) {
+            throw new OpenSSLException(OpenSSL::getErrors(),
+                'Could not generate a new private/public key pair.');      // @codeCoverageIgnore
+        }
+        openssl_pkey_export($resource, $privateKey);
+        $publicKey = openssl_pkey_get_details($resource)['key'];
+
+        return new self(PrivateKey::fromPEM($privateKey), PublicKey::fromPEM($publicKey));
+    }
+
+    /**
      * Gets the KeyPair's private key.
      *
      * @return PrivateKey Returns the private key.
      * @since 0.3
      */
-    public function getPrivateKey()
+    public function getPrivateKey() : PrivateKey
     {
         return $this->privateKey;
     }
@@ -61,7 +84,7 @@ class KeyPair
      * @return PublicKey Returns the public key.
      * @since 0.3
      */
-    public function getPublicKey()
+    public function getPublicKey() : PublicKey
     {
         return $this->publicKey;
     }
