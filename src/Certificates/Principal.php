@@ -107,7 +107,13 @@ class Principal
         string $commonName = '',
         string $emailAddress = ''
     ) {
-
+        $this->setCountryName($countryName);
+        $this->setStateOrProvinceName($stateOrProvinceName);
+        $this->setLocalityName($localityName);
+        $this->setOrganizationName($organizationName);
+        $this->setOrganizationalUnitName($organizationalUnitName);
+        $this->setCommonName($commonName);
+        $this->setEmailAddress($emailAddress);
     }
 
     /**
@@ -117,7 +123,7 @@ class Principal
      * @return Principal Return a Principal from the given information.
      * @since 0.3
      */
-    public static function FromArray(array $info)
+    public static function fromArray(array $info)
     {
         return new Principal($info[self::PROPERTY_KEY_COUNTRY]??'', $info[self::PROPERTY_KEY_STATE]??'',
             $info[self::PROPERTY_KEY_LOCALITY]??'', $info[self::PROPERTY_KEY_ORGANIZATION]??'',
