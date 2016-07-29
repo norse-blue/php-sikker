@@ -58,8 +58,10 @@ class KeyPair
     {
         OpenSSL::isAvailable(true);
         if (($resource = openssl_pkey_new($config)) === false) {
+            // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(),
-                'Could not generate a new private/public key pair.');      // @codeCoverageIgnore
+                'Could not generate a new key pair.');
+            // @codeCoverageIgnoreEnd
         }
         openssl_pkey_export($resource, $privateKey);
         $publicKey = openssl_pkey_get_details($resource)['key'];

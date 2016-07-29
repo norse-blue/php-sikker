@@ -104,7 +104,8 @@ class CryptoKeyTest extends Unit
                 $privateKey = PrivateKey::fromPEM($privateKeyContents);
                 $privateKey->save(self::SAVE_FILE_PATH);
                 $this->assertTrue(file_exists(self::SAVE_FILE_PATH));
-                $this->assertEquals($privateKeyContents, str_replace("\r", "", trim(file_get_contents(self::SAVE_FILE_PATH))));
+                $this->assertEquals($privateKeyContents,
+                    str_replace("\r", "", trim(file_get_contents(self::SAVE_FILE_PATH))));
                 @unlink(self::SAVE_FILE_PATH);
             }
         });
