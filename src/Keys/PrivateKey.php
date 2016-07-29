@@ -36,7 +36,7 @@ class PrivateKey extends CryptoKey
     {
         OpenSSL::isAvailable(true);
         if (($resource = openssl_pkey_get_private($key, $passphrase)) === false) {
-            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given private key.');     // @codeCoverageIgnore
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given private key.'); // @codeCoverageIgnore
         }
 
         return new self($resource);

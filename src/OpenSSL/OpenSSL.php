@@ -41,7 +41,7 @@ class OpenSSL
         }
 
         if (!self::$extensionAvailable && $throwException) {
-            throw new OpenSSLNotAvailableException('OpenSSL extension is not available.');  // @codeCoverageIgnore
+            throw new OpenSSLNotAvailableException('OpenSSL extension is not available.'); // @codeCoverageIgnore
         }
 
         return self::$extensionAvailable;
@@ -58,7 +58,7 @@ class OpenSSL
     {
         OpenSSL::isAvailable(true);
         if ($openSSLConf = getenv('OPENSSL_CONF') === false) {
-            $openSSLConf = getenv('SSLEAY_CONF');       // @codeCoverageIgnore
+            $openSSLConf = getenv('SSLEAY_CONF'); // @codeCoverageIgnore
         }
 
         return $openSSLConf;
@@ -75,7 +75,7 @@ class OpenSSL
         OpenSSL::isAvailable(true);
         $errors = [];
         while ($error = openssl_error_string()) {
-            $errors[] = $error;     // @codeCoverageIgnore
+            $errors[] = $error; // @codeCoverageIgnore
         }
 
         return $errors;

@@ -35,7 +35,7 @@ class PublicKey extends CryptoKey
     {
         OpenSSL::isAvailable(true);
         if (($resource = openssl_pkey_get_public($key)) === false) {
-            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given public key.');      // @codeCoverageIgnore
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given public key.'); // @codeCoverageIgnore
         }
 
         return new self($resource);
