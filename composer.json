@@ -19,7 +19,8 @@
 		"docs": "https://readthedocs.org/projects/sikker/"
 	},
 	"require": {
-		"php": "^7.0.0"
+		"php": "^7.0.0",
+		"ext-openssl": "*"
 	},
 	"require-dev": {
 		"codeception/codeception": "^2.2.2",
