@@ -36,9 +36,71 @@ class PrivateKey extends CryptoKey
     {
         OpenSSL::isAvailable(true);
         if (($resource = openssl_pkey_get_private($key, $passphrase)) === false) {
-            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given private key.'); // @codeCoverageIgnore
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given private key.');
+            // @codeCoverageIgnoreEnd
         }
 
         return new self($resource);
+    }
+
+    /**
+     * Decrypts the given data.
+     *
+     * @param string $encryptedData The data to decrypt.
+     * @return string Returns the decrypted data.
+     */
+    public function decrypt(string $encryptedData) : string
+    {
+        if (openssl_private_decrypt($encryptedData, $decrypted, $this->resource) === false) {
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not decrypt the given data with this private key.');
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Encrypts the given data.
+     *
+     * @param string $rawData The data to encrypt.
+     * @return string Returns the encrypted data.
+     */
+    public function encrypt(string $rawData) : string
+    {
+        if (openssl_private_encrypt($rawData, $encrypted, $this->resource) === false) {
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not encrypt the given data with this private key.');
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $encrypted;
+    }
+
+    /**
+     * Gets the private key string in PEM format.
+     *
+     * @param string $passphrase The optional passphrase to protect the private key.
+     * @return null|string Returns the private key string in PEM format.
+     * @since 0.3
+     */
+    public function getPEM(string $passphrase = null) : string
+    {
+        openssl_pkey_export($this->resource, $key, $passphrase, $this->config);
+        return trim($key);
+    }
+
+    /**
+     * Saves the private key to a file.
+     *
+     * @param string $path The path of the file to save.
+     * @param string|null $passphrase The optional passphrase to secure the private key.
+     * @return bool Returns true on success, false otherwise.
+     * @since 0.3
+     */
+    public function save(string $path, string $passphrase = null) : bool
+    {
+        return openssl_pkey_export_to_file($this->resource, $path, $passphrase, $this->config);
     }
 }

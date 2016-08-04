@@ -35,9 +35,71 @@ class PublicKey extends CryptoKey
     {
         OpenSSL::isAvailable(true);
         if (($resource = openssl_pkey_get_public($key)) === false) {
-            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given public key.'); // @codeCoverageIgnore
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given public key.');
+            // @codeCoverageIgnoreEnd
         }
 
         return new self($resource);
+    }
+
+    /**
+     * Decrypts the given data.
+     *
+     * @param string $encryptedData The data to decrypt.
+     * @return string Returns the decrypted data.
+     */
+    public function decrypt(string $encryptedData) : string
+    {
+        if (openssl_public_decrypt($encryptedData, $decrypted, $this->resource) === false) {
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not decrypt the given data with this public key.');
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Encrypts the given data.
+     *
+     * @param string $rawData The data to encrypt.
+     * @return string Returns the encrypted data.
+     */
+    public function encrypt(string $rawData) : string
+    {
+        if (openssl_private_encrypt($rawData, $encrypted, $this->resource) === false) {
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not encrypt the given data with this public key.');
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $encrypted;
+    }
+
+    /**
+     * Gets the public key string in PEM format.
+     *
+     * @param string $passphrase This param is ignored.
+     * @return null|string Returns the public key string in PEM format.
+     * @since 0.3
+     */
+    public function getPEM(string $passphrase = null) : string
+    {
+        return trim($this->details['key']);
+    }
+
+    /**
+     * Saves the public key to a file.
+     *
+     * @param string $path The path of the file to save.
+     * @param string|null $passphrase This param is ignored.
+     * @return bool Returns true on success, false otherwise.
+     * @since 0.3
+     */
+    public function save(string $path, string $passphrase = null) : bool
+    {
+        $pem = $this->getPEM($passphrase);
+        return !is_bool(file_put_contents($path, $pem));
     }
 }
