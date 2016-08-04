@@ -17,10 +17,36 @@ namespace NorseBlue\Sikker\OpenSSL;
  * Class OpenSSL
  *
  * @package NorseBlue\Sikker
+ * @see http://us.php.net/manual/en/function.openssl-pkey-get-details.php openssl_pkey_get_details function referece.
  * @since 0.3
  */
 class OpenSSL
 {
+    /**
+     * @var int Unknown KeyType
+     */
+    const KEYTYPE_UNKNOWN = -1;
+
+    /**
+     * @var int KeyType RSA (matches constant OPENSSL_KEYTYPE_RSA)
+     */
+    const KEYTYPE_RSA = 0;
+
+    /**
+     * @var int KeyType DSA (matches constant OPENSSL_KEYTYPE_DSA)
+     */
+    const KEYTYPE_DSA = 1;
+
+    /**
+     * @var int KeyType DH (matches constant OPENSSL_KEYTYPE_DH)
+     */
+    const KEYTYPE_DH = 2;
+
+    /**
+     * @var int KeyType EC (matches constant OPENSSL_KEYTYPE_EC)
+     */
+    const KEYTYPE_EC = 3;
+
     /**
      * @var bool|null Whether OpenSSL extension is available.
      */
