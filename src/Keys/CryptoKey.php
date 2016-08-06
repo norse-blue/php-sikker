@@ -224,14 +224,20 @@ abstract class CryptoKey
      */
     public function getModulus() : string
     {
-        if (!$this->isRSA()) {
-            // @codeCoverageIgnoreStart
-            throw new CryptoKeyTypeException(sprintf('The key must be of type RSA to get modulus, but key is of type \'%s\'.',
-                strtoupper($this->getTypeAsString())));
-            // @codeCoverageIgnoreEnd
+        switch ($this->getType()) {
+            case OpenSSL::KEYTYPE_RSA:
+                return $this->details['rsa']['n'];
+                break;
+            case OpenSSL::KEYTYPE_DSA:
+                return $this->details['dsa']['p'];
+                break;
+            default:
+                // @codeCoverageIgnoreStart
+                throw new CryptoKeyTypeException(sprintf('The key must be of type RSA to get modulus, but key is of type \'%s\'.',
+                    strtoupper($this->getTypeAsString())));
+                // @codeCoverageIgnoreEnd
+                break;
         }
-
-        return $this->details['rsa']['n'];
     }
 
     /**
