@@ -31,7 +31,7 @@ abstract class CryptoKey
     const DEFAULT_CONFIG = [
         'digest_alg' => 'sha256',
         'private_key_type' => OpenSSL::KEYTYPE_RSA,
-        'private_key_bits' => 1024
+        'private_key_bits' => 2048
     ];
 
     /**
