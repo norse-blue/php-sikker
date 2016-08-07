@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Keys;
 
+use InvalidArgumentException;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 
@@ -67,6 +68,26 @@ class KeyPair
         $publicKey = openssl_pkey_get_details($resource)['key'];
 
         return new self(PrivateKey::fromPEM($privateKey), PublicKey::fromPEM($publicKey));
+    }
+
+    /**
+     * Creates a KeyPair from PEM formatted key strings.
+     *
+     * @param string $privateKeyPEM The private key PEM formatted string.
+     * @param string $publicKeyPEM The public key PEM formatted string.
+     * @return KeyPair The key pair instance containing the private and public keys.
+     * @since 0.3
+     */
+    public static function fromPEM(string $privateKeyPEM, string $publicKeyPEM) : KeyPair
+    {
+        $privateKey = PrivateKey::fromPEM($privateKeyPEM);
+        $publicKey = PublicKey::fromPEM($publicKeyPEM);
+
+        if (!$privateKey->isPairOf($publicKey)) {
+            throw new InvalidArgumentException('The given keys do not match.');
+        }
+
+        return new self($privateKey, $publicKey);
     }
 
     /**
