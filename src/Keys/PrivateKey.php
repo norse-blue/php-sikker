@@ -120,7 +120,7 @@ class PrivateKey extends CryptoKey
             return false;
         }
 
-        if ($type === OpenSSL::KEYTYPE_EC) {
+        if ($type === CryptoKey::TYPE_EC) {
             return $this->getPublicKeyPEM() == $pairedKey->getPEM();
         } else {
             return $this->getModulus() == $pairedKey->getModulus();

@@ -23,31 +23,6 @@ namespace NorseBlue\Sikker\OpenSSL;
 class OpenSSL
 {
     /**
-     * @var int Unknown KeyType
-     */
-    const KEYTYPE_UNKNOWN = -1;
-
-    /**
-     * @var int KeyType RSA (matches constant OPENSSL_KEYTYPE_RSA)
-     */
-    const KEYTYPE_RSA = 0;
-
-    /**
-     * @var int KeyType DSA (matches constant OPENSSL_KEYTYPE_DSA)
-     */
-    const KEYTYPE_DSA = 1;
-
-    /**
-     * @var int KeyType DH (matches constant OPENSSL_KEYTYPE_DH)
-     */
-    const KEYTYPE_DH = 2;
-
-    /**
-     * @var int KeyType EC (matches constant OPENSSL_KEYTYPE_EC)
-     */
-    const KEYTYPE_EC = 3;
-
-    /**
      * @var bool|null Whether OpenSSL extension is available.
      */
     protected static $extensionAvailable = null;

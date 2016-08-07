@@ -26,11 +26,36 @@ use RuntimeException;
 abstract class CryptoKey
 {
     /**
+    * @var int Unknown KeyType
+    */
+    const TYPE_UNKNOWN = -1;
+
+    /**
+     * @var int KeyType RSA (matches constant OPENSSL_KEYTYPE_RSA)
+     */
+    const TYPE_RSA = 0;
+
+    /**
+     * @var int KeyType DSA (matches constant OPENSSL_KEYTYPE_DSA)
+     */
+    const TYPE_DSA = 1;
+
+    /**
+     * @var int KeyType DH (matches constant OPENSSL_KEYTYPE_DH)
+     */
+    const TYPE_DH = 2;
+
+    /**
+     * @var int KeyType EC (matches constant OPENSSL_KEYTYPE_EC)
+     */
+    const TYPE_EC = 3;
+
+    /**
      * @var array The default configuration to use by OpenSSL.
      */
     const DEFAULT_CONFIG = [
         'digest_alg' => 'sha256',
-        'private_key_type' => OpenSSL::KEYTYPE_RSA,
+        'private_key_type' => self::TYPE_RSA,
         'private_key_bits' => 2048
     ];
 
@@ -102,13 +127,13 @@ abstract class CryptoKey
     public static function getTypeName(int $type) : string
     {
         switch ($type) {
-            case OpenSSL::KEYTYPE_RSA:
+            case self::TYPE_RSA:
                 return 'rsa';
-            case OpenSSL::KEYTYPE_DSA:
+            case self::TYPE_DSA:
                 return 'dsa';
-            case OpenSSL::KEYTYPE_DH:
+            case self::TYPE_DH:
                 return 'dh';
-            case OpenSSL::KEYTYPE_EC:
+            case self::TYPE_EC:
                 return 'ec';
             default:
                 return 'unknown'; // @codeCoverageIgnore
@@ -178,7 +203,7 @@ abstract class CryptoKey
      */
     public function isRSA() : bool
     {
-        return $this->getType() === OpenSSL::KEYTYPE_RSA;
+        return $this->getType() === self::TYPE_RSA;
     }
 
     /**
@@ -189,7 +214,7 @@ abstract class CryptoKey
      */
     public function isDSA() : bool
     {
-        return $this->getType() === OpenSSL::KEYTYPE_DSA;
+        return $this->getType() === self::TYPE_DSA;
     }
 
     /**
@@ -200,7 +225,7 @@ abstract class CryptoKey
      */
     public function isDH() : bool
     {
-        return $this->getType() === OpenSSL::KEYTYPE_DH;
+        return $this->getType() === self::TYPE_DH;
     }
 
     /**
@@ -211,7 +236,7 @@ abstract class CryptoKey
      */
     public function isEC() : bool
     {
-        return $this->getType() === OpenSSL::KEYTYPE_EC;
+        return $this->getType() === self::TYPE_EC;
     }
 
     /**
@@ -225,11 +250,11 @@ abstract class CryptoKey
     public function getModulus() : string
     {
         switch ($this->getType()) {
-            case OpenSSL::KEYTYPE_RSA:
+            case self::TYPE_RSA:
                 return $this->details['rsa']['n'];
-            case OpenSSL::KEYTYPE_DSA:
+            case self::TYPE_DSA:
                 return $this->details['dsa']['p'];
-            case OpenSSL::KEYTYPE_DH:
+            case self::TYPE_DH:
                 return $this->details['dh']['p'];
             default:
                 // @codeCoverageIgnoreStart
