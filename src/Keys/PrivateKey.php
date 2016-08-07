@@ -116,7 +116,15 @@ class PrivateKey extends CryptoKey
             throw new InvalidArgumentException('The paired key must be an instance of PublicKey.');
         }
 
-        return $this->getModulus() == $pairedKey->getModulus();
+        if (($type = $this->getType()) !== $pairedKey->getType()) {
+            return false;
+        }
+
+        if ($type === OpenSSL::KEYTYPE_EC) {
+            return $this->getPublicKeyPEM() == $pairedKey->getPEM();
+        } else {
+            return $this->getModulus() == $pairedKey->getModulus();
+        }
     }
 
     /**

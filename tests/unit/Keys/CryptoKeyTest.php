@@ -16,6 +16,7 @@ namespace NorseBlue\Sikker\Tests\Keys;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use NorseBlue\Sikker\Keys\CryptoKey;
+use NorseBlue\Sikker\Keys\CryptoKeyTypeException;
 use NorseBlue\Sikker\Keys\PrivateKey;
 use NorseBlue\Sikker\Keys\PublicKey;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
@@ -75,6 +76,26 @@ class CryptoKeyTest extends Unit
      * @see http://phpseclib.sourceforge.net/rsa/examples.html phpseclib: RSA Examples and Notes
      */
     const RSA_PUBLIC_KEY_EXAMPLE_FILE = 'tests/_data/RSA_public_key_example.pem';
+
+    /**
+     * @var string The path to the DH Private Key example file.
+     */
+    const DH_PRIVATE_KEY_EXAMPLE_FILE = 'tests/_data/DH_private_key_example.pem';
+
+    /**
+     * @var string The path to the DH Public Key example file.
+     */
+    const DH_PUBLIC_KEY_EXAMPLE_FILE = 'tests/_data/DH_public_key_example.pem';
+
+    /**
+     * @var string The path to the EC Private Key example file.
+     */
+    const EC_PRIVATE_KEY_EXAMPLE_FILE = 'tests/_data/EC_private_key_example.pem';
+
+    /**
+     * @var string The path to the EC Public Key example file.
+     */
+    const EC_PUBLIC_KEY_EXAMPLE_FILE = 'tests/_data/EC_public_key_example.pem';
 
     /**
      * @var string The path to a temp file to be saved.
@@ -165,8 +186,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals('dsa', $privateKey->getTypeAsString());
                 $this->assertEquals('8196c7dd65b518f9e555fb3683f8d0b68a8edbf2', sha1($privateKey->getModulus()));
                 $this->assertEquals($privateKeyContents, $privateKey->getPEM());
-                $this->assertTrue($privateKey->isDSA());
                 $this->assertFalse($privateKey->isRSA());
+                $this->assertTrue($privateKey->isDSA());
                 $this->assertFalse($privateKey->isDH());
                 $this->assertFalse($privateKey->isEC());
             }
@@ -184,10 +205,90 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals('dsa', $publicKey->getTypeAsString());
                 $this->assertEquals('8196c7dd65b518f9e555fb3683f8d0b68a8edbf2', sha1($publicKey->getModulus()));
                 $this->assertEquals($publicKeyContents, $publicKey->getPEM());
-                $this->assertTrue($publicKey->isDSA());
                 $this->assertFalse($publicKey->isRSA());
+                $this->assertTrue($publicKey->isDSA());
                 $this->assertFalse($publicKey->isDH());
                 $this->assertFalse($publicKey->isEC());
+            }
+        });
+
+        $this->specify('Gets the DH private key in PEM format.', function () {
+            if (extension_loaded('openssl')) {
+                $privateKeyContents = str_replace("\r", "",
+                    trim(file_get_contents(self::DH_PRIVATE_KEY_EXAMPLE_FILE)));
+                $privateKey = PrivateKey::fromPEM($privateKeyContents);
+                $this->assertInternalType('resource', $privateKey->getResource());
+                $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $privateKey->getConfig());
+                $this->assertEquals(4, count($privateKey->getDetails()));
+                $this->assertEquals(1024, $privateKey->getBits());
+                $this->assertEquals(OpenSSL::KEYTYPE_DH, $privateKey->getType());
+                $this->assertEquals('dh', $privateKey->getTypeAsString());
+                $this->assertEquals('f7283e410b026753f6b11aad228c907600adf5ef', sha1($privateKey->getModulus()));
+                $this->assertEquals($privateKeyContents, $privateKey->getPEM());
+                $this->assertFalse($privateKey->isRSA());
+                $this->assertFalse($privateKey->isDSA());
+                $this->assertTrue($privateKey->isDH());
+                $this->assertFalse($privateKey->isEC());
+            }
+        });
+
+        $this->specify('Gets the DH public key in PEM format.', function () {
+            if (extension_loaded('openssl')) {
+                $publicKeyContents = str_replace("\r", "", trim(file_get_contents(self::DH_PUBLIC_KEY_EXAMPLE_FILE)));
+                $publicKey = PublicKey::fromPEM($publicKeyContents);
+                $this->assertInternalType('resource', $publicKey->getResource());
+                $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $publicKey->getConfig());
+                $this->assertEquals(4, count($publicKey->getDetails()));
+                $this->assertEquals(1024, $publicKey->getBits());
+                $this->assertEquals(OpenSSL::KEYTYPE_DH, $publicKey->getType());
+                $this->assertEquals('dh', $publicKey->getTypeAsString());
+                $this->assertEquals('f7283e410b026753f6b11aad228c907600adf5ef', sha1($publicKey->getModulus()));
+                $this->assertEquals($publicKeyContents, $publicKey->getPEM());
+                $this->assertFalse($publicKey->isRSA());
+                $this->assertFalse($publicKey->isDSA());
+                $this->assertTrue($publicKey->isDH());
+                $this->assertFalse($publicKey->isEC());
+            }
+        });
+
+        $this->specify('Gets the EC private key in PEM format.', function () {
+            if (extension_loaded('openssl')) {
+                $privateKeyContents = str_replace("\r", "",
+                    trim(file_get_contents(self::EC_PRIVATE_KEY_EXAMPLE_FILE)));
+                $privateKey = PrivateKey::fromPEM($privateKeyContents);
+                $this->assertInternalType('resource', $privateKey->getResource());
+                $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $privateKey->getConfig());
+                $this->assertEquals(4, count($privateKey->getDetails()));
+                $this->assertEquals(256, $privateKey->getBits());
+                $this->assertEquals(OpenSSL::KEYTYPE_EC, $privateKey->getType());
+                $this->assertEquals('ec', $privateKey->getTypeAsString());
+                $this->assertEquals($privateKeyContents, $privateKey->getPEM());
+                $this->assertFalse($privateKey->isRSA());
+                $this->assertFalse($privateKey->isDSA());
+                $this->assertFalse($privateKey->isDH());
+                $this->assertTrue($privateKey->isEC());
+                $this->expectException(CryptoKeyTypeException::class);
+                $modulus = $privateKey->getModulus();
+            }
+        });
+
+        $this->specify('Gets the EC public key in PEM format.', function () {
+            if (extension_loaded('openssl')) {
+                $publicKeyContents = str_replace("\r", "", trim(file_get_contents(self::EC_PUBLIC_KEY_EXAMPLE_FILE)));
+                $publicKey = PublicKey::fromPEM($publicKeyContents);
+                $this->assertInternalType('resource', $publicKey->getResource());
+                $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $publicKey->getConfig());
+                $this->assertEquals(4, count($publicKey->getDetails()));
+                $this->assertEquals(256, $publicKey->getBits());
+                $this->assertEquals(OpenSSL::KEYTYPE_EC, $publicKey->getType());
+                $this->assertEquals('ec', $publicKey->getTypeAsString());
+                $this->assertEquals($publicKeyContents, $publicKey->getPEM());
+                $this->assertFalse($publicKey->isRSA());
+                $this->assertFalse($publicKey->isDSA());
+                $this->assertFalse($publicKey->isDH());
+                $this->assertTrue($publicKey->isEC());
+                $this->expectException(CryptoKeyTypeException::class);
+                $modulus = $publicKey->getModulus();
             }
         });
     }

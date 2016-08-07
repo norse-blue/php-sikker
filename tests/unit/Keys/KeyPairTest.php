@@ -15,6 +15,7 @@ namespace NorseBlue\Sikker\Tests\Keys;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
+use InvalidArgumentException;
 use NorseBlue\Sikker\Keys\KeyPair;
 use NorseBlue\Sikker\Keys\PrivateKey;
 use NorseBlue\Sikker\Keys\PublicKey;
@@ -45,6 +46,26 @@ class KeyPairTest extends Unit
      * @see http://phpseclib.sourceforge.net/rsa/examples.html phpseclib: RSA Examples and Notes
      */
     const RSA_PUBLIC_KEY_EXAMPLE_FILE = 'tests/_data/RSA_public_key_example.pem';
+
+    /**
+     * @var string The path to the DH Private Key example file.
+     */
+    const DH_PRIVATE_KEY_EXAMPLE_FILE = 'tests/_data/DH_private_key_example.pem';
+
+    /**
+     * @var string The path to the DH Public Key example file.
+     */
+    const DH_PUBLIC_KEY_EXAMPLE_FILE = 'tests/_data/DH_public_key_example.pem';
+
+    /**
+     * @var string The path to the EC Private Key example file.
+     */
+    const EC_PRIVATE_KEY_EXAMPLE_FILE = 'tests/_data/EC_private_key_example.pem';
+
+    /**
+     * @var string The path to the EC Public Key example file.
+     */
+    const EC_PUBLIC_KEY_EXAMPLE_FILE = 'tests/_data/EC_public_key_example.pem';
 
     protected function _after()
     {
@@ -84,6 +105,18 @@ class KeyPairTest extends Unit
         $this->specify('Loads an DSA KeyPair instance from the keys PEM strings.', function () {
             $privateKeyContents = str_replace("\r", "", trim(file_get_contents(self::DSA_PRIVATE_KEY_EXAMPLE_FILE)));
             $publicKeyContents = str_replace("\r", "", trim(file_get_contents(self::DSA_PUBLIC_KEY_EXAMPLE_FILE)));
+            $keyPair = KeyPair::fromPEM($privateKeyContents, $publicKeyContents);
+        });
+
+        $this->specify('Loads an DH KeyPair instance from the keys PEM strings.', function () {
+            $privateKeyContents = str_replace("\r", "", trim(file_get_contents(self::DH_PRIVATE_KEY_EXAMPLE_FILE)));
+            $publicKeyContents = str_replace("\r", "", trim(file_get_contents(self::DH_PUBLIC_KEY_EXAMPLE_FILE)));
+            $keyPair = KeyPair::fromPEM($privateKeyContents, $publicKeyContents);
+        });
+
+        $this->specify('Loads an EC KeyPair instance from the keys PEM strings.', function () {
+            $privateKeyContents = str_replace("\r", "", trim(file_get_contents(self::EC_PRIVATE_KEY_EXAMPLE_FILE)));
+            $publicKeyContents = str_replace("\r", "", trim(file_get_contents(self::EC_PUBLIC_KEY_EXAMPLE_FILE)));
             $keyPair = KeyPair::fromPEM($privateKeyContents, $publicKeyContents);
         });
 
