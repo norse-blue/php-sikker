@@ -100,11 +100,7 @@ abstract class CryptoKey
 
         $this->resource = $resource;
         $this->config = $config;
-        if (($this->details = openssl_pkey_get_details($this->resource)) === false) {
-            // @codeCoverageIgnoreStart
-            throw new OpenSSLException(OpenSSL::getErrors(), 'Failed to get key details.');
-            // @codeCoverageIgnoreEnd
-        }
+        $this->loadDetails(true);
     }
 
     /**
@@ -138,6 +134,29 @@ abstract class CryptoKey
             default:
                 return 'unknown'; // @codeCoverageIgnore
         }
+    }
+
+    /**
+     * Loads the key details from the resource.
+     *
+     * @param bool $throwException Whether to throw an exception on error.
+     * @return bool Returns true if details have been loaded correctly, false otherwise.
+     * @since 0.3
+     */
+    public function loadDetails($throwException = false)
+    {
+        $details = openssl_pkey_get_details($this->resource);
+        if ($details === false) {
+            // @codeCoverageIgnoreStart
+            if ($throwException) {
+                throw new OpenSSLException(OpenSSL::getErrors(), 'Failed to get key details.');
+            }
+            return false;
+            // @codeCoverageIgnoreEnd
+        }
+
+        $this->details = $details;
+        return true;
     }
 
     /**
