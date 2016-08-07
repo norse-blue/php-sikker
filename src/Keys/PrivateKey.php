@@ -70,7 +70,7 @@ class PrivateKey extends CryptoKey
             // @codeCoverageIgnoreEnd
         }
 
-        return (string)$decrypted;
+        return (string) $decrypted;
     }
 
     /**
@@ -87,7 +87,7 @@ class PrivateKey extends CryptoKey
             // @codeCoverageIgnoreEnd
         }
 
-        return (string)$encrypted;
+        return (string) $encrypted;
     }
 
     /**

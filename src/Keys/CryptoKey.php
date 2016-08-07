@@ -199,16 +199,12 @@ abstract class CryptoKey
         switch ($this->getType()) {
             case OpenSSL::KEYTYPE_RSA:
                 return 'rsa';
-                break;
             case OpenSSL::KEYTYPE_DSA:
                 return 'dsa';
-                break;
             case OpenSSL::KEYTYPE_DH:
                 return 'dh';
-                break;
             case OpenSSL::KEYTYPE_EC:
                 return 'ec';
-                break;
             default:
                 return 'unknown'; // @codeCoverageIgnore
         }
@@ -227,19 +223,15 @@ abstract class CryptoKey
         switch ($this->getType()) {
             case OpenSSL::KEYTYPE_RSA:
                 return $this->details['rsa']['n'];
-                break;
             case OpenSSL::KEYTYPE_DSA:
                 return $this->details['dsa']['p'];
-                break;
             case OpenSSL::KEYTYPE_DH:
                 return $this->details['dh']['p'];
-                break;
             default:
                 // @codeCoverageIgnoreStart
-                throw new CryptoKeyTypeException(sprintf('The key must be of type RSA to get modulus, but key is of type \'%s\'.',
+                throw new CryptoKeyTypeException(sprintf('The key must be of type RSA, DSA or DH to get modulus, but key is of type \'%s\'.',
                     strtoupper($this->getTypeAsString())));
                 // @codeCoverageIgnoreEnd
-                break;
         }
     }
 
