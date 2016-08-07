@@ -64,19 +64,22 @@ abstract class CryptoKey
             throw new RuntimeException(sprintf('Argument 1 passed to %s must be a resource, %s given.',
                 __FUNCTION__, gettype($resource)));
             // @codeCoverageIgnoreEnd
-        } elseif (($rtype = get_resource_type($resource)) !== 'OpenSSL key') {
+        }
+
+        if (($rtype = get_resource_type($resource)) !== 'OpenSSL key') {
             // @codeCoverageIgnoreStart
             throw new RuntimeException(sprintf('Argument 1 passed to %s must be an \'OpenSSL key\' resource, \'%s\' resource given.',
                 __FUNCTION__, $rtype));
             // @codeCoverageIgnoreEnd
         }
+
         $this->resource = $resource;
+        $this->config = $config;
         if (($this->details = openssl_pkey_get_details($this->resource)) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Failed to get key details.');
             // @codeCoverageIgnoreEnd
         }
-        $this->config = $config;
     }
 
     /**
@@ -87,6 +90,29 @@ abstract class CryptoKey
     public function __destruct()
     {
         unset($this->resource);
+    }
+
+    /**
+     * Gets the the key type as a string.
+     *
+     * @param int $type The type to get as string.
+     * @return string Returns the key type as a string.
+     * @since 0.3
+     */
+    public static function getTypeName(int $type) : string
+    {
+        switch ($type) {
+            case OpenSSL::KEYTYPE_RSA:
+                return 'rsa';
+            case OpenSSL::KEYTYPE_DSA:
+                return 'dsa';
+            case OpenSSL::KEYTYPE_DH:
+                return 'dh';
+            case OpenSSL::KEYTYPE_EC:
+                return 'ec';
+            default:
+                return 'unknown'; // @codeCoverageIgnore
+        }
     }
 
     /**
@@ -189,28 +215,6 @@ abstract class CryptoKey
     }
 
     /**
-     * Gets the the key type as a string.
-     *
-     * @return string Returns the key type as a string.
-     * @since 0.3
-     */
-    public function getTypeAsString() : string
-    {
-        switch ($this->getType()) {
-            case OpenSSL::KEYTYPE_RSA:
-                return 'rsa';
-            case OpenSSL::KEYTYPE_DSA:
-                return 'dsa';
-            case OpenSSL::KEYTYPE_DH:
-                return 'dh';
-            case OpenSSL::KEYTYPE_EC:
-                return 'ec';
-            default:
-                return 'unknown'; // @codeCoverageIgnore
-        }
-    }
-
-    /**
      * Gets the key modulus.
      *
      * @see http://us.php.net/manual/en/function.openssl-pkey-get-details.php openssl_pkey_get_details fucntion reference.
@@ -230,7 +234,7 @@ abstract class CryptoKey
             default:
                 // @codeCoverageIgnoreStart
                 throw new CryptoKeyTypeException(sprintf('The key must be of type RSA, DSA or DH to get modulus, but key is of type \'%s\'.',
-                    strtoupper($this->getTypeAsString())));
+                    strtoupper(self::getTypeName($this->getType()))));
                 // @codeCoverageIgnoreEnd
         }
     }
