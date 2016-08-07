@@ -113,6 +113,21 @@ class CryptoKeyTest extends Unit
     // tests
 
     /**
+     * Tests the type names
+     */
+    public function testTypeNames()
+    {
+        $this->specify('Evaluates the type names correctly.', function () {
+            $this->assertEquals('rsa', CryptoKey::getTypeName(CryptoKey::TYPE_RSA));
+            $this->assertEquals('dsa', CryptoKey::getTypeName(CryptoKey::TYPE_DSA));
+            $this->assertEquals('dh', CryptoKey::getTypeName(CryptoKey::TYPE_DH));
+            $this->assertEquals('ec', CryptoKey::getTypeName(CryptoKey::TYPE_EC));
+            $this->assertEquals('unknown', CryptoKey::getTypeName(CryptoKey::TYPE_UNKNOWN));
+            $this->assertEquals('unknown', CryptoKey::getTypeName(998));
+        });
+    }
+
+    /**
      * Tests the generate function.
      */
     public function testConstructor()

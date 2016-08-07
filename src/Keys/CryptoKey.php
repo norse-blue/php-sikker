@@ -51,6 +51,17 @@ abstract class CryptoKey
     const TYPE_EC = 3;
 
     /**
+     * @var array Holds the KeyType names.
+     */
+    const TYPES_NAMES = [
+        self::TYPE_UNKNOWN => 'unknown',
+        self::TYPE_RSA => 'rsa',
+        self::TYPE_DSA => 'dsa',
+        self::TYPE_DH => 'dh',
+        self::TYPE_EC => 'ec'
+    ];
+
+    /**
      * @var array The default configuration to use by OpenSSL.
      */
     const DEFAULT_CONFIG = [
@@ -122,18 +133,10 @@ abstract class CryptoKey
      */
     public static function getTypeName(int $type) : string
     {
-        switch ($type) {
-            case self::TYPE_RSA:
-                return 'rsa';
-            case self::TYPE_DSA:
-                return 'dsa';
-            case self::TYPE_DH:
-                return 'dh';
-            case self::TYPE_EC:
-                return 'ec';
-            default:
-                return 'unknown'; // @codeCoverageIgnore
+        if (array_key_exists($type, self::TYPES_NAMES)) {
+            return self::TYPES_NAMES[$type];
         }
+        return self::TYPES_NAMES[self::TYPE_UNKNOWN];
     }
 
     /**
