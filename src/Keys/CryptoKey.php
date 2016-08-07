@@ -26,8 +26,8 @@ use RuntimeException;
 abstract class CryptoKey
 {
     /**
-    * @var int Unknown KeyType
-    */
+     * @var int Unknown KeyType
+     */
     const TYPE_UNKNOWN = -1;
 
     /**
