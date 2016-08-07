@@ -231,6 +231,9 @@ abstract class CryptoKey
             case OpenSSL::KEYTYPE_DSA:
                 return $this->details['dsa']['p'];
                 break;
+            case OpenSSL::KEYTYPE_DH:
+                return $this->details['dh']['p'];
+                break;
             default:
                 // @codeCoverageIgnoreStart
                 throw new CryptoKeyTypeException(sprintf('The key must be of type RSA to get modulus, but key is of type \'%s\'.',
