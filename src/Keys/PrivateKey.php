@@ -46,6 +46,17 @@ class PrivateKey extends CryptoKey
     }
 
     /**
+     * Gets the matching public key in PEM format.
+     *
+     * @return string Returns the matching public key in PEM format.
+     * @since 0.3
+     */
+    public function getPublicKeyPEM() : string
+    {
+        return trim($this->details['key']);
+    }
+
+    /**
      * Decrypts the given data.
      *
      * @param string $encryptedData The data to decrypt.
@@ -59,7 +70,7 @@ class PrivateKey extends CryptoKey
             // @codeCoverageIgnoreEnd
         }
 
-        return $decrypted;
+        return (string)$decrypted;
     }
 
     /**
@@ -76,7 +87,7 @@ class PrivateKey extends CryptoKey
             // @codeCoverageIgnoreEnd
         }
 
-        return $encrypted;
+        return (string)$encrypted;
     }
 
     /**
