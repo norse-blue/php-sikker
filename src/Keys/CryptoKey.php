@@ -250,6 +250,15 @@ abstract class CryptoKey
     abstract public function getPEM(string $passphrase = null) : string;
 
     /**
+     * Verifies if the given key matches is a pair match.
+     *
+     * @param CryptoKey $pairedKey The paired key to test.
+     * @return bool
+     * @since 0.3
+     */
+    abstract public function isPairOf(CryptoKey $pairedKey) : bool;
+
+    /**
      * Saves the key to a file.
      *
      * @param string $path The path of the file to save.

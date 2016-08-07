@@ -43,6 +43,11 @@ class CryptoKeySubclass extends CryptoKey
     {
         return true;
     }
+
+    public function isPairOf(CryptoKey $pairedKey) : bool
+    {
+        return true;
+    }
 }
 
 class CryptoKeyTest extends Unit

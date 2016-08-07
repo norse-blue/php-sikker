@@ -13,6 +13,7 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Keys;
 
+use InvalidArgumentException;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 
@@ -87,6 +88,22 @@ class PublicKey extends CryptoKey
     public function getPEM(string $passphrase = null) : string
     {
         return trim($this->details['key']);
+    }
+
+    /**
+     * Verifies if the given key matches is a pair match.
+     *
+     * @param CryptoKey $pairedKey The paired key to test.
+     * @return bool
+     * @since 0.3
+     */
+    public function isPairOf(CryptoKey $pairedKey) : bool
+    {
+        if (!$pairedKey instanceof PrivateKey) {
+            throw new InvalidArgumentException('The paired key must be an instance of PrivateKey.');
+        }
+
+        return $this->getModulus() == $pairedKey->getModulus();
     }
 
     /**
