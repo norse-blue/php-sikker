@@ -11,14 +11,14 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Keys;
+namespace NorseBlue\Sikker\Asymmetric;
 
 use Exception;
 
 /**
  * Class CryptoKeyTypeException
  *
- * @package NorseBlue\Sikker\Keys
+ * @package NorseBlue\Sikker\Asymmetric
  * @since 0.3
  */
 class CryptoKeyTypeException extends Exception

@@ -15,11 +15,10 @@ namespace NorseBlue\Sikker\Tests\Keys;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
-use NorseBlue\Sikker\Keys\CryptoKey;
-use NorseBlue\Sikker\Keys\CryptoKeyTypeException;
-use NorseBlue\Sikker\Keys\PrivateKey;
-use NorseBlue\Sikker\Keys\PublicKey;
-use NorseBlue\Sikker\OpenSSL\OpenSSL;
+use NorseBlue\Sikker\Asymmetric\CryptoKey;
+use NorseBlue\Sikker\Asymmetric\CryptoKeyTypeException;
+use NorseBlue\Sikker\Asymmetric\PrivateKey;
+use NorseBlue\Sikker\Asymmetric\PublicKey;
 use NorseBlue\Sikker\OpenSSL\OpenSSLNotAvailableException;
 use RuntimeException;
 

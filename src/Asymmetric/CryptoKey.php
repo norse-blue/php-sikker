@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Keys;
+namespace NorseBlue\Sikker\Asymmetric;
 
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
@@ -20,7 +20,7 @@ use RuntimeException;
 /**
  * Class CryptoKey
  *
- * @package NorseBlue\Sikker\Keys
+ * @package NorseBlue\Sikker\Asymmetric
  * @since 0.3
  */
 abstract class CryptoKey

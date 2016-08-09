@@ -16,9 +16,9 @@ namespace NorseBlue\Sikker\Tests\Keys;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use InvalidArgumentException;
-use NorseBlue\Sikker\Keys\KeyPair;
-use NorseBlue\Sikker\Keys\PrivateKey;
-use NorseBlue\Sikker\Keys\PublicKey;
+use NorseBlue\Sikker\Asymmetric\KeyPair;
+use NorseBlue\Sikker\Asymmetric\PrivateKey;
+use NorseBlue\Sikker\Asymmetric\PublicKey;
 use NorseBlue\Sikker\OpenSSL\OpenSSLNotAvailableException;
 
 class KeyPairTest extends Unit
