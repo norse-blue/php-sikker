@@ -16,6 +16,7 @@ namespace NorseBlue\Sikker\Tests\Keys;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use NorseBlue\Sikker\Asymmetric\CryptoKey;
+use NorseBlue\Sikker\Asymmetric\CryptoKeyType;
 use NorseBlue\Sikker\Asymmetric\CryptoKeyTypeException;
 use NorseBlue\Sikker\Asymmetric\PrivateKey;
 use NorseBlue\Sikker\Asymmetric\PublicKey;
@@ -39,12 +40,12 @@ class CryptoKeySubclass extends CryptoKey
         return '';
     }
 
-    public function save(string $path, string $passphrase = null) : bool
+    public function isPairOf(CryptoKey $pairedKey) : bool
     {
         return true;
     }
 
-    public function isPairOf(CryptoKey $pairedKey) : bool
+    public function save(string $path, string $passphrase = null) : bool
     {
         return true;
     }
@@ -112,21 +113,6 @@ class CryptoKeyTest extends Unit
     // tests
 
     /**
-     * Tests the type names
-     */
-    public function testTypeNames()
-    {
-        $this->specify('Evaluates the type names correctly.', function () {
-            $this->assertEquals('rsa', CryptoKey::getTypeName(CryptoKey::TYPE_RSA));
-            $this->assertEquals('dsa', CryptoKey::getTypeName(CryptoKey::TYPE_DSA));
-            $this->assertEquals('dh', CryptoKey::getTypeName(CryptoKey::TYPE_DH));
-            $this->assertEquals('ec', CryptoKey::getTypeName(CryptoKey::TYPE_EC));
-            $this->assertEquals('unknown', CryptoKey::getTypeName(CryptoKey::TYPE_UNKNOWN));
-            $this->assertEquals('unknown', CryptoKey::getTypeName(998));
-        });
-    }
-
-    /**
      * Tests the generate function.
      */
     public function testConstructor()
@@ -157,8 +143,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $privateKey->getConfig());
                 $this->assertEquals(4, count($privateKey->getDetails()));
                 $this->assertEquals(1024, $privateKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_RSA, $privateKey->getType());
-                $this->assertEquals('rsa', CryptoKey::getTypeName($privateKey->getType()));
+                $this->assertEquals(CryptoKeyType::RSA, $privateKey->getType());
+                $this->assertEquals('rsa', CryptoKeyType::toName($privateKey->getType()));
                 $this->assertEquals('f0e293a34da5883dcfbffe35dad2699e6644373a', sha1($privateKey->getModulus()));
                 $this->assertEquals($privateKeyContents, $privateKey->getPEM());
                 $this->assertTrue($privateKey->isRSA());
@@ -176,8 +162,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $publicKey->getConfig());
                 $this->assertEquals(4, count($publicKey->getDetails()));
                 $this->assertEquals(1024, $publicKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_RSA, $publicKey->getType());
-                $this->assertEquals('rsa', CryptoKey::getTypeName($publicKey->getType()));
+                $this->assertEquals(CryptoKeyType::RSA, $publicKey->getType());
+                $this->assertEquals('rsa', CryptoKeyType::toName($publicKey->getType()));
                 $this->assertEquals('f0e293a34da5883dcfbffe35dad2699e6644373a', sha1($publicKey->getModulus()));
                 $this->assertEquals($publicKeyContents, $publicKey->getPEM());
                 $this->assertTrue($publicKey->isRSA());
@@ -196,8 +182,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $privateKey->getConfig());
                 $this->assertEquals(4, count($privateKey->getDetails()));
                 $this->assertEquals(1024, $privateKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_DSA, $privateKey->getType());
-                $this->assertEquals('dsa', CryptoKey::getTypeName($privateKey->getType()));
+                $this->assertEquals(CryptoKeyType::DSA, $privateKey->getType());
+                $this->assertEquals('dsa', CryptoKeyType::toName($privateKey->getType()));
                 $this->assertEquals('8196c7dd65b518f9e555fb3683f8d0b68a8edbf2', sha1($privateKey->getModulus()));
                 $this->assertEquals($privateKeyContents, $privateKey->getPEM());
                 $this->assertFalse($privateKey->isRSA());
@@ -215,8 +201,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $publicKey->getConfig());
                 $this->assertEquals(4, count($publicKey->getDetails()));
                 $this->assertEquals(1024, $publicKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_DSA, $publicKey->getType());
-                $this->assertEquals('dsa', CryptoKey::getTypeName($publicKey->getType()));
+                $this->assertEquals(CryptoKeyType::DSA, $publicKey->getType());
+                $this->assertEquals('dsa', CryptoKeyType::toName($publicKey->getType()));
                 $this->assertEquals('8196c7dd65b518f9e555fb3683f8d0b68a8edbf2', sha1($publicKey->getModulus()));
                 $this->assertEquals($publicKeyContents, $publicKey->getPEM());
                 $this->assertFalse($publicKey->isRSA());
@@ -235,8 +221,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $privateKey->getConfig());
                 $this->assertEquals(4, count($privateKey->getDetails()));
                 $this->assertEquals(1024, $privateKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_DH, $privateKey->getType());
-                $this->assertEquals('dh', CryptoKey::getTypeName($privateKey->getType()));
+                $this->assertEquals(CryptoKeyType::DH, $privateKey->getType());
+                $this->assertEquals('dh', CryptoKeyType::toName($privateKey->getType()));
                 $this->assertEquals('f7283e410b026753f6b11aad228c907600adf5ef', sha1($privateKey->getModulus()));
                 $this->assertEquals($privateKeyContents, $privateKey->getPEM());
                 $this->assertFalse($privateKey->isRSA());
@@ -254,8 +240,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $publicKey->getConfig());
                 $this->assertEquals(4, count($publicKey->getDetails()));
                 $this->assertEquals(1024, $publicKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_DH, $publicKey->getType());
-                $this->assertEquals('dh', CryptoKey::getTypeName($publicKey->getType()));
+                $this->assertEquals(CryptoKeyType::DH, $publicKey->getType());
+                $this->assertEquals('dh', CryptoKeyType::toName($publicKey->getType()));
                 $this->assertEquals('f7283e410b026753f6b11aad228c907600adf5ef', sha1($publicKey->getModulus()));
                 $this->assertEquals($publicKeyContents, $publicKey->getPEM());
                 $this->assertFalse($publicKey->isRSA());
@@ -274,8 +260,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $privateKey->getConfig());
                 $this->assertEquals(4, count($privateKey->getDetails()));
                 $this->assertEquals(256, $privateKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_EC, $privateKey->getType());
-                $this->assertEquals('ec', CryptoKey::getTypeName($privateKey->getType()));
+                $this->assertEquals(CryptoKeyType::EC, $privateKey->getType());
+                $this->assertEquals('ec', CryptoKeyType::toName($privateKey->getType()));
                 $this->assertEquals($privateKeyContents, $privateKey->getPEM());
                 $this->assertFalse($privateKey->isRSA());
                 $this->assertFalse($privateKey->isDSA());
@@ -294,8 +280,8 @@ class CryptoKeyTest extends Unit
                 $this->assertEquals(CryptoKey::DEFAULT_CONFIG, $publicKey->getConfig());
                 $this->assertEquals(4, count($publicKey->getDetails()));
                 $this->assertEquals(256, $publicKey->getBits());
-                $this->assertEquals(CryptoKey::TYPE_EC, $publicKey->getType());
-                $this->assertEquals('ec', CryptoKey::getTypeName($publicKey->getType()));
+                $this->assertEquals(CryptoKeyType::EC, $publicKey->getType());
+                $this->assertEquals('ec', CryptoKeyType::toName($publicKey->getType()));
                 $this->assertEquals($publicKeyContents, $publicKey->getPEM());
                 $this->assertFalse($publicKey->isRSA());
                 $this->assertFalse($publicKey->isDSA());
