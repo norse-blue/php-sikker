@@ -141,7 +141,9 @@ class PublicKey extends CryptoKey
     public function verify(string $message, string $signature, string $algorithm = SignatureAlgorithm::SHA1) : bool
     {
         if (($verified = openssl_verify($message, $signature, $this->resource, $algorithm))) {
+            // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'An error occurred while verifying signature.');
+            // @codeCoverageIgnoreEnd
         }
 
         return ($verified === 1);
@@ -157,7 +159,9 @@ class PublicKey extends CryptoKey
     public function seal(string $message, string $cipherMethod = CipherMethod::RC4) : array
     {
         if (openssl_seal($message, $envelope, $envelopeKeys, [$this->resource], $cipherMethod) === false) {
+            // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not seal message.');
+            // @codeCoverageIgnoreEnd
         }
 
         return [$envelope, $envelopeKeys[0]];

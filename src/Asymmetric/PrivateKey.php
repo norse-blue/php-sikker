@@ -151,7 +151,9 @@ class PrivateKey extends CryptoKey
     public function sign(string $message)
     {
         if (openssl_sign($message, $signed, $this->resource) === false) {
+            // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not sign message.');
+            // @codeCoverageIgnoreEnd
         }
 
         return $signed;
@@ -169,7 +171,9 @@ class PrivateKey extends CryptoKey
     public function unseal(string $envelope, string $envelopeKey, string $cipherMethod = null)
     {
         if (openssl_open($envelope, $message, $envelopeKey, $this->resource, $cipherMethod) === false) {
+            // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not unseal envelope.');
+            // @codeCoverageIgnoreEnd
         }
 
         return $message;
