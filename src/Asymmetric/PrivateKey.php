@@ -148,7 +148,7 @@ class PrivateKey extends CryptoKey
      * @throws OpenSSLException when the message cannot be signed.
      * @since 0.3
      */
-    public function sign(string $message)
+    public function sign(string $message) : string
     {
         if (openssl_sign($message, $signed, $this->resource) === false) {
             // @codeCoverageIgnoreStart
@@ -166,9 +166,10 @@ class PrivateKey extends CryptoKey
      * @param string $envelopeKey The envelope hash key.
      * @param string $cipherMethod The cipher method used to seal the message.
      * @return string The unsealed message.
+     * @throws OpenSSLException when the message cannot be unsealed.
      * @since 0.3
      */
-    public function unseal(string $envelope, string $envelopeKey, string $cipherMethod = null)
+    public function unseal(string $envelope, string $envelopeKey, string $cipherMethod = null) : string
     {
         if (openssl_open($envelope, $message, $envelopeKey, $this->resource, $cipherMethod) === false) {
             // @codeCoverageIgnoreStart

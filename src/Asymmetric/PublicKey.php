@@ -155,6 +155,8 @@ class PublicKey extends CryptoKey
      * @param string $message The message to be sealed.
      * @param string $cipherMethod The cipher method to use from CipherMethod.
      * @return array Returns an array containing the envelope (index 0) and the envelope key (index 1).
+     * @throws OpenSSLException when the message cannot be sealed.
+     * @since 0.3
      */
     public function seal(string $message, string $cipherMethod = CipherMethod::RC4) : array
     {
