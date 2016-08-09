@@ -139,4 +139,39 @@ class PrivateKey extends CryptoKey
     {
         return openssl_pkey_export_to_file($this->resource, $path, $passphrase, $this->config);
     }
+
+    /**
+     * Signs the message with the PrivateKey.
+     *
+     * @param string $message The message to be signed.
+     * @return string The signed message.
+     * @throws OpenSSLException when the message cannot be signed.
+     * @since 0.3
+     */
+    public function sign($message)
+    {
+        if (openssl_sign($message, $signed, $this->resource) === false) {
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not sign message.');
+        }
+
+        return $signed;
+    }
+
+    /**
+     * Unseals the given envelope.
+     *
+     * @param string $envelope The envelope to unseal.
+     * @param string $envelopeKey The envelope hash key.
+     * @return string The unsealed message.
+     * @throws OpenSSLException when the envelope cannot be unsealed.
+     * @since 0.3
+     */
+    public function unseal($envelope, $envelopeKey)
+    {
+        if (openssl_open($envelope, $message, $envelopeKey, $this->resource) === false) {
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not unseal envelope.');
+        }
+
+        return $message;
+    }
 }
