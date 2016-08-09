@@ -166,6 +166,11 @@ class PublicKey extends CryptoKey
             // @codeCoverageIgnoreEnd
         }
 
+        if (!CipherMethod::isAvailable($cipherMethod)) {
+            throw new CipherMethodNotAvailableException($cipherMethod,
+                'The given cipher method is not available in the current platform stack.');
+        }
+
         return [$envelope, $envelopeKeys[0]];
     }
 }
