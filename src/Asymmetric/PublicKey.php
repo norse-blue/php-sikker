@@ -107,7 +107,7 @@ class PublicKey extends CryptoKey
             return false;
         }
 
-        if ($type === CryptoKey::TYPE_EC) {
+        if ($type === CryptoKeyType::EC) {
             return $pairedKey->getPublicKeyPEM() == $this->getPEM();
         } else {
             return $this->getModulus() == $pairedKey->getModulus();
@@ -126,5 +126,40 @@ class PublicKey extends CryptoKey
     {
         $pem = $this->getPEM($passphrase);
         return !is_bool(file_put_contents($path, $pem));
+    }
+
+    /**
+     * Verifies the given signature for the message.
+     *
+     * @param string $message The message that was signed.
+     * @param string $signature The signature generated with a private key for the message.
+     * @param string $algorithm The signature algorithm to use.
+     * @return bool Returns true if the signature is verified, false otherwise.
+     * @throws OpenSSLException when an error occurs while verifying the signature.
+     * @since 0.3
+     */
+    public function verify(string $message, string $signature, string $algorithm = SignatureAlgorithm::SHA1) : bool
+    {
+        if (($verified = openssl_verify($message, $signature, $this->resource, $algorithm))) {
+            throw new OpenSSLException(OpenSSL::getErrors(), 'An error occurred while verifying signature.');
+        }
+
+        return ($verified === 1);
+    }
+
+    /**
+     * Seals the given message in an encrypted envelope that can only be decrypted by the private key matching the public key.
+     *
+     * @param string $message The message to be sealed.
+     * @param string $cipherMethod The cipher method to use from CipherMethod.
+     * @return array Returns an array containing the envelope (index 0) and the envelope key (index 1).
+     */
+    public function seal(string $message, string $cipherMethod = CipherMethod::RC4) : array
+    {
+        if (openssl_seal($message, $envelope, $envelopeKeys, [$this->resource], $cipherMethod) === false) {
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not seal message.');
+        }
+
+        return [$envelope, $envelopeKeys[0]];
     }
 }
