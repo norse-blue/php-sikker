@@ -71,7 +71,7 @@ class Hasher
         $algorithm = $algorithm ?? self::DEFAULT_ALGORITHM;
         if (!HashAlgorithm::isAvailable($algorithm)) {
             throw new HashAlgorithmNotAvailableException($algorithm,
-                "The given algorithm is not available in the current platform stack.");
+                'The given hash algorithm is not available in the current platform stack.');
         }
         $this->algorithm = $algorithm;
         return $this;

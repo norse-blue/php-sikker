@@ -32,17 +32,17 @@ class HashAlgorithmNotAvailableException extends RuntimeException
     protected $algorithm;
 
     /**
-     * AlgorithmNotAvailableException constructor.
+     * HashAlgorithmNotAvailableException constructor.
      *
-     * @param string $algorithm The algorithm that was not found.
+     * @param string $method The algorithm that was not found.
      * @param string $message The Exception message to throw. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param int $code The Exception code. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param Throwable|null $previous The previous exception used for the exception chaining. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @since 0.1
      */
-    public function __construct(string $algorithm = "", string $message = "", int $code = 0, Throwable $previous = null)
+    public function __construct(string $method = "", string $message = "", int $code = 0, Throwable $previous = null)
     {
-        $this->algorithm = $algorithm;
+        $this->algorithm = $method;
         parent::__construct($message, $code, $previous);
     }
 
@@ -65,6 +65,6 @@ class HashAlgorithmNotAvailableException extends RuntimeException
      */
     public function __toString() : string
     {
-        return sprintf("For algorithm '%s' %s", $this->algorithm, parent::__toString());
+        return sprintf("For hash algorithm '%s' %s", $this->algorithm, parent::__toString());
     }
 }
