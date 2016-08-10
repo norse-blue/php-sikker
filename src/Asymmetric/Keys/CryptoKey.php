@@ -85,6 +85,7 @@ abstract class CryptoKey
      */
     public function __destruct()
     {
+        openssl_free_key($this->resource);
         unset($this->resource);
     }
 
