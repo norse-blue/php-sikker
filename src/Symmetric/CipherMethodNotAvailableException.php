@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Asymmetric;
+namespace NorseBlue\Sikker\Symmetric;
 
 use RuntimeException;
 use Throwable;
@@ -19,7 +19,7 @@ use Throwable;
 /**
  * Class CipherMethodNotAvailableException
  *
- * @package NorseBlue\Sikker\Asymmetric
+ * @package NorseBlue\Sikker\Symmetric
  * @see http://php.net/manual/en/class.runtimeexception.php The RuntimeException class
  * @since 0.3
  * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with an additional property and it's getter.

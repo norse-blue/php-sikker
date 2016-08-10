@@ -11,14 +11,14 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Asymmetric;
+namespace NorseBlue\Sikker\Symmetric;
 
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 
 /**
- * Class SignatureAlgorithm
+ * Class CipherMethod
  *
- * @package NorseBlue\Sikker\Asymmetric
+ * @package NorseBlue\Sikker\Symmetric
  * @see http://php.net/manual/en/function.openssl-get-cipher-methods.php openssl_get_cipher_methods function reference.
  * @since 0.3
  */
