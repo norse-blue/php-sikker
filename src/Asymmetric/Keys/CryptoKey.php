@@ -99,8 +99,7 @@ abstract class CryptoKey
     public function loadDetails($throwException = false)
     {
         OpenSSL::resetErrors();
-        $details = openssl_pkey_get_details($this->resource);
-        if ($details === false) {
+        if (($details = openssl_pkey_get_details($this->resource)) === false) {
             // @codeCoverageIgnoreStart
             if ($throwException) {
                 throw new OpenSSLException(OpenSSL::getErrors(), 'Failed to get key details.');
