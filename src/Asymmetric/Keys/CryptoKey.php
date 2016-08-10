@@ -13,9 +13,9 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Asymmetric\Keys;
 
+use InvalidArgumentException;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
-use RuntimeException;
 
 /**
  * Class CryptoKey
@@ -61,14 +61,14 @@ abstract class CryptoKey
         OpenSSL::isAvailable(true);
         if (!is_resource($resource)) {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException(sprintf('Argument 1 passed to %s must be a resource, %s given.',
+            throw new InvalidArgumentException(sprintf('Argument 1 passed to %s must be a resource, %s given.',
                 __FUNCTION__, gettype($resource)));
             // @codeCoverageIgnoreEnd
         }
 
         if (($rtype = get_resource_type($resource)) !== 'OpenSSL key') {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException(sprintf('Argument 1 passed to %s must be an \'OpenSSL key\' resource, \'%s\' resource given.',
+            throw new InvalidArgumentException(sprintf('Argument 1 passed to %s must be an \'OpenSSL key\' resource, \'%s\' resource given.',
                 __FUNCTION__, $rtype));
             // @codeCoverageIgnoreEnd
         }
