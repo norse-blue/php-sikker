@@ -11,14 +11,14 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Keys;
+namespace NorseBlue\Sikker\Tests\Asymmetric\Keys;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use InvalidArgumentException;
-use NorseBlue\Sikker\Asymmetric\KeyPair;
-use NorseBlue\Sikker\Asymmetric\PrivateKey;
-use NorseBlue\Sikker\Asymmetric\PublicKey;
+use NorseBlue\Sikker\Asymmetric\Keys\KeyPair;
+use NorseBlue\Sikker\Asymmetric\Keys\PrivateKey;
+use NorseBlue\Sikker\Asymmetric\Keys\PublicKey;
 use NorseBlue\Sikker\OpenSSL\OpenSSLNotAvailableException;
 
 class KeyPairTest extends Unit

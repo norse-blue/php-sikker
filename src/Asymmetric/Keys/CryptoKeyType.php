@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Asymmetric;
+namespace NorseBlue\Sikker\Asymmetric\Keys;
 
 /**
  * Class CryptoKeyType

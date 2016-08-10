@@ -11,11 +11,11 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Keys;
+namespace NorseBlue\Sikker\Tests\Asymmetric\Keys;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
-use NorseBlue\Sikker\Asymmetric\CryptoKeyType;
+use NorseBlue\Sikker\Asymmetric\Keys\CryptoKeyType;
 
 class CryptoKeyTypeTest extends Unit
 {

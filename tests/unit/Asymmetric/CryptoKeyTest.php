@@ -11,15 +11,15 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Keys;
+namespace NorseBlue\Sikker\Tests\Asymmetric\Keys;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
-use NorseBlue\Sikker\Asymmetric\CryptoKey;
-use NorseBlue\Sikker\Asymmetric\CryptoKeyType;
-use NorseBlue\Sikker\Asymmetric\CryptoKeyTypeException;
-use NorseBlue\Sikker\Asymmetric\PrivateKey;
-use NorseBlue\Sikker\Asymmetric\PublicKey;
+use NorseBlue\Sikker\Asymmetric\Keys\CryptoKey;
+use NorseBlue\Sikker\Asymmetric\Keys\CryptoKeyType;
+use NorseBlue\Sikker\Asymmetric\Keys\CryptoKeyTypeException;
+use NorseBlue\Sikker\Asymmetric\Keys\PrivateKey;
+use NorseBlue\Sikker\Asymmetric\Keys\PublicKey;
 use NorseBlue\Sikker\OpenSSL\OpenSSLNotAvailableException;
 use RuntimeException;
 
