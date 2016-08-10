@@ -20,7 +20,7 @@ use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 /**
  * Class PublicKey
  *
- * @package NorseBlue\Sikker\Asymmetric
+ * @package NorseBlue\Sikker\Asymmetric\Keys
  * @since 0.3
  */
 class PublicKey extends CryptoKey

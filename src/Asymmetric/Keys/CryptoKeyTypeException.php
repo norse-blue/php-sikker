@@ -18,7 +18,7 @@ use Exception;
 /**
  * Class CryptoKeyTypeException
  *
- * @package NorseBlue\Sikker\Asymmetric
+ * @package NorseBlue\Sikker\Asymmetric\Keys
  * @since 0.3
  */
 class CryptoKeyTypeException extends Exception

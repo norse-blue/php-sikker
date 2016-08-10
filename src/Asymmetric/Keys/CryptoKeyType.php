@@ -16,7 +16,7 @@ namespace NorseBlue\Sikker\Asymmetric\Keys;
 /**
  * Class CryptoKeyType
  *
- * @package NorseBlue\Sikker\Asymmetric
+ * @package NorseBlue\Sikker\Asymmetric\Keys
  * @see http://php.net/manual/en/function.openssl-pkey-get-details.php openssl_pkey_get_details function reference.
  * @since 0.3
  */

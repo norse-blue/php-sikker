@@ -20,7 +20,7 @@ use RuntimeException;
 /**
  * Class CryptoKey
  *
- * @package NorseBlue\Sikker\Asymmetric
+ * @package NorseBlue\Sikker\Asymmetric\Keys
  * @since 0.3
  */
 abstract class CryptoKey

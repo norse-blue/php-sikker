@@ -20,7 +20,7 @@ use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 /**
  * Class KeyPair
  *
- * @package NorseBlue\Sikker\Asymmetric
+ * @package NorseBlue\Sikker\Asymmetric\Keys
  * @since 0.3
  */
 class KeyPair
