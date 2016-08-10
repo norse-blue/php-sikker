@@ -17,6 +17,8 @@ use InvalidArgumentException;
 use NorseBlue\Sikker\Asymmetric\SignatureAlgorithm;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
+use NorseBlue\Sikker\Symmetric\CipherMethod;
+use NorseBlue\Sikker\Symmetric\CipherMethodNotAvailableException;
 
 /**
  * Class PublicKey
@@ -162,23 +164,24 @@ class PublicKey extends CryptoKey
      *
      * @param string $message The message to be sealed.
      * @param string $cipherMethod The cipher method to use from CipherMethod.
-     * @return array Returns an array containing the envelope (index 0) and the envelope key (index 1).
+     * @return array Returns an array containing the envelope (index 0), the envelope key (index 1) and the cipher method used (index 2).
      * @throws OpenSSLException when the message cannot be sealed.
      * @since 0.3
      */
     public function seal(string $message, string $cipherMethod = CipherMethod::RC4) : array
     {
+        OpenSSL::resetErrors();
+        if (!CipherMethod::isAvailable($cipherMethod)) {
+            throw new CipherMethodNotAvailableException($cipherMethod,
+                'The given cipher method is not available in the current platform stack.');
+        }
+
         if (openssl_seal($message, $envelope, $envelopeKeys, [$this->resource], $cipherMethod) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not seal message.');
             // @codeCoverageIgnoreEnd
         }
 
-        if (!CipherMethod::isAvailable($cipherMethod)) {
-            throw new CipherMethodNotAvailableException($cipherMethod,
-                'The given cipher method is not available in the current platform stack.');
-        }
-
-        return [$envelope, $envelopeKeys[0]];
+        return [$envelope, $envelopeKeys[0], $cipherMethod];
     }
 }
