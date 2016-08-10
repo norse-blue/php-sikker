@@ -13,7 +13,7 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Asymmetric\Keys;
 
-use Exception;
+use InvalidArgumentException;
 
 /**
  * Class CryptoKeyTypeException
@@ -21,6 +21,6 @@ use Exception;
  * @package NorseBlue\Sikker\Asymmetric\Keys
  * @since 0.3
  */
-class CryptoKeyTypeException extends Exception
+class CryptoKeyTypeException extends InvalidArgumentException
 {
 }
