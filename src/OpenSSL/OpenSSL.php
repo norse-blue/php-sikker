@@ -42,7 +42,9 @@ class OpenSSL
         }
 
         if (!self::$extensionAvailable && $throwException) {
-            throw new OpenSSLNotAvailableException('OpenSSL extension is not available.'); // @codeCoverageIgnore
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLNotAvailableException('OpenSSL extension is not available on this platform stack.');
+            // @codeCoverageIgnoreEnd
         }
 
         return self::$extensionAvailable;
@@ -80,5 +82,17 @@ class OpenSSL
         }
 
         return $errors;
+    }
+
+    /**
+     * Resets the OpenSSL error stack.
+     *
+     * @since 0.3
+     */
+    public static function resetErrors()
+    {
+        OpenSSL::isAvailable(true);
+        while (openssl_error_string()) {
+        }
     }
 }
