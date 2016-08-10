@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace NorseBlue\Sikker\Asymmetric\Keys;
 
 use InvalidArgumentException;
+use NorseBlue\Sikker\Asymmetric\SignatureAlgorithm;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 
@@ -135,14 +136,19 @@ class PublicKey extends CryptoKey
      *
      * @param string $message The message that was signed.
      * @param string $signature The signature generated with a private key for the message.
-     * @param string $algorithm The signature algorithm to use.
+     * @param int $signatureAlgorithm The signature algorithm used.
      * @return bool Returns true if the signature is verified, false otherwise.
      * @throws OpenSSLException when an error occurs while verifying the signature.
      * @since 0.3
      */
-    public function verify(string $message, string $signature, string $algorithm = SignatureAlgorithm::SHA1) : bool
+    public function verify(
+        string $message,
+        string $signature,
+        int $signatureAlgorithm = SignatureAlgorithm::SHA1
+    ) : bool
     {
-        if (($verified = openssl_verify($message, $signature, $this->resource, $algorithm))) {
+        OpenSSL::resetErrors();
+        if (($verified = openssl_verify($message, $signature, $this->resource, $signatureAlgorithm)) === -1) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'An error occurred while verifying signature.');
             // @codeCoverageIgnoreEnd

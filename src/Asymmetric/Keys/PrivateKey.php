@@ -14,6 +14,7 @@ declare(strict_types = 1);
 namespace NorseBlue\Sikker\Asymmetric\Keys;
 
 use InvalidArgumentException;
+use NorseBlue\Sikker\Asymmetric\SignatureAlgorithm;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 
@@ -153,19 +154,21 @@ class PrivateKey extends CryptoKey
      * Signs the message with the PrivateKey.
      *
      * @param string $message The message to be signed.
-     * @return string The signed message.
+     * @param int $signatureAlgorithm The signature algorithm to be used.
+     * @return array Returns an array with the signature (index 0) and the signature algorithm used (index 1).
      * @throws OpenSSLException when the message cannot be signed.
      * @since 0.3
      */
-    public function sign(string $message) : string
+    public function sign(string $message, int $signatureAlgorithm = SignatureAlgorithm::SHA1) : array
     {
-        if (openssl_sign($message, $signed, $this->resource) === false) {
+        OpenSSL::resetErrors();
+        if (openssl_sign($message, $signature, $this->resource, $signatureAlgorithm) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not sign message.');
             // @codeCoverageIgnoreEnd
         }
 
-        return $signed;
+        return [$signature, $signatureAlgorithm];
     }
 
     /**
