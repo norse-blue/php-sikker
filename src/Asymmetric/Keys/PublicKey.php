@@ -152,8 +152,7 @@ class PublicKey extends CryptoKey
         string $message,
         string $signature,
         int $signatureAlgorithm = SignatureAlgorithm::SHA1
-    ) : bool
-    {
+    ) : bool {
         OpenSSL::resetErrors();
         if (($verified = openssl_verify($message, $signature, $this->resource, $signatureAlgorithm)) === -1) {
             // @codeCoverageIgnoreStart
