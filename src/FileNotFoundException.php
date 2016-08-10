@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -19,7 +19,7 @@ use Throwable;
 /**
  * Class FileNotFoundException
  *
- * @package NorseBlue\Sikker\Hash
+ * @package NorseBlue\Sikker
  * @see http://php.net/manual/en/class.runtimeexception.php
  * @since 0.1
  * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with an additional property and it's getter.

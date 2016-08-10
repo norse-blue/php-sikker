@@ -11,60 +11,60 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Hashes;
+namespace NorseBlue\Sikker\OpenSSL;
 
 use RuntimeException;
 use Throwable;
 
 /**
- * Class HashAlgorithmNotAvailableException
+ * Class OpenSSLException
  *
- * @package NorseBlue\Sikker\Hashes
- * @see http://php.net/manual/en/class.runtimeexception.php The RuntimeException class
- * @since 0.1
- * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with an additional property and it's getter.
+ * @package NorseBlue\Sikker
+ * @see http://php.net/manual/en/class.runtimeexception.php
+ * @since 0.3
+ * @codeCoverageIgnore This class does not need to be covered by tests.
  */
-class HashAlgorithmNotAvailableException extends RuntimeException
+class OpenSSLException extends RuntimeException
 {
     /**
-     * @var string The algorithm that was not found.
+     * @var array The OpenSSL errors.
      */
-    protected $algorithm;
+    protected $errors;
 
     /**
-     * HashAlgorithmNotAvailableException constructor.
+     * OpenSSLException constructor.
      *
-     * @param string $method The algorithm that was not found.
+     * @param array $errors The OpenSSL errors.
      * @param string $message The Exception message to throw. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param int $code The Exception code. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param Throwable|null $previous The previous exception used for the exception chaining. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
-     * @since 0.1
+     * @since 0.3
      */
-    public function __construct(string $method = "", string $message = "", int $code = 0, Throwable $previous = null)
+    public function __construct(array $errors, string $message = "", int $code = 0, Throwable $previous = null)
     {
-        $this->algorithm = $method;
+        $this->errors = $errors;
         parent::__construct($message, $code, $previous);
     }
 
     /**
-     * Gets the algorithm that was not found.
+     * Gets the OpenSSL errors.
      *
-     * @return string Returns the algorithm that was not found.
-     * @since 0.1
+     * @return array Returns the OpenSSL errors.
+     * @since 0.3
      */
-    public function getAlgorithm() : string
+    public function getErrors() : array
     {
-        return $this->algorithm;
+        return $this->errors;
     }
 
     /**
      * String representation of the exception.
      *
      * @return string Returns the string representation of the exception.
-     * @since 0.1
+     * @since 0.3
      */
     public function __toString() : string
     {
-        return sprintf("For hash algorithm '%s' %s", $this->algorithm, parent::__toString());
+        return sprintf("%s\nOpenSSL Errors:%s", parent::__toString(), implode("\n  - ", $this->errors));
     }
 }

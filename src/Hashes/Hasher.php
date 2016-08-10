@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -71,7 +71,7 @@ class Hasher
         $algorithm = $algorithm ?? self::DEFAULT_ALGORITHM;
         if (!HashAlgorithm::isAvailable($algorithm)) {
             throw new HashAlgorithmNotAvailableException($algorithm,
-                "The given algorithm is not available in the current platform stack.");
+                'The given hash algorithm is not available in the current platform stack.');
         }
         $this->algorithm = $algorithm;
         return $this;

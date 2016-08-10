@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -106,6 +106,7 @@ class TokenFactory
      * Generates a token using the configured length and alphabet.
      * Important: The generated token will be more secure if the alphabet is long enough.
      *
+     * @see http://php.net/manual/en/function.random-int.php Generates cryptographically secure pseudo-random integers
      * @return string Returns the generated token.
      * @since 0.1
      */
@@ -125,8 +126,9 @@ class TokenFactory
     /**
      * Generates a hexadecimal token using the configured length.
      * Important: The alphabet is not used with this method. Output chars are [0-1][a-f].
-     *            The length is the length of the resulting string (it is not the length in bytes).
+     *            The length is the length of the resulting hex string (it is not the length in bytes, though it may match).
      *
+     * @see http://php.net/manual/en/function.random-bytes.php Generates cryptographically secure pseudo-random bytes
      * @return string Returns the generated hex token in lowercase.
      * @since 0.1
      */

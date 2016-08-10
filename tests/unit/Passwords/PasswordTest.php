@@ -17,13 +17,13 @@ use Codeception\Specify;
 use Codeception\Test\Unit;
 use Mockery;
 use NorseBlue\Sikker\Passwords\Password;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShaker;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerBlowfish;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerExtDES;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerMD5;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerSHA256;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerSHA512;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerStdDES;
+use NorseBlue\Sikker\SaltShakers\SaltShaker;
+use NorseBlue\Sikker\SaltShakers\SaltShakerBlowfish;
+use NorseBlue\Sikker\SaltShakers\SaltShakerExtDES;
+use NorseBlue\Sikker\SaltShakers\SaltShakerMD5;
+use NorseBlue\Sikker\SaltShakers\SaltShakerSHA256;
+use NorseBlue\Sikker\SaltShakers\SaltShakerSHA512;
+use NorseBlue\Sikker\SaltShakers\SaltShakerStdDES;
 
 class PasswordTest extends Unit
 {

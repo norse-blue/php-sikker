@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Passwords\SaltShakers;
+namespace NorseBlue\Sikker\SaltShakers;
 
 use InvalidArgumentException;
 use NorseBlue\Sikker\Tokens\TokenFactory;
@@ -19,7 +19,7 @@ use NorseBlue\Sikker\Tokens\TokenFactory;
 /**
  * Class SaltShakerExtDES
  *
- * @package NorseBlue\Sikker\Passwords\SaltShakers
+ * @package NorseBlue\Sikker\SaltShakers
  * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
  * @uses NorseBlue\Sikker\Tokens\TokenFactory
  * @since 0.1

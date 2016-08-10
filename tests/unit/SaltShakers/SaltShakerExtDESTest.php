@@ -11,13 +11,13 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Passwords\SaltShakers;
+namespace NorseBlue\Sikker\Tests\SaltShakers;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use Codeception\Util\Debug;
 use InvalidArgumentException;
-use NorseBlue\Sikker\Passwords\SaltShakers\SaltShakerExtDES;
+use NorseBlue\Sikker\SaltShakers\SaltShakerExtDES;
 
 class SaltShakerExtDESTest extends Unit
 {

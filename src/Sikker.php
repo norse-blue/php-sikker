@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -22,30 +22,9 @@ namespace NorseBlue\Sikker;
 abstract class Sikker
 {
     /**
-     * @var string Sikker packge version.
+     * @var string Sikker package version.
      */
-    const VERSION = '0.1.1';
-
-    /**
-     * @var bool|null Whether OpenSSL module is available.
-     */
-    protected static $openSSLAvailable = null;
-
-    /**
-     * Verifies if the OpenSSL extension is loaded.
-     *
-     * @return bool Whether the OpenSSL extension is loaded or not.
-     * @since 0.1
-     * @codeCoverageIgnore Ignore as it is platform dependent.
-     */
-    public static function isOpenSSLAvailable() : bool
-    {
-        if (self::$openSSLAvailable == null) {
-            extension_loaded('openssl');
-        }
-
-        return self::$openSSLAvailable;
-    }
+    const VERSION = '0.3';
 
     /**
      * Get string length. Uses multi-byte function if exists.

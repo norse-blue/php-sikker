@@ -11,60 +11,60 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Hashes;
+namespace NorseBlue\Sikker\Symmetric;
 
 use RuntimeException;
 use Throwable;
 
 /**
- * Class HashAlgorithmNotAvailableException
+ * Class CipherMethodNotAvailableException
  *
- * @package NorseBlue\Sikker\Hashes
+ * @package NorseBlue\Sikker\Symmetric
  * @see http://php.net/manual/en/class.runtimeexception.php The RuntimeException class
- * @since 0.1
+ * @since 0.3
  * @codeCoverageIgnore This class does not need to be covered by tests. It's just an extension to exceptions with an additional property and it's getter.
  */
-class HashAlgorithmNotAvailableException extends RuntimeException
+class CipherMethodNotAvailableException extends RuntimeException
 {
     /**
-     * @var string The algorithm that was not found.
+     * @var string The method that was not found.
      */
-    protected $algorithm;
+    protected $method;
 
     /**
-     * HashAlgorithmNotAvailableException constructor.
+     * CipherMethodNotAvailableException constructor.
      *
-     * @param string $method The algorithm that was not found.
+     * @param string $method The method that was not found.
      * @param string $message The Exception message to throw. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param int $code The Exception code. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param Throwable|null $previous The previous exception used for the exception chaining. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
-     * @since 0.1
+     * @since 0.3
      */
     public function __construct(string $method = "", string $message = "", int $code = 0, Throwable $previous = null)
     {
-        $this->algorithm = $method;
+        $this->method = $method;
         parent::__construct($message, $code, $previous);
     }
 
     /**
-     * Gets the algorithm that was not found.
+     * Gets the method that was not found.
      *
-     * @return string Returns the algorithm that was not found.
-     * @since 0.1
+     * @return string Returns the method that was not found.
+     * @since 0.3
      */
-    public function getAlgorithm() : string
+    public function getMethod() : string
     {
-        return $this->algorithm;
+        return $this->method;
     }
 
     /**
      * String representation of the exception.
      *
      * @return string Returns the string representation of the exception.
-     * @since 0.1
+     * @since 0.3
      */
     public function __toString() : string
     {
-        return sprintf("For hash algorithm '%s' %s", $this->algorithm, parent::__toString());
+        return sprintf("For cipher method '%s' %s", $this->method, parent::__toString());
     }
 }
