@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -182,7 +182,7 @@ class Entropy
      * @return int Returns the spatial dimension.
      * @since 0.2
      */
-    public static function spatialDimension(string $str)
+    public static function spatialDimension(string $str) : int
     {
         $spatial = 0;
         $charClasses = [

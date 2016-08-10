@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -16,7 +16,7 @@ namespace NorseBlue\Sikker\Entropy\Adapters;
 use NorseBlue\Sikker\Entropy\Entropy;
 use NorseBlue\Sikker\Sikker;
 
-/**.
+/**
  * Class EntropyAdapterSimple
  *
  * @package NorseBlue\Sikker\Entropy\Adapters

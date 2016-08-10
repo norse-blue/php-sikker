@@ -56,7 +56,7 @@ class OpenSSLTest extends Unit
         $this->specify('Tests the OpenSSL configuration retrieval function.', function () {
             if (extension_loaded('openssl')) {
                 $config = OpenSSL::getConfiguration();
-                if (getenv('OPENSSL_CONFIG') !== false || getenv('SSLEAY_CONF') !== false) {
+                if (getenv('OPENSSL_CONF') !== false || getenv('SSLEAY_CONF') !== false) {
                     $this->assertInternalType('string', $config);
                 } else {
                     $this->assertFalse($config);

@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -13,9 +13,9 @@ declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Asymmetric\Keys;
 
+use InvalidArgumentException;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
-use RuntimeException;
 
 /**
  * Class CryptoKey
@@ -54,6 +54,7 @@ abstract class CryptoKey
      *
      * @param resource $resource The OpenSSL key resource.
      * @param array $config The OpenSSL config array to use.
+     * @throws InvalidArgumentException when the given $resource is not of type 'OpenSSL key resource'.
      * @since 0.3
      */
     public function __construct($resource, array $config = self::DEFAULT_CONFIG)
@@ -61,14 +62,14 @@ abstract class CryptoKey
         OpenSSL::isAvailable(true);
         if (!is_resource($resource)) {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException(sprintf('Argument 1 passed to %s must be a resource, %s given.',
+            throw new InvalidArgumentException(sprintf('Argument 1 passed to %s must be a resource, %s given.',
                 __FUNCTION__, gettype($resource)));
             // @codeCoverageIgnoreEnd
         }
 
         if (($rtype = get_resource_type($resource)) !== 'OpenSSL key') {
             // @codeCoverageIgnoreStart
-            throw new RuntimeException(sprintf('Argument 1 passed to %s must be an \'OpenSSL key\' resource, \'%s\' resource given.',
+            throw new InvalidArgumentException(sprintf('Argument 1 passed to %s must be an \'OpenSSL key\' resource, \'%s\' resource given.',
                 __FUNCTION__, $rtype));
             // @codeCoverageIgnoreEnd
         }
@@ -94,13 +95,13 @@ abstract class CryptoKey
      *
      * @param bool $throwException Whether to throw an exception on error.
      * @return bool Returns true if details have been loaded correctly, false otherwise.
+     * @throws OpenSSLException when the key details cannot be gathered.
      * @since 0.3
      */
-    public function loadDetails($throwException = false)
+    public function loadDetails($throwException = false) : bool
     {
         OpenSSL::resetErrors();
-        $details = openssl_pkey_get_details($this->resource);
-        if ($details === false) {
+        if (($details = openssl_pkey_get_details($this->resource)) === false) {
             // @codeCoverageIgnoreStart
             if ($throwException) {
                 throw new OpenSSLException(OpenSSL::getErrors(), 'Failed to get key details.');

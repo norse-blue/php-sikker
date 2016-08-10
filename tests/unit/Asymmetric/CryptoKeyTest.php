@@ -15,13 +15,13 @@ namespace NorseBlue\Sikker\Tests\Asymmetric\Keys;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
+use InvalidArgumentException;
 use NorseBlue\Sikker\Asymmetric\Keys\CryptoKey;
 use NorseBlue\Sikker\Asymmetric\Keys\CryptoKeyType;
 use NorseBlue\Sikker\Asymmetric\Keys\CryptoKeyTypeException;
 use NorseBlue\Sikker\Asymmetric\Keys\PrivateKey;
 use NorseBlue\Sikker\Asymmetric\Keys\PublicKey;
 use NorseBlue\Sikker\OpenSSL\OpenSSLNotAvailableException;
-use RuntimeException;
 
 class CryptoKeySubclass extends CryptoKey
 {
@@ -120,7 +120,7 @@ class CryptoKeyTest extends Unit
         $this->specify('Throws an RuntimeException if the passed value is not a resource when constructing the object.',
             function () {
                 if (extension_loaded('openssl')) {
-                    $this->expectException(RuntimeException::class);
+                    $this->expectException(InvalidArgumentException::class);
                     $key = new CryptoKeySubclass(998);
                 } else {
                     $this->expectException(OpenSSLNotAvailableException::class);

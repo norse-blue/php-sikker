@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -52,6 +52,8 @@ class PublicKey extends CryptoKey
      *
      * @param string $encryptedData The data to decrypt.
      * @return string Returns the decrypted data.
+     * @throws OpenSSLException when the given data cannot be decrypted.
+     * @since 0.3
      */
     public function decrypt(string $encryptedData) : string
     {
@@ -70,6 +72,8 @@ class PublicKey extends CryptoKey
      *
      * @param string $rawData The data to encrypt.
      * @return string Returns the encrypted data.
+     * @throws OpenSSLException when the given data cannot be encrypted.
+     * @since 0.3
      */
     public function encrypt(string $rawData) : string
     {
@@ -99,7 +103,8 @@ class PublicKey extends CryptoKey
      * Verifies if the given key matches is a pair match.
      *
      * @param CryptoKey $pairedKey The paired key to test.
-     * @return bool
+     * @return bool Returns true when the given paired key matches, false otherwise.
+     * @throws InvalidArgumentException when the given paired key is not an instance of PrivateKey.
      * @since 0.3
      */
     public function isPairOf(CryptoKey $pairedKey) : bool
@@ -147,8 +152,7 @@ class PublicKey extends CryptoKey
         string $message,
         string $signature,
         int $signatureAlgorithm = SignatureAlgorithm::SHA1
-    ) : bool
-    {
+    ) : bool {
         OpenSSL::resetErrors();
         if (($verified = openssl_verify($message, $signature, $this->resource, $signatureAlgorithm)) === -1) {
             // @codeCoverageIgnoreStart

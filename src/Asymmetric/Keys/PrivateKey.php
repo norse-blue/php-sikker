@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.2
+ * @version    0.3
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -32,6 +32,7 @@ class PrivateKey extends CryptoKey
      * @param string $key The private key string in PEM format.
      * @param string $passphrase The passphrase if exists.
      * @return PrivateKey The PrivateKey object.
+     * @throws OpenSSLException when the given private key cannot be read.
      * @since 0.3
      */
     public static function fromPEM(string $key, string $passphrase = '') : PrivateKey
@@ -61,6 +62,7 @@ class PrivateKey extends CryptoKey
      * Decrypts the given data.
      *
      * @param string $encryptedData The data to decrypt.
+     * @throws OpenSSLException when the given data cannot be decrypted.
      * @return string Returns the decrypted data.
      */
     public function decrypt(string $encryptedData) : string
@@ -79,6 +81,7 @@ class PrivateKey extends CryptoKey
      * Encrypts the given data.
      *
      * @param string $rawData The data to encrypt.
+     * @throws OpenSSLException when the given data cannot be encrypted.
      * @return string Returns the encrypted data.
      */
     public function encrypt(string $rawData) : string
@@ -98,12 +101,13 @@ class PrivateKey extends CryptoKey
      *
      * @param string $passphrase The optional passphrase to protect the private key.
      * @return null|string Returns the private key string in PEM format.
+     * @throws OpenSSLException when the key's PEM string cannot be gathered.
      * @since 0.3
      */
     public function getPEM(string $passphrase = null) : string
     {
         OpenSSL::resetErrors();
-        if(openssl_pkey_export($this->resource, $key, $passphrase, $this->config) === false) {
+        if (openssl_pkey_export($this->resource, $key, $passphrase, $this->config) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not get private key PEM.');
             // @codeCoverageIgnoreEnd
@@ -116,7 +120,8 @@ class PrivateKey extends CryptoKey
      * Verifies if the given key matches is a pair match.
      *
      * @param CryptoKey $pairedKey The paired key to test.
-     * @return bool
+     * @return bool Returns true when the given paired key matches, false otherwise.
+     * @throws InvalidArgumentException when the given paired key is not an instance of PublicKey.
      * @since 0.3
      */
     public function isPairOf(CryptoKey $pairedKey) : bool
