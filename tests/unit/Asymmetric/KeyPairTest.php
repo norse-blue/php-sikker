@@ -90,8 +90,12 @@ class KeyPairTest extends Unit
         $this->specify('Generates a KeyPair correctly.', function () {
             if (extension_loaded('openssl')) {
                 $keyPair = KeyPair::generate();
-                $this->assertInstanceOf(PrivateKey::class, $keyPair->getPrivateKey());
-                $this->assertInstanceOf(PublicKey::class, $keyPair->getPublicKey());
+                $privateKey = $keyPair->getPrivateKey();
+                $publicKey = $keyPair->getPublicKey();
+                $this->assertInstanceOf(PrivateKey::class, $privateKey);
+                $this->assertInstanceOf(PublicKey::class, $publicKey);
+                $this->assertTrue($privateKey->isPairOf($publicKey));
+                $this->assertTrue($publicKey->isPairOf($privateKey));
             } else {
                 $this->expectException(OpenSSLNotAvailableException::class);
                 $keyPair = KeyPair::generate();
