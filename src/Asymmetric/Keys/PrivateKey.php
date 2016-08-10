@@ -35,7 +35,7 @@ class PrivateKey extends CryptoKey
      */
     public static function fromPEM(string $key, string $passphrase = '') : PrivateKey
     {
-        OpenSSL::isAvailable(true);
+        OpenSSL::resetErrors();
         if (($resource = openssl_pkey_get_private($key, $passphrase)) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given private key.');
@@ -64,6 +64,7 @@ class PrivateKey extends CryptoKey
      */
     public function decrypt(string $encryptedData) : string
     {
+        OpenSSL::resetErrors();
         if (openssl_private_decrypt($encryptedData, $decrypted, $this->resource) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not decrypt the given data with this private key.');
@@ -81,6 +82,7 @@ class PrivateKey extends CryptoKey
      */
     public function encrypt(string $rawData) : string
     {
+        OpenSSL::resetErrors();
         if (openssl_private_encrypt($rawData, $encrypted, $this->resource) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not encrypt the given data with this private key.');
@@ -99,7 +101,13 @@ class PrivateKey extends CryptoKey
      */
     public function getPEM(string $passphrase = null) : string
     {
-        openssl_pkey_export($this->resource, $key, $passphrase, $this->config);
+        OpenSSL::resetErrors();
+        if(openssl_pkey_export($this->resource, $key, $passphrase, $this->config) === false) {
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'Could not get private key PEM.');
+            // @codeCoverageIgnoreEnd
+        }
+
         return trim($key);
     }
 
@@ -137,6 +145,7 @@ class PrivateKey extends CryptoKey
      */
     public function save(string $path, string $passphrase = null) : bool
     {
+        OpenSSL::resetErrors();
         return openssl_pkey_export_to_file($this->resource, $path, $passphrase, $this->config);
     }
 
@@ -171,6 +180,7 @@ class PrivateKey extends CryptoKey
      */
     public function unseal(string $envelope, string $envelopeKey, string $cipherMethod = null) : string
     {
+        OpenSSL::resetErrors();
         if (openssl_open($envelope, $message, $envelopeKey, $this->resource, $cipherMethod) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not unseal envelope.');

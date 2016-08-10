@@ -34,7 +34,7 @@ class PublicKey extends CryptoKey
      */
     public static function fromPEM(string $key) : PublicKey
     {
-        OpenSSL::isAvailable(true);
+        OpenSSL::resetErrors();
         if (($resource = openssl_pkey_get_public($key)) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Cannot read the given public key.');
@@ -52,6 +52,7 @@ class PublicKey extends CryptoKey
      */
     public function decrypt(string $encryptedData) : string
     {
+        OpenSSL::resetErrors();
         if (openssl_public_decrypt($encryptedData, $decrypted, $this->resource) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not decrypt the given data with this public key.');
@@ -69,7 +70,8 @@ class PublicKey extends CryptoKey
      */
     public function encrypt(string $rawData) : string
     {
-        if (openssl_private_encrypt($rawData, $encrypted, $this->resource) === false) {
+        OpenSSL::resetErrors();
+        if (openssl_public_encrypt($rawData, $encrypted, $this->resource) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not encrypt the given data with this public key.');
             // @codeCoverageIgnoreEnd

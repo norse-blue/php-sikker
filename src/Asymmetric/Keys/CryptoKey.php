@@ -98,6 +98,7 @@ abstract class CryptoKey
      */
     public function loadDetails($throwException = false)
     {
+        OpenSSL::resetErrors();
         $details = openssl_pkey_get_details($this->resource);
         if ($details === false) {
             // @codeCoverageIgnoreStart
@@ -221,6 +222,7 @@ abstract class CryptoKey
      */
     public function getModulus() : string
     {
+        OpenSSL::resetErrors();
         switch ($this->getType()) {
             case CryptoKeyType::RSA:
                 return $this->details['rsa']['n'];

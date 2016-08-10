@@ -57,7 +57,7 @@ class KeyPair
      */
     public static function generate(array $config = CryptoKey::DEFAULT_CONFIG) : KeyPair
     {
-        OpenSSL::isAvailable(true);
+        OpenSSL::resetErrors();
         if (($resource = openssl_pkey_new($config)) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(),
