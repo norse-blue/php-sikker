@@ -24,7 +24,7 @@ abstract class Sikker
     /**
      * @var string Sikker packge version.
      */
-    const VERSION = '0.1.1';
+    const VERSION = '0.2';
 
     /**
      * Get string length. Uses multi-byte function if exists.
