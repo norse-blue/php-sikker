@@ -20,6 +20,7 @@ use Exception;
  *
  * @package NorseBlue\Sikker\Certificates
  * @since 0.3
+ * @codeCoverageIgnore This class does not need to be covered by tests.
  */
 class InvalidCertificateException extends Exception
 {

@@ -54,6 +54,7 @@ abstract class CryptoKey
      *
      * @param resource $resource The OpenSSL key resource.
      * @param array $config The OpenSSL config array to use.
+     * @throws InvalidArgumentException when the given $resource is not of type 'OpenSSL key resource'.
      * @since 0.3
      */
     public function __construct($resource, array $config = self::DEFAULT_CONFIG)
@@ -94,9 +95,10 @@ abstract class CryptoKey
      *
      * @param bool $throwException Whether to throw an exception on error.
      * @return bool Returns true if details have been loaded correctly, false otherwise.
+     * @throws OpenSSLException when the key details cannot be gathered.
      * @since 0.3
      */
-    public function loadDetails($throwException = false)
+    public function loadDetails($throwException = false) : bool
     {
         OpenSSL::resetErrors();
         if (($details = openssl_pkey_get_details($this->resource)) === false) {

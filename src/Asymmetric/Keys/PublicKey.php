@@ -52,6 +52,8 @@ class PublicKey extends CryptoKey
      *
      * @param string $encryptedData The data to decrypt.
      * @return string Returns the decrypted data.
+     * @throws OpenSSLException when the given data cannot be decrypted.
+     * @since 0.3
      */
     public function decrypt(string $encryptedData) : string
     {
@@ -70,6 +72,8 @@ class PublicKey extends CryptoKey
      *
      * @param string $rawData The data to encrypt.
      * @return string Returns the encrypted data.
+     * @throws OpenSSLException when the given data cannot be encrypted.
+     * @since 0.3
      */
     public function encrypt(string $rawData) : string
     {
@@ -99,7 +103,8 @@ class PublicKey extends CryptoKey
      * Verifies if the given key matches is a pair match.
      *
      * @param CryptoKey $pairedKey The paired key to test.
-     * @return bool
+     * @return bool Returns true when the given paired key matches, false otherwise.
+     * @throws InvalidArgumentException when the given paired key is not an instance of PrivateKey.
      * @since 0.3
      */
     public function isPairOf(CryptoKey $pairedKey) : bool

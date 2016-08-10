@@ -16,7 +16,7 @@ namespace NorseBlue\Sikker\Entropy\Adapters;
 use NorseBlue\Sikker\Entropy\Entropy;
 use NorseBlue\Sikker\Sikker;
 
-/**.
+/**
  * Class EntropyAdapterSimple
  *
  * @package NorseBlue\Sikker\Entropy\Adapters

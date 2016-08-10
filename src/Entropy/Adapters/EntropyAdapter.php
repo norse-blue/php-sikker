@@ -16,7 +16,7 @@ namespace NorseBlue\Sikker\Entropy\Adapters;
 /**
  * Interface EntropyAdapter
  *
- * @package NorseBlue\Sikker
+ * @package NorseBlue\Sikker\Entropy\Adapters
  * @since 0.2
  */
 interface EntropyAdapter

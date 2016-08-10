@@ -20,6 +20,7 @@ use InvalidArgumentException;
  *
  * @package NorseBlue\Sikker\Asymmetric\Keys
  * @since 0.3
+ * @codeCoverageIgnore This class does not need to be covered by tests.
  */
 class CryptoKeyTypeException extends InvalidArgumentException
 {

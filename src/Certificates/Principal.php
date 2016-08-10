@@ -123,7 +123,7 @@ class Principal
      * @return Principal Return a Principal from the given information.
      * @since 0.3
      */
-    public static function fromArray(array $info)
+    public static function fromArray(array $info) : Principal
     {
         return new Principal($info[self::PROPERTY_KEY_COUNTRY]??'', $info[self::PROPERTY_KEY_STATE]??'',
             $info[self::PROPERTY_KEY_LOCALITY]??'', $info[self::PROPERTY_KEY_ORGANIZATION]??'',
@@ -324,7 +324,7 @@ class Principal
      * @return string Returns a string representation of the Principal.
      * @since 0.3
      */
-    public function __toString()
+    public function __toString() : string
     {
         return sprintf('/%s=%s/%s=%s/%s=%s/%s=%s/%s=%s/%s=%s/%s=%s', self::PROPERTY_KEY_COUNTRY,
             $this->getCountryName(), self::PROPERTY_KEY_STATE, $this->getStateOrProvinceName(),

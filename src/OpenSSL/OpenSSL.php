@@ -16,14 +16,14 @@ namespace NorseBlue\Sikker\OpenSSL;
 /**
  * Class OpenSSL
  *
- * @package NorseBlue\Sikker
- * @see http://us.php.net/manual/en/function.openssl-pkey-get-details.php openssl_pkey_get_details function referece.
+ * @package NorseBlue\Sikker\OpenSSL
+ * @see http://us.php.net/manual/en/function.openssl-pkey-get-details.php openssl_pkey_get_details function reference.
  * @since 0.3
  */
 class OpenSSL
 {
     /**
-     * @var bool|null Whether OpenSSL extension is available.
+     * @var bool|null Whether OpenSSL extension is available (null if this test has not been run).
      */
     protected static $extensionAvailable = null;
 
@@ -32,8 +32,8 @@ class OpenSSL
      *
      * @param bool $throwException Whether to throw an exception is the extension is not loaded.
      * @return bool Whether the OpenSSL extension is loaded or not.
-     * @since 0.3
      * @throws OpenSSLNotAvailableException When the extension is not loaded and throwException is true.
+     * @since 0.3
      */
     public static function isAvailable(bool $throwException = false) : bool
     {
@@ -54,13 +54,13 @@ class OpenSSL
      * Gets the OpenSSL configuration.
      *
      * @see http://php.net/manual/en/openssl.installation.php PHP OpenSSL Installation
-     * @return string Returns the OpenSSL configuration.
+     * @return string|bool Returns the OpenSSL configuration path or false if value is not set.
      * @since 0.3
      */
     public static function getConfiguration()
     {
         OpenSSL::isAvailable(true);
-        if ($openSSLConf = getenv('OPENSSL_CONF') === false) {
+        if (($openSSLConf = getenv('OPENSSL_CONF')) === false) {
             $openSSLConf = getenv('SSLEAY_CONF'); // @codeCoverageIgnore
         }
 

@@ -182,7 +182,7 @@ class Entropy
      * @return int Returns the spatial dimension.
      * @since 0.2
      */
-    public static function spatialDimension(string $str)
+    public static function spatialDimension(string $str) : int
     {
         $spatial = 0;
         $charClasses = [

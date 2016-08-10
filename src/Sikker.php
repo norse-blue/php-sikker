@@ -22,7 +22,7 @@ namespace NorseBlue\Sikker;
 abstract class Sikker
 {
     /**
-     * @var string Sikker packge version.
+     * @var string Sikker package version.
      */
     const VERSION = '0.3';
 

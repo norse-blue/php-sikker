@@ -38,7 +38,7 @@ class CipherMethodNotAvailableException extends RuntimeException
      * @param string $message The Exception message to throw. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param int $code The Exception code. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
      * @param Throwable|null $previous The previous exception used for the exception chaining. {@link http://php.net/manual/en/exception.construct.php Exception constructor}
-     * @since 0.1
+     * @since 0.3
      */
     public function __construct(string $method = "", string $message = "", int $code = 0, Throwable $previous = null)
     {
@@ -50,7 +50,7 @@ class CipherMethodNotAvailableException extends RuntimeException
      * Gets the method that was not found.
      *
      * @return string Returns the method that was not found.
-     * @since 0.1
+     * @since 0.3
      */
     public function getMethod() : string
     {
@@ -61,7 +61,7 @@ class CipherMethodNotAvailableException extends RuntimeException
      * String representation of the exception.
      *
      * @return string Returns the string representation of the exception.
-     * @since 0.1
+     * @since 0.3
      */
     public function __toString() : string
     {
