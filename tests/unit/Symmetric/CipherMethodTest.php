@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Keys;
+namespace NorseBlue\Sikker\Tests\Symmetric;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
