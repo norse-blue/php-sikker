@@ -160,7 +160,9 @@ class PrivateKey extends CryptoKey
      *
      * @param string $message The message to be signed.
      * @param int $signatureAlgorithm The signature algorithm to be used.
-     * @return array Returns an array with the signature (index 0) and the signature algorithm used (index 1).
+     * @return array Returns an array with the signature along other information.
+     *                  0 => [string] signature
+     *                  1 => [int] signature algorithm used
      * @throws OpenSSLException when the message cannot be signed.
      * @since 0.3
      */
