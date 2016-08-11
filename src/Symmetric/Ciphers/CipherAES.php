@@ -1,0 +1,205 @@
+<?php
+/**
+ * Sikker is a PHP 7.0+ Security package that contains security related implementations.
+ *
+ * @package    NorseBlue\Sikker
+ * @version    0.3
+ * @author     NorseBlue
+ * @license    MIT License
+ * @copyright  2016 NorseBlue
+ * @link       https://github.com/NorseBlue/Sikker
+ */
+declare(strict_types = 1);
+
+namespace NorseBlue\Sikker\Symmetric\Ciphers;
+
+use InvalidArgumentException;
+use NorseBlue\Sikker\OpenSSL\OpenSSL;
+use NorseBlue\Sikker\OpenSSL\OpenSSLException;
+use NorseBlue\Sikker\StringEncoder;
+use NorseBlue\Sikker\Symmetric\CipherMethod;
+
+/**
+ * Class CipherAES
+ *
+ * @package NorseBlue\Sikker\Symmetric\Ciphers
+ * @since 0.3.5
+ */
+class CipherAES implements Cipher
+{
+    /**
+     * @var int 128 bit block size
+     */
+    const BLOCK_SIZE_128 = 128;
+
+    /**
+     * @var int 192 bit block size
+     */
+    const BLOCK_SIZE_192 = 192;
+
+    /**
+     * @var int 256 bit block size
+     */
+    const BLOCK_SIZE_256 = 256;
+
+    /**
+     * @var array All block sizes with names
+     */
+    const BLOCK_SIZES_NAMES = [
+        self::BLOCK_SIZE_128 => CipherMethod::AES128,
+        self::BLOCK_SIZE_192 => CipherMethod::AES192,
+        self::BLOCK_SIZE_256 => CipherMethod::AES256,
+    ];
+
+    /**
+     * @var int The block size to use.
+     */
+    protected $blockSize;
+
+    /**
+     * @var string The initialization vector to use.
+     */
+    protected $iv;
+
+    /**
+     * @var int The bitwise disjunction between Cipher::RAW_DATA and Cipher::DISABLE_PADDING
+     */
+    protected $options;
+
+    /**
+     * CipherAES constructor.
+     *
+     * @param int $blockSize The block size to use for encryption.
+     * @param string $iv The initialization vector to use.
+     * @param int $options The options to use for encryption.
+     * @since 0.3.5
+     */
+    public function __construct(int $blockSize = self::BLOCK_SIZE_256, string $iv = '', int $options = 0)
+    {
+        $this->setBlockSize($blockSize);
+        $this->setIV($iv);
+        $this->setOptions($options);
+    }
+
+    /**
+     * Gets the block size.
+     *
+     * @return int  Returns the cipher block size.
+     */
+    public function getBlockSize(): int
+    {
+        return $this->blockSize;
+    }
+
+    /**
+     * Sets the block size.
+     *
+     * @param int $blockSize The new block size.
+     * @return CipherAES Returns this instance for fluent interface.
+     * @throws InvalidArgumentException when the block size is not a valid block size.
+     */
+    public function setBlockSize(int $blockSize): CipherAES
+    {
+        if (!array_key_exists($blockSize, self::BLOCK_SIZES_NAMES)) {
+            throw new InvalidArgumentException('The given block size is not valid.');
+        }
+        $this->blockSize = $blockSize;
+        return $this;
+    }
+
+    /**
+     * Gets the initialization vector.
+     *
+     * @return string Returns the initialization vector.
+     */
+    public function getIV(): string
+    {
+        return $this->iv;
+    }
+
+    /**
+     * Sets the initialization vector.
+     *
+     * @param string $iv The new initialization vector.
+     * @return CipherAES Returns this instance for fluent interface.
+     */
+    public function setIV(string $iv): CipherAES
+    {
+        $this->iv = $iv;
+        return $this;
+    }
+
+    /**
+     * Gets the options.
+     *
+     * @return int Returns the options.
+     */
+    public function getOptions(): int
+    {
+        return $this->options;
+    }
+
+    /**
+     * Sets the options.
+     *
+     * @param int $options The new options.
+     * @return CipherAES Returns this instance for fluent interface.
+     */
+    public function setOptions(int $options): CipherAES
+    {
+        $this->options = $options;
+        return $this;
+    }
+
+    /**
+     * Decrypts the given data with the given password.
+     *
+     * @param string $data The data to decrypt. Can be raw or base64 encoded.
+     * @param string $password The password to decrypt data with.
+     * @return string Returns the decrypted data.
+     * @see http://php.net/manual/en/function.openssl-decrypt.php openssl_decrypt function reference
+     * @throws OpenSSLException when the cipher cannot decrypt the data.
+     * @since 0.3.5
+     */
+    public function decrypt(string $data, string $password) : string
+    {
+        OpenSSL::resetErrors();
+        if (($decrypted = openssl_decrypt($data, self::BLOCK_SIZES_NAMES[$this->blockSize], $password,
+                $this->iv)) === false
+        ) {
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'The given data could not be decrypted.');
+            // @codeCoverageIgnoreEnd
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * Encrypts the given data with the given password.
+     *
+     * @param string $data The data to encrypt.
+     * @param string $password The password to encrypt data with.
+     * @return array Returns an array containing the encrypted data and some information like the IV if used.
+     *                  0 => [string] encrypted data
+     *                  1 => [string] password as hex string
+     *                  2 => [int] options used (the bitwise disjunction value)
+     *                  3 => [string] iv used for encryption
+     * @see http://php.net/manual/en/function.openssl-encrypt.php openssl_encrypt function reference
+     * @throws OpenSSLException when the cipher cannot encrypt the data.
+     * @since 0.3.5
+     */
+    public function encrypt(string $data, string $password) : array
+    {
+        OpenSSL::resetErrors();
+        if (($encrypted = openssl_encrypt($data, self::BLOCK_SIZES_NAMES[$this->blockSize], $password, $this->options,
+                $this->iv)) === false
+        ) {
+            // @codeCoverageIgnoreStart
+            throw new OpenSSLException(OpenSSL::getErrors(), 'The given data could not be encrypted.');
+            // @codeCoverageIgnoreEnd
+        }
+
+        return [$encrypted, StringEncoder::rawToHex($password), $this->options, $this->iv];
+    }
+}
