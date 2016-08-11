@@ -11,14 +11,14 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Symmetric;
+namespace NorseBlue\Sikker\Symmetric\Ciphers;
 
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 
 /**
  * Interface Cipher
  *
- * @package NorseBlue\Sikker\Symmetric
+ * @package NorseBlue\Sikker\Symmetric\Ciphers
  * @since 0.3.5
  */
 interface Cipher
