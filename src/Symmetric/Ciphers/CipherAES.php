@@ -189,7 +189,8 @@ class CipherAES implements Cipher
      */
     public function getBlockSizeMode()
     {
-        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()], CipherMode::NAMES[$this->getMode()]);
+        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
+            strtoupper(CipherMode::NAMES[$this->getMode()]));
     }
 
     /**
