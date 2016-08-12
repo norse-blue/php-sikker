@@ -15,7 +15,7 @@ class InitVector
      * Pads the given IV string  with \0 up to the block size.
      *
      * @param string $iv The initialization vector to pad.
-     * @param int $blockSize The block size.
+     * @param int $blockSize The block size in bytes.
      * @return string Returns the padded string.
      */
     public static function pad(string $iv, int $blockSize = 16)
