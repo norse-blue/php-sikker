@@ -71,7 +71,7 @@ class CipherAES implements Cipher
      * @param int $blockSize The block size to use for encryption.
      * @param string $iv The initialization vector to use.
      * @param int $options The options to use for encryption.
-     * @param int $mode The mode to be used CipherMode::EBC or CipherMode::CBC
+     * @param int $mode The mode to be used.
      * @since 0.3.5
      */
     public function __construct(

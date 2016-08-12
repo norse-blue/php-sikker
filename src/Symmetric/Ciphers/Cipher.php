@@ -34,6 +34,13 @@ interface Cipher
     const DISABLE_PADDING = 2;
 
     /**
+     * Gets the cipher description.
+     *
+     * @return string Returns the cipher description string.
+     */
+    public function getCipherDescription() : string;
+
+    /**
      * Encrypts the given data with the given password.
      *
      * @param string $data The data to encrypt.
