@@ -18,6 +18,7 @@ use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 use NorseBlue\Sikker\StringEncoder;
 use NorseBlue\Sikker\Symmetric\CipherBlockSize;
+use NorseBlue\Sikker\Symmetric\CipherMode;
 
 /**
  * Class CipherAES
@@ -37,21 +38,11 @@ class CipherAES implements Cipher
     ];
 
     /**
-     * @var int Mode EBC.
+     * @var array Holds the supported cipher modes.
      */
-    const MODE_EBC = 0;
-
-    /**
-     * @var int Mode CBC.
-     */
-    const MODE_CBC = 1;
-
-    /**
-     * @var array Hold the cipher modes.
-     */
-    const MODES = [
-        self::MODE_EBC => Cipher::EBC,
-        self::MODE_CBC => Cipher::CBC
+    const SUPPORTED_MODES = [
+        CipherMode::EBC,
+        CipherMode::CBC
     ];
 
     /**
@@ -80,14 +71,14 @@ class CipherAES implements Cipher
      * @param int $blockSize The block size to use for encryption.
      * @param string $iv The initialization vector to use.
      * @param int $options The options to use for encryption.
-     * @param int $mode The mode to be used (EBC or CBC)
+     * @param int $mode The mode to be used CipherMode::EBC or CipherMode::CBC
      * @since 0.3.5
      */
     public function __construct(
         int $blockSize = CipherBlockSize::_256,
         string $iv = '',
         int $options = 0,
-        int $mode = self::MODE_CBC
+        int $mode = CipherMode::CBC
     ) {
         $this->setBlockSize($blockSize);
         $this->setIV($iv);
@@ -184,8 +175,8 @@ class CipherAES implements Cipher
      */
     public function setMode(int $mode) : CipherAES
     {
-        if (!array_key_exists($mode, self::MODES)) {
-            throw new InvalidArgumentException('The given mode is not valid.');
+        if (!in_array($mode, self::SUPPORTED_MODES)) {
+            throw new InvalidArgumentException('The given mode is not supported.');
         }
         $this->mode = $mode;
         return $this;
@@ -198,7 +189,7 @@ class CipherAES implements Cipher
      */
     public function getBlockSizeMode()
     {
-        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()], self::MODES[$this->getMode()]);
+        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()], CipherMode::NAMES[$this->getMode()]);
     }
 
     /**

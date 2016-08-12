@@ -34,16 +34,6 @@ interface Cipher
     const DISABLE_PADDING = 2;
 
     /**
-     * @var string Cipher mode EBC
-     */
-    const EBC = 'EBC';
-
-    /**
-     * @var string Cipher mode EBC
-     */
-    const CBC = 'CBC';
-
-    /**
      * Encrypts the given data with the given password.
      *
      * @param string $data The data to encrypt.
