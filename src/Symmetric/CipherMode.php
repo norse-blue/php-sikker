@@ -30,7 +30,7 @@ abstract class CipherMode
     /**
      * @var int The EBC mode.
      */
-    const EBC = 0;
+    const ECB = 0;
 
     /**
      * @var int The CBC mode.
@@ -42,7 +42,7 @@ abstract class CipherMode
      */
     const NAMES = [
         self::UNKNOWN => 'unknown',
-        self::EBC => 'ebc',
+        self::ECB => 'ecb',
         self::CBC => 'cbc'
     ];
 

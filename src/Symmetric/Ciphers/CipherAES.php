@@ -41,7 +41,7 @@ class CipherAES implements Cipher
      * @var array Holds the supported cipher modes.
      */
     const SUPPORTED_MODES = [
-        CipherMode::EBC,
+        CipherMode::ECB,
         CipherMode::CBC
     ];
 
