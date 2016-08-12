@@ -102,7 +102,7 @@ class CipherAESTest extends Unit
                 $cipher = new CipherAES(CipherAES::BLOCK_SIZE_128);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
-                $this->assertEquals(4, count($encrypted));
+                $this->assertEquals(5, count($encrypted));
                 $this->assertEquals(self::ENCRYPTED_PAYLOAD_AES128_BASE64, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);
@@ -118,7 +118,7 @@ class CipherAESTest extends Unit
                 $cipher = new CipherAES(CipherAES::BLOCK_SIZE_128, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
-                $this->assertEquals(4, count($encrypted));
+                $this->assertEquals(5, count($encrypted));
                 $this->assertEquals(self::ENCRYPTED_PAYLOAD_AES128_BASE64_IV, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);
@@ -134,7 +134,7 @@ class CipherAESTest extends Unit
                 $cipher = new CipherAES(CipherAES::BLOCK_SIZE_192);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
-                $this->assertEquals(4, count($encrypted));
+                $this->assertEquals(5, count($encrypted));
                 $this->assertEquals(self::ENCRYPTED_PAYLOAD_AES192_BASE64, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);
@@ -150,7 +150,7 @@ class CipherAESTest extends Unit
                 $cipher = new CipherAES(CipherAES::BLOCK_SIZE_192, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
-                $this->assertEquals(4, count($encrypted));
+                $this->assertEquals(5, count($encrypted));
                 $this->assertEquals(self::ENCRYPTED_PAYLOAD_AES192_BASE64_IV, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);
@@ -166,7 +166,7 @@ class CipherAESTest extends Unit
                 $cipher = new CipherAES(CipherAES::BLOCK_SIZE_256);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
-                $this->assertEquals(4, count($encrypted));
+                $this->assertEquals(5, count($encrypted));
                 $this->assertEquals(self::ENCRYPTED_PAYLOAD_AES256_BASE64, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);
@@ -182,7 +182,7 @@ class CipherAESTest extends Unit
                 $cipher = new CipherAES(CipherAES::BLOCK_SIZE_256, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
-                $this->assertEquals(4, count($encrypted));
+                $this->assertEquals(5, count($encrypted));
                 $this->assertEquals(self::ENCRYPTED_PAYLOAD_AES256_BASE64_IV, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);

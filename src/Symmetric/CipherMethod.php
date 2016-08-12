@@ -100,16 +100,6 @@ abstract class CipherMethod
     const SEED = 'SEED';
 
     /**
-     * @var string Cipher mode EBC
-     */
-    const MODE_EBC = 'EBC';
-
-    /**
-     * @var string Cipher mode EBC
-     */
-    const MODE_CBC = 'CBC';
-
-    /**
      * @var null|array List of the available methods or null if not initialized.
      */
     private static $availableMethods = null;

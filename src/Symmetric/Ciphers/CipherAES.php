@@ -28,27 +28,45 @@ use NorseBlue\Sikker\Symmetric\CipherMethod;
 class CipherAES implements Cipher
 {
     /**
-     * @var int 128 bit block size
+     * @var int 128 bit block size.
      */
     const BLOCK_SIZE_128 = 128;
 
     /**
-     * @var int 192 bit block size
+     * @var int 192 bit block size.
      */
     const BLOCK_SIZE_192 = 192;
 
     /**
-     * @var int 256 bit block size
+     * @var int 256 bit block size.
      */
     const BLOCK_SIZE_256 = 256;
 
     /**
-     * @var array All block sizes with names
+     * @var array All block sizes with names.
      */
-    const BLOCK_SIZES_NAMES = [
+    const BLOCK_SIZES = [
         self::BLOCK_SIZE_128 => CipherMethod::AES128,
         self::BLOCK_SIZE_192 => CipherMethod::AES192,
         self::BLOCK_SIZE_256 => CipherMethod::AES256,
+    ];
+
+    /**
+     * @var int Mode EBC.
+     */
+    const MODE_EBC = 0;
+
+    /**
+     * @var int Mode CBC.
+     */
+    const MODE_CBC = 1;
+
+    /**
+     * @var array Hold the cipher modes.
+     */
+    const MODES = [
+        self::MODE_EBC => Cipher::EBC,
+        self::MODE_CBC => Cipher::CBC
     ];
 
     /**
@@ -62,9 +80,14 @@ class CipherAES implements Cipher
     protected $iv;
 
     /**
-     * @var int The bitwise disjunction between Cipher::RAW_DATA and Cipher::DISABLE_PADDING
+     * @var int The bitwise disjunction between Cipher::RAW_DATA and Cipher::DISABLE_PADDING.
      */
     protected $options;
+
+    /**
+     * @var@var int The cipher mode (EBC or CBC).
+     */
+    protected $mode;
 
     /**
      * CipherAES constructor.
@@ -72,19 +95,25 @@ class CipherAES implements Cipher
      * @param int $blockSize The block size to use for encryption.
      * @param string $iv The initialization vector to use.
      * @param int $options The options to use for encryption.
+     * @param int $mode The mode to be used (EBC or CBC)
      * @since 0.3.5
      */
-    public function __construct(int $blockSize = self::BLOCK_SIZE_256, string $iv = '', int $options = 0)
-    {
+    public function __construct(
+        int $blockSize = self::BLOCK_SIZE_256,
+        string $iv = '',
+        int $options = 0,
+        int $mode = self::MODE_CBC
+    ) {
         $this->setBlockSize($blockSize);
         $this->setIV($iv);
         $this->setOptions($options);
+        $this->setMode($mode);
     }
 
     /**
      * Gets the block size.
      *
-     * @return int  Returns the cipher block size.
+     * @return int Returns the cipher block size.
      */
     public function getBlockSize() : int
     {
@@ -100,7 +129,7 @@ class CipherAES implements Cipher
      */
     public function setBlockSize(int $blockSize) : CipherAES
     {
-        if (!array_key_exists($blockSize, self::BLOCK_SIZES_NAMES)) {
+        if (!array_key_exists($blockSize, self::BLOCK_SIZES)) {
             throw new InvalidArgumentException('The given block size is not valid.');
         }
         $this->blockSize = $blockSize;
@@ -152,6 +181,43 @@ class CipherAES implements Cipher
     }
 
     /**
+     * Gets the mode.
+     *
+     * @return int Returns the cipher mode.
+     */
+    public function getMode() : int
+    {
+        return $this->mode;
+    }
+
+    /**
+     * Sets the mode.
+     *
+     * @param int $mode The new block size.
+     * @return CipherAES Returns this instance for fluent interface.
+     * @throws InvalidArgumentException when the mode is not a valid mode.
+     */
+    public function setMode(int $mode) : CipherAES
+    {
+        if (!array_key_exists($mode, self::MODES)) {
+            throw new InvalidArgumentException('The given mode is not valid.');
+        }
+        $this->mode = $mode;
+        return $this;
+    }
+
+    /**
+     * Gets the block size and mode string.
+     *
+     * @return string Returns the block size and mode string.
+     */
+    public function getBlockSizeMode()
+    {
+        $blockSize = self::BLOCK_SIZES[$this->getBlockSize()];
+        return (substr($blockSize, 0, 3)).'-'.(substr($blockSize, -3)).'-'.self::MODES[$this->getMode()];
+    }
+
+    /**
      * Decrypts the given data with the given password.
      *
      * @param string $data The data to decrypt. Can be raw or base64 encoded.
@@ -164,7 +230,7 @@ class CipherAES implements Cipher
     public function decrypt(string $data, string $password) : string
     {
         OpenSSL::resetErrors();
-        if (($decrypted = @openssl_decrypt($data, self::BLOCK_SIZES_NAMES[$this->getBlockSize()], $password,
+        if (($decrypted = @openssl_decrypt($data, $this->getBlockSizeMode(), $password,
                 $this->getOptions(), $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
@@ -185,6 +251,7 @@ class CipherAES implements Cipher
      *                  1 => [string] password as hex string
      *                  2 => [int] options used (the bitwise disjunction value)
      *                  3 => [string] iv used for encryption
+     *                  4 => [int] cipher mode used
      * @see http://php.net/manual/en/function.openssl-encrypt.php openssl_encrypt function reference
      * @throws OpenSSLException when the cipher cannot encrypt the data.
      * @since 0.3.5
@@ -192,7 +259,7 @@ class CipherAES implements Cipher
     public function encrypt(string $data, string $password) : array
     {
         OpenSSL::resetErrors();
-        if (($encrypted = @openssl_encrypt($data, self::BLOCK_SIZES_NAMES[$this->getBlockSize()], $password,
+        if (($encrypted = @openssl_encrypt($data, $this->getBlockSizeMode(), $password,
                 $this->getOptions(), $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
@@ -200,6 +267,6 @@ class CipherAES implements Cipher
             // @codeCoverageIgnoreEnd
         }
 
-        return [$encrypted, StringEncoder::rawToHex($password), $this->getOptions(), $this->getIV()];
+        return [$encrypted, StringEncoder::rawToHex($password), $this->getOptions(), $this->getIV(), $this->getMode()];
     }
 }

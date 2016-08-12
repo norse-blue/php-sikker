@@ -34,6 +34,16 @@ interface Cipher
     const DISABLE_PADDING = 2;
 
     /**
+     * @var string Cipher mode EBC
+     */
+    const EBC = 'EBC';
+
+    /**
+     * @var string Cipher mode EBC
+     */
+    const CBC = 'CBC';
+
+    /**
      * Encrypts the given data with the given password.
      *
      * @param string $data The data to encrypt.
@@ -43,6 +53,7 @@ interface Cipher
      *                  1 => [string] password as hex string
      *                  2 => [int] options used (the bitwise disjunction value)
      *                  3 => [string] iv used for encryption
+     *                  4 => [int] cipher mode used
      * @see http://php.net/manual/en/function.openssl-encrypt.php openssl_encrypt function reference
      * @throws OpenSSLException when the cipher cannot encrypt the data.
      * @since 0.3.5
