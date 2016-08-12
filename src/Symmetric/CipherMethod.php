@@ -100,6 +100,16 @@ abstract class CipherMethod
     const SEED = 'SEED';
 
     /**
+     * @var string Cipher mode EBC
+     */
+    const MODE_EBC = 'EBC';
+
+    /**
+     * @var string Cipher mode EBC
+     */
+    const MODE_CBC = 'CBC';
+
+    /**
      * @var null|array List of the available methods or null if not initialized.
      */
     private static $availableMethods = null;
@@ -127,7 +137,14 @@ abstract class CipherMethod
     {
         OpenSSL::isAvailable(true);
         if (self::$availableMethods === null) {
-            self::$availableMethods = openssl_get_cipher_methods();
+            $ciphers = array_diff(openssl_get_cipher_methods(true), openssl_get_cipher_methods()) + ['RC4'];
+            $ciphers = array_unique(array_map('strtoupper', $ciphers));
+            self::$availableMethods = [];
+            foreach ($ciphers as $cipher) {
+                if (preg_match('/^(\w+)$/', $cipher)) {
+                    self::$availableMethods[] = $cipher;
+                }
+            }
         }
 
         return self::$availableMethods;
