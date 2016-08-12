@@ -169,7 +169,7 @@ class CipherAES implements Cipher
     /**
      * Sets the mode.
      *
-     * @param int $mode The new block size.
+     * @param int $mode The new cipher mode.
      * @return CipherAES Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the mode is not a valid mode.
      */
@@ -183,11 +183,11 @@ class CipherAES implements Cipher
     }
 
     /**
-     * Gets the block size and mode string.
+     * Gets the cipher description.
      *
-     * @return string Returns the block size and mode string.
+     * @return string Returns the cipher description string.
      */
-    public function getBlockSizeMode()
+    public function getCipherDescription() : string
     {
         return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
             strtoupper(CipherMode::NAMES[$this->getMode()]));
@@ -206,7 +206,7 @@ class CipherAES implements Cipher
     public function decrypt(string $data, string $password) : string
     {
         OpenSSL::resetErrors();
-        if (($decrypted = @openssl_decrypt($data, $this->getBlockSizeMode(), $password,
+        if (($decrypted = @openssl_decrypt($data, $this->getCipherDescription(), $password,
                 $this->getOptions(), $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
@@ -235,7 +235,7 @@ class CipherAES implements Cipher
     public function encrypt(string $data, string $password) : array
     {
         OpenSSL::resetErrors();
-        if (($encrypted = @openssl_encrypt($data, $this->getBlockSizeMode(), $password,
+        if (($encrypted = @openssl_encrypt($data, $this->getCipherDescription(), $password,
                 $this->getOptions(), $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
