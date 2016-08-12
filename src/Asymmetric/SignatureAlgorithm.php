@@ -95,32 +95,32 @@ abstract class SignatureAlgorithm
     ];
 
     /**
-     * Gets the the key type as a string.
+     * Gets the signature algorithm as a string.
      *
-     * @param int $type The type to get as string.
-     * @return string Returns the key type as a string.
+     * @param int $value The signature algorithm to get as string.
+     * @return string Returns the signature algorithm as a string.
      * @since 0.3
      */
-    public static function toName(int $type) : string
+    public static function toName(int $value) : string
     {
-        if (array_key_exists($type, self::NAMES)) {
-            return self::NAMES[$type];
+        if (array_key_exists($value, self::NAMES)) {
+            return self::NAMES[$value];
         }
         return self::NAMES[self::UNKNOWN];
     }
 
     /**
-     * Gets the key type as an integer from the name.
+     * Gets the signature algorithm as an integer from the name.
      *
-     * @param string $name The name of the key type.
-     * @return int Returns the integer value of the key type.
+     * @param string $name The name of the signature algorithm.
+     * @return int Returns the integer value of the signature algorithm.
      * @since 0.3
      */
     public static function fromName(string $name) : int
     {
-        $types = array_flip(self::NAMES);
-        if (array_key_exists($name, $types)) {
-            return $types[$name];
+        $items = array_flip(self::NAMES);
+        if (array_key_exists($name, $items)) {
+            return $items[$name];
         }
         return self::UNKNOWN;
     }
