@@ -183,17 +183,6 @@ class CipherAES implements Cipher
     }
 
     /**
-     * Gets the cipher description.
-     *
-     * @return string Returns the cipher description string.
-     */
-    public function getCipherDescription() : string
-    {
-        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
-            strtoupper(CipherMode::NAMES[$this->getMode()]));
-    }
-
-    /**
      * Decrypts the given data with the given password.
      *
      * @param string $data The data to decrypt. Can be raw or base64 encoded.
@@ -206,8 +195,8 @@ class CipherAES implements Cipher
     public function decrypt(string $data, string $password) : string
     {
         OpenSSL::resetErrors();
-        if (($decrypted = @openssl_decrypt($data, $this->getCipherDescription(), $password,
-                $this->getOptions(), $this->getIV())) === false
+        if (($decrypted = @openssl_decrypt($data, $this->getCipherDescription(), $password, $this->getOptions(),
+                $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'The given data could not be decrypted.');
@@ -235,8 +224,8 @@ class CipherAES implements Cipher
     public function encrypt(string $data, string $password) : array
     {
         OpenSSL::resetErrors();
-        if (($encrypted = @openssl_encrypt($data, $this->getCipherDescription(), $password,
-                $this->getOptions(), $this->getIV())) === false
+        if (($encrypted = @openssl_encrypt($data, $this->getCipherDescription(), $password, $this->getOptions(),
+                $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'The given data could not be encrypted.');
@@ -244,5 +233,16 @@ class CipherAES implements Cipher
         }
 
         return [$encrypted, StringEncoder::rawToHex($password), $this->getOptions(), $this->getIV(), $this->getMode()];
+    }
+
+    /**
+     * Gets the cipher description.
+     *
+     * @return string Returns the cipher description string.
+     */
+    public function getCipherDescription() : string
+    {
+        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
+            strtoupper(CipherMode::NAMES[$this->getMode()]));
     }
 }
