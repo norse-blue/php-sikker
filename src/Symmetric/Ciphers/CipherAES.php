@@ -86,7 +86,7 @@ class CipherAES implements Cipher
      *
      * @return int  Returns the cipher block size.
      */
-    public function getBlockSize(): int
+    public function getBlockSize() : int
     {
         return $this->blockSize;
     }
@@ -98,7 +98,7 @@ class CipherAES implements Cipher
      * @return CipherAES Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the block size is not a valid block size.
      */
-    public function setBlockSize(int $blockSize): CipherAES
+    public function setBlockSize(int $blockSize) : CipherAES
     {
         if (!array_key_exists($blockSize, self::BLOCK_SIZES_NAMES)) {
             throw new InvalidArgumentException('The given block size is not valid.');
@@ -112,7 +112,7 @@ class CipherAES implements Cipher
      *
      * @return string Returns the initialization vector.
      */
-    public function getIV(): string
+    public function getIV() : string
     {
         return $this->iv;
     }
@@ -123,7 +123,7 @@ class CipherAES implements Cipher
      * @param string $iv The new initialization vector.
      * @return CipherAES Returns this instance for fluent interface.
      */
-    public function setIV(string $iv): CipherAES
+    public function setIV(string $iv) : CipherAES
     {
         $this->iv = $iv;
         return $this;
@@ -134,7 +134,7 @@ class CipherAES implements Cipher
      *
      * @return int Returns the options.
      */
-    public function getOptions(): int
+    public function getOptions() : int
     {
         return $this->options;
     }
@@ -145,7 +145,7 @@ class CipherAES implements Cipher
      * @param int $options The new options.
      * @return CipherAES Returns this instance for fluent interface.
      */
-    public function setOptions(int $options): CipherAES
+    public function setOptions(int $options) : CipherAES
     {
         $this->options = $options;
         return $this;
@@ -164,8 +164,8 @@ class CipherAES implements Cipher
     public function decrypt(string $data, string $password) : string
     {
         OpenSSL::resetErrors();
-        if (($decrypted = openssl_decrypt($data, self::BLOCK_SIZES_NAMES[$this->blockSize], $password,
-                $this->iv)) === false
+        if (($decrypted = @openssl_decrypt($data, self::BLOCK_SIZES_NAMES[$this->getBlockSize()], $password,
+                $this->getOptions(), $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'The given data could not be decrypted.');
@@ -192,14 +192,14 @@ class CipherAES implements Cipher
     public function encrypt(string $data, string $password) : array
     {
         OpenSSL::resetErrors();
-        if (($encrypted = openssl_encrypt($data, self::BLOCK_SIZES_NAMES[$this->blockSize], $password, $this->options,
-                $this->iv)) === false
+        if (($encrypted = @openssl_encrypt($data, self::BLOCK_SIZES_NAMES[$this->getBlockSize()], $password,
+                $this->getOptions(), $this->getIV())) === false
         ) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'The given data could not be encrypted.');
             // @codeCoverageIgnoreEnd
         }
 
-        return [$encrypted, StringEncoder::rawToHex($password), $this->options, $this->iv];
+        return [$encrypted, StringEncoder::rawToHex($password), $this->getOptions(), $this->getIV()];
     }
 }
