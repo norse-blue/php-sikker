@@ -83,11 +83,25 @@ class CipherAESTest extends Unit
 
     // tests
 
+    /**
+     * Test incorrect block size
+     */
     public function testIncorrectBlockSize()
     {
         $this->specify('', function () {
             $this->expectException(InvalidArgumentException::class);
-            $cipher = new CipherAES(3);
+            $cipher = new CipherAES(998);
+        });
+    }
+
+    /**
+     * Test incorrect mode
+     */
+    public function testIncorrectMode()
+    {
+        $this->specify('', function () {
+            $this->expectException(InvalidArgumentException::class);
+            $cipher = new CipherAES(CipherBlockSize::_256, '', 0, 998);
         });
     }
 
