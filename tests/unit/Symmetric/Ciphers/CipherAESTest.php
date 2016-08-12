@@ -16,8 +16,7 @@ namespace NorseBlue\Sikker\Tests\Symmetric\Ciphers;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use InvalidArgumentException;
-use NorseBlue\Sikker\Symmetric\CipherMethod;
-use NorseBlue\Sikker\Symmetric\Ciphers\Cipher;
+use NorseBlue\Sikker\Symmetric\CipherBlockSize;
 use NorseBlue\Sikker\Symmetric\Ciphers\CipherAES;
 
 class CipherAESTest extends Unit
@@ -99,7 +98,7 @@ class CipherAESTest extends Unit
     {
         $this->specify('Encrypts and decrypts the payload with AES128', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherAES(CipherAES::BLOCK_SIZE_128);
+                $cipher = new CipherAES(CipherBlockSize::_128);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
@@ -115,7 +114,7 @@ class CipherAESTest extends Unit
 
         $this->specify('Encrypts and decrypts the payload with AES128 and an IV.', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherAES(CipherAES::BLOCK_SIZE_128, self::IV);
+                $cipher = new CipherAES(CipherBlockSize::_128, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
@@ -131,7 +130,7 @@ class CipherAESTest extends Unit
 
         $this->specify('Encrypts and decrypts the payload with AES192', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherAES(CipherAES::BLOCK_SIZE_192);
+                $cipher = new CipherAES(CipherBlockSize::_192);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
@@ -147,7 +146,7 @@ class CipherAESTest extends Unit
 
         $this->specify('Encrypts and decrypts the payload with AES192 and an IV.', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherAES(CipherAES::BLOCK_SIZE_192, self::IV);
+                $cipher = new CipherAES(CipherBlockSize::_192, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
@@ -163,7 +162,7 @@ class CipherAESTest extends Unit
 
         $this->specify('Encrypts and decrypts the payload with AES256', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherAES(CipherAES::BLOCK_SIZE_256);
+                $cipher = new CipherAES(CipherBlockSize::_256);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
@@ -179,7 +178,7 @@ class CipherAESTest extends Unit
 
         $this->specify('Encrypts and decrypts the payload with AES256 and an IV.', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherAES(CipherAES::BLOCK_SIZE_256, self::IV);
+                $cipher = new CipherAES(CipherBlockSize::_256, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
