@@ -20,6 +20,7 @@ use NorseBlue\Sikker\OpenSSL\OpenSSL;
  *
  * @package NorseBlue\Sikker\Symmetric
  * @see http://php.net/manual/en/function.openssl-get-cipher-methods.php openssl_get_cipher_methods function reference.
+ * @see https://www.openssl.org/docs/manmaster/apps/enc.html#SUPPORTED_CIPHERS OpenSSL supported ciphers reference.
  * @since 0.3
  */
 abstract class CipherMethod
