@@ -29,7 +29,7 @@ use NorseBlue\Sikker\Symmetric\CipherMode;
 class CipherAES implements Cipher
 {
     /**
-     * @var array All block sizes with names.
+     * @var array Holds the supported block sizes.
      */
     const SUPPORTED_BLOCK_SIZES = [
         CipherBlockSize::_128,

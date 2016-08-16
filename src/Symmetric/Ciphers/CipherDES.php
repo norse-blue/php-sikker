@@ -44,7 +44,7 @@ class CipherDES implements Cipher
     const METHOD_X = 2;
 
     /**
-     * @var array Hold the cipher modes.
+     * @var array Holds the supported methods.
      */
     const SUPPORTED_METHODS = [
         self::METHOD_SIMPLE => CipherMethod::DES,
@@ -53,7 +53,7 @@ class CipherDES implements Cipher
     ];
 
     /**
-     * @var array Holds the supported cipher modes.
+     * @var array Holds the supported modes.
      */
     const SUPPORTED_MODES = [
         CipherMode::ECB,
