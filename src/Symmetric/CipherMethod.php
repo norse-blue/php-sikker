@@ -72,7 +72,7 @@ abstract class CipherMethod
     /**
      * @var string  Cipher method Triple DES
      */
-    const DES3 = 'DES3';
+    const DES3 = 'DES-EDE3';
 
     /**
      * @var string  Cipher method  DESX
