@@ -81,7 +81,7 @@ class CipherDES implements Cipher
     protected $mode;
 
     /**
-     * CipherAES constructor.
+     * CipherDES constructor.
      *
      * @param int $method The cipher mode to use.
      * @param string $iv The initialization vector to use.

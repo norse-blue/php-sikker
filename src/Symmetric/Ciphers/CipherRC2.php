@@ -21,20 +21,19 @@ use NorseBlue\Sikker\Symmetric\CipherBlockSize;
 use NorseBlue\Sikker\Symmetric\CipherMode;
 
 /**
- * Class CipherAES
+ * Class CipherRC2
  *
  * @package NorseBlue\Sikker\Symmetric\Ciphers
  * @since 0.3.5
  */
-class CipherAES implements Cipher
+class CipherRC2 implements Cipher
 {
     /**
      * @var array Holds the supported block sizes.
      */
     const SUPPORTED_BLOCK_SIZES = [
-        CipherBlockSize::_128,
-        CipherBlockSize::_192,
-        CipherBlockSize::_256
+        CipherBlockSize::_40,
+        CipherBlockSize::_64
     ];
 
     /**
@@ -56,7 +55,7 @@ class CipherAES implements Cipher
     protected $iv;
 
     /**
-     * @var int The bitwise disjunction between Cipher::RAW_DATA and Cipher::DISABLE_PADDING.
+     * @var int The bitwise disjunction between Cipher::RAW_DATA and Cipher::DISABLE_PADDING
      */
     protected $options;
 
@@ -66,16 +65,16 @@ class CipherAES implements Cipher
     protected $mode;
 
     /**
-     * CipherAES constructor.
+     * CipherRC2 constructor.
      *
-     * @param int $blockSize The block size to use for encryption.
+     * @param int $blockSize The cipher block size to use.
      * @param string $iv The initialization vector to use.
      * @param int $options The options to use for encryption.
      * @param int $mode The mode to be used.
      * @since 0.3.5
      */
     public function __construct(
-        int $blockSize = CipherBlockSize::_256,
+        int $blockSize = CipherBlockSize::_64,
         string $iv = '',
         int $options = 0,
         int $mode = CipherMode::CBC
@@ -89,7 +88,7 @@ class CipherAES implements Cipher
     /**
      * Gets the block size.
      *
-     * @return int Returns the cipher block size.
+     * @return int Returns the block size.
      */
     public function getBlockSize() : int
     {
@@ -100,10 +99,10 @@ class CipherAES implements Cipher
      * Sets the block size.
      *
      * @param int $blockSize The new block size.
-     * @return CipherAES Returns this instance for fluent interface.
-     * @throws InvalidArgumentException when the block size is not a valid block size.
+     * @return CipherRC2 Returns this instance for fluent interface.
+     * @throws InvalidArgumentException when the method is not a valid block size.
      */
-    public function setBlockSize(int $blockSize) : CipherAES
+    public function setBlockSize(int $blockSize) : CipherRC2
     {
         if (!in_array($blockSize, self::SUPPORTED_BLOCK_SIZES)) {
             throw new InvalidArgumentException('The given block size is not valid.');
@@ -126,9 +125,9 @@ class CipherAES implements Cipher
      * Sets the initialization vector.
      *
      * @param string $iv The new initialization vector.
-     * @return CipherAES Returns this instance for fluent interface.
+     * @return CipherRC2 Returns this instance for fluent interface.
      */
-    public function setIV(string $iv) : CipherAES
+    public function setIV(string $iv) : CipherRC2
     {
         $this->iv = $iv;
         return $this;
@@ -148,9 +147,9 @@ class CipherAES implements Cipher
      * Sets the options.
      *
      * @param int $options The new options.
-     * @return CipherAES Returns this instance for fluent interface.
+     * @return CipherRC2 Returns this instance for fluent interface.
      */
-    public function setOptions(int $options) : CipherAES
+    public function setOptions(int $options) : CipherRC2
     {
         $this->options = $options;
         return $this;
@@ -170,10 +169,10 @@ class CipherAES implements Cipher
      * Sets the mode.
      *
      * @param int $mode The new cipher mode.
-     * @return CipherAES Returns this instance for fluent interface.
+     * @return CipherRC2 Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the mode is not a valid mode.
      */
-    public function setMode(int $mode) : CipherAES
+    public function setMode(int $mode) : CipherRC2
     {
         if (!in_array($mode, self::SUPPORTED_MODES)) {
             throw new InvalidArgumentException('The given mode is not supported.');
@@ -224,6 +223,7 @@ class CipherAES implements Cipher
     public function encrypt(string $data, string $password) : array
     {
         OpenSSL::resetErrors();
+
         if (($encrypted = @openssl_encrypt($data, $this->getCipherDescription(), $password, $this->getOptions(),
                 $this->getIV())) === false
         ) {
@@ -237,7 +237,7 @@ class CipherAES implements Cipher
             StringEncoder::rawToHex($password),
             $this->getOptions(),
             $this->getIV(),
-            $this->getMode()
+            $this->getBlockSize()
         ];
     }
 
@@ -248,7 +248,7 @@ class CipherAES implements Cipher
      */
     public function getCipherDescription() : string
     {
-        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
+        return sprintf('RC2-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
             strtoupper(CipherMode::NAMES[$this->getMode()]));
     }
 }

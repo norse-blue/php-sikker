@@ -28,6 +28,16 @@ abstract class CipherBlockSize
     const UNKNOWN = -1;
 
     /**
+     * @var int 40 bit block size.
+     */
+    const _40 = 40;
+
+    /**
+     * @var int 64 bit block size.
+     */
+    const _64 = 64;
+
+    /**
      * @var int 128 bit block size.
      */
     const _128 = 128;
@@ -47,6 +57,8 @@ abstract class CipherBlockSize
      */
     const NAMES = [
         self::UNKNOWN => 'unknown',
+        self::_40 => '40',
+        self::_64 => '64',
         self::_128 => '128',
         self::_192 => '192',
         self::_256 => '256',
