@@ -17,7 +17,7 @@ use InvalidArgumentException;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 use NorseBlue\Sikker\StringEncoder;
-use NorseBlue\Sikker\Symmetric\CipherBlockSize;
+use NorseBlue\Sikker\Symmetric\KeySize;
 use NorseBlue\Sikker\Symmetric\CipherMode;
 
 /**
@@ -29,12 +29,12 @@ use NorseBlue\Sikker\Symmetric\CipherMode;
 class CipherAES implements Cipher
 {
     /**
-     * @var array Holds the supported block sizes.
+     * @var array Holds the supported key sizes.
      */
-    const SUPPORTED_BLOCK_SIZES = [
-        CipherBlockSize::_128,
-        CipherBlockSize::_192,
-        CipherBlockSize::_256
+    const SUPPORTED_KEY_SIZES = [
+        KeySize::_128,
+        KeySize::_192,
+        KeySize::_256
     ];
 
     /**
@@ -46,9 +46,9 @@ class CipherAES implements Cipher
     ];
 
     /**
-     * @var int The block size to use.
+     * @var int The key size to use.
      */
-    protected $blockSize;
+    protected $keySize;
 
     /**
      * @var string The initialization vector to use.
@@ -68,47 +68,47 @@ class CipherAES implements Cipher
     /**
      * CipherAES constructor.
      *
-     * @param int $blockSize The block size to use for encryption.
+     * @param int $keySize The key size to use for encryption.
      * @param string $iv The initialization vector to use.
      * @param int $options The options to use for encryption.
      * @param int $mode The mode to be used.
      * @since 0.3.5
      */
     public function __construct(
-        int $blockSize = CipherBlockSize::_256,
+        int $keySize = KeySize::_256,
         string $iv = '',
         int $options = 0,
         int $mode = CipherMode::CBC
     ) {
-        $this->setBlockSize($blockSize);
+        $this->setKeySize($keySize);
         $this->setIV($iv);
         $this->setOptions($options);
         $this->setMode($mode);
     }
 
     /**
-     * Gets the block size.
+     * Gets the key size.
      *
-     * @return int Returns the cipher block size.
+     * @return int Returns the cipher key size.
      */
-    public function getBlockSize() : int
+    public function getKeySize() : int
     {
-        return $this->blockSize;
+        return $this->keySize;
     }
 
     /**
-     * Sets the block size.
+     * Sets the key size.
      *
-     * @param int $blockSize The new block size.
+     * @param int $keySize The new key size.
      * @return CipherAES Returns this instance for fluent interface.
-     * @throws InvalidArgumentException when the block size is not a valid block size.
+     * @throws InvalidArgumentException when the key size is not supported.
      */
-    public function setBlockSize(int $blockSize) : CipherAES
+    public function setKeySize(int $keySize) : CipherAES
     {
-        if (!in_array($blockSize, self::SUPPORTED_BLOCK_SIZES)) {
-            throw new InvalidArgumentException('The given block size is not valid.');
+        if (!in_array($keySize, self::SUPPORTED_KEY_SIZES)) {
+            throw new InvalidArgumentException('The given key size is not supported.');
         }
-        $this->blockSize = $blockSize;
+        $this->keySize = $keySize;
         return $this;
     }
 
@@ -171,7 +171,7 @@ class CipherAES implements Cipher
      *
      * @param int $mode The new cipher mode.
      * @return CipherAES Returns this instance for fluent interface.
-     * @throws InvalidArgumentException when the mode is not a valid mode.
+     * @throws InvalidArgumentException when the mode is not supported.
      */
     public function setMode(int $mode) : CipherAES
     {
@@ -248,7 +248,7 @@ class CipherAES implements Cipher
      */
     public function getCipherDescription() : string
     {
-        return sprintf('AES-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
             strtoupper(CipherMode::NAMES[$this->getMode()]));
+        return sprintf('AES-%s-%s', $this->getKeySize(),
     }
 }

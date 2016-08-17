@@ -14,64 +14,65 @@ declare(strict_types = 1);
 namespace NorseBlue\Sikker\Symmetric;
 
 /**
- * Class CipherBlockSize
+ * Class KeySize
  *
  * @package NorseBlue\Sikker\Symmetric
  * @see http://php.net/manual/en/function.openssl-get-cipher-methods.php openssl_get_cipher_methods function reference.
+ * @see https://www.openssl.org/docs/manmaster/apps/enc.html#SUPPORTED_CIPHERS OpenSSL supported ciphers reference.
  * @since 0.3.5
  */
-abstract class CipherBlockSize
+abstract class KeySize
 {
     /**
-     * @var int Unknown block size.
+     * @var int Unknown key size.
      */
     const UNKNOWN = -1;
 
     /**
-     * @var int 40 bit block size.
+     * @var int 40 bit key size.
      */
     const _40 = 40;
 
     /**
-     * @var int 64 bit block size.
+     * @var int 64 bit key size.
      */
     const _64 = 64;
 
     /**
-     * @var int 128 bit block size.
+     * @var int 128 bit key size.
      */
     const _128 = 128;
 
     /**
-     * @var int 192 bit block size.
+     * @var int 192 bit key size.
      */
     const _192 = 192;
 
     /**
-     * @var int 256 bit block size.
+     * @var int 256 bit key size.
      */
     const _256 = 256;
 
     /**
-     * @var array Holds the block size names.
+     * @var array Holds the key sizes names.
      */
     const NAMES = [
         self::UNKNOWN => 'unknown',
-        self::_40 => '40',
-        self::_64 => '64',
-        self::_128 => '128',
-        self::_192 => '192',
-        self::_256 => '256',
+        self::_40 => '40 bit',
+        self::_64 => '64 bit',
+        self::_128 => '128 bit',
+        self::_192 => '192 bit',
+        self::_256 => '256 bit',
     ];
 
     /**
-     * Gets the cipher mode as a string.
+     * Gets the key size as a string.
      *
-     * @param int $value The cipher mode to get as string.
-     * @return string Returns the cipher mode as a string.
+     * @param int $value The key size value.
+     * @return string Returns the key size as string.
      * @since 0.3.5
      */
-    public static function toName(int $value) : string
+    public static function asString(int $value) : string
     {
         if (array_key_exists($value, self::NAMES)) {
             return self::NAMES[$value];
@@ -80,17 +81,21 @@ abstract class CipherBlockSize
     }
 
     /**
-     * Gets the cipher mode as an integer from the name.
+     * Gets the key size as value.
      *
-     * @param string $name The name of the cipher mode.
-     * @return int Returns the integer value of the cipher mode.
+     * @param string $str The key size string.
+     * @return int Returns the key size as value.
      * @since 0.3.5
      */
-    public static function fromName(string $name) : int
+    public static function asValue(string $str) : int
     {
         $items = array_flip(self::NAMES);
-        if (array_key_exists($name, $items)) {
-            return $items[$name];
+        if (array_key_exists($str, $items)) {
+            return $items[$str];
+        }
+        $value = is_numeric($str) ? intval($str) : self::UNKNOWN;
+        if (in_array($value, self::NAMES)) {
+            return $value;
         }
         return self::UNKNOWN;
     }
