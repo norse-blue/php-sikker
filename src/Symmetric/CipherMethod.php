@@ -91,14 +91,34 @@ abstract class CipherMethod
     const IDEA = 'IDEA';
 
     /**
-     * @var string  Cipher method RC2
+     * @var string  Cipher method RC2 (128 bits)
      */
     const RC2 = 'RC2';
 
     /**
-     * @var string  Cipher method RC4
+     * @var string  Cipher method RC2 (64 bits)
+     */
+    const RC2_64 = 'RC2-64';
+
+    /**
+     * @var string  Cipher method RC2 (40 bits)
+     */
+    const RC2_40 = 'RC2-40';
+
+    /**
+     * @var string  Cipher method RC4 (128 bits)
      */
     const RC4 = 'RC4';
+
+    /**
+     * @var string  Cipher method RC4 (64 bits)
+     */
+    const RC4_64 = 'RC4-64';
+
+    /**
+     * @var string  Cipher method RC4 (40 bits)
+     */
+    const RC4_40 = 'RC4-40';
 
     /**
      * @var string Cipher method SEED
@@ -133,8 +153,7 @@ abstract class CipherMethod
     {
         OpenSSL::isAvailable(true);
         if (self::$availableMethods === null) {
-            $ciphers = array_diff(openssl_get_cipher_methods(true), openssl_get_cipher_methods()) + ['RC4'];
-            $ciphers = array_unique(array_map('strtoupper', $ciphers));
+            $ciphers = array_unique(array_map('strtoupper', openssl_get_cipher_methods(true)));
             self::$availableMethods = [];
             foreach ($ciphers as $cipher) {
                 if (preg_match('/^(\w+)$/', $cipher)) {
