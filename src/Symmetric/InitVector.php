@@ -8,7 +8,12 @@
 
 namespace NorseBlue\Sikker\Symmetric;
 
-
+/**
+ * Class InitVector
+ *
+ * @package NorseBlue\Sikker\Symmetric
+ * @since 0.3.5
+ */
 class InitVector
 {
     /**
@@ -17,6 +22,7 @@ class InitVector
      * @param string $iv The initialization vector to pad.
      * @param int $blockSize The block size in bytes.
      * @return string Returns the padded string.
+     * @since 0.3.5
      */
     public static function pad(string $iv, int $blockSize = 16)
     {

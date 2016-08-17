@@ -70,6 +70,7 @@ class CipherRC4 implements Cipher
      * Gets the key size.
      *
      * @return int Returns the key size.
+     * @since 0.3.5
      */
     public function getKeySize() : int
     {
@@ -82,6 +83,7 @@ class CipherRC4 implements Cipher
      * @param int $keySize The new key size.
      * @return CipherRC4 Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the key size is not supported.
+     * @since 0.3.5
      */
     public function setKeySize(int $keySize) : CipherRC4
     {
@@ -96,6 +98,7 @@ class CipherRC4 implements Cipher
      * Gets the options.
      *
      * @return int Returns the options.
+     * @since 0.3.5
      */
     public function getOptions() : int
     {
@@ -107,6 +110,7 @@ class CipherRC4 implements Cipher
      *
      * @param int $options The new options.
      * @return CipherRC4 Returns this instance for fluent interface.
+     * @since 0.3.5
      */
     public function setOptions(int $options) : CipherRC4
     {
@@ -177,6 +181,7 @@ class CipherRC4 implements Cipher
      * Gets the cipher description.
      *
      * @return string Returns the cipher description string.
+     * @since 0.3.5
      */
     public function getCipherDescription() : string
     {

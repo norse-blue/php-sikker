@@ -61,7 +61,7 @@ class CipherAES implements Cipher
     protected $options;
 
     /**
-     * @var@var int The cipher mode (EBC or CBC).
+     * @var int The cipher mode (EBC or CBC).
      */
     protected $mode;
 
@@ -90,6 +90,7 @@ class CipherAES implements Cipher
      * Gets the key size.
      *
      * @return int Returns the cipher key size.
+     * @since 0.3.5
      */
     public function getKeySize() : int
     {
@@ -102,6 +103,7 @@ class CipherAES implements Cipher
      * @param int $keySize The new key size.
      * @return CipherAES Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the key size is not supported.
+     * @since 0.3.5
      */
     public function setKeySize(int $keySize) : CipherAES
     {
@@ -116,6 +118,7 @@ class CipherAES implements Cipher
      * Gets the initialization vector.
      *
      * @return string Returns the initialization vector.
+     * @since 0.3.5
      */
     public function getIV() : string
     {
@@ -127,6 +130,7 @@ class CipherAES implements Cipher
      *
      * @param string $iv The new initialization vector.
      * @return CipherAES Returns this instance for fluent interface.
+     * @since 0.3.5
      */
     public function setIV(string $iv) : CipherAES
     {
@@ -138,6 +142,7 @@ class CipherAES implements Cipher
      * Gets the options.
      *
      * @return int Returns the options.
+     * @since 0.3.5
      */
     public function getOptions() : int
     {
@@ -149,6 +154,7 @@ class CipherAES implements Cipher
      *
      * @param int $options The new options.
      * @return CipherAES Returns this instance for fluent interface.
+     * @since 0.3.5
      */
     public function setOptions(int $options) : CipherAES
     {
@@ -160,6 +166,7 @@ class CipherAES implements Cipher
      * Gets the mode.
      *
      * @return int Returns the cipher mode.
+     * @since 0.3.5
      */
     public function getMode() : int
     {
@@ -172,6 +179,7 @@ class CipherAES implements Cipher
      * @param int $mode The new cipher mode.
      * @return CipherAES Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the mode is not supported.
+     * @since 0.3.5
      */
     public function setMode(int $mode) : CipherAES
     {
@@ -245,6 +253,7 @@ class CipherAES implements Cipher
      * Gets the cipher description.
      *
      * @return string Returns the cipher description string.
+     * @since 0.3.5
      */
     public function getCipherDescription() : string
     {

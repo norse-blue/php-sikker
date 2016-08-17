@@ -37,6 +37,7 @@ interface Cipher
      * Gets the cipher description.
      *
      * @return string Returns the cipher description string.
+     * @since 0.3.5
      */
     public function getCipherDescription() : string;
 

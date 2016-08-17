@@ -111,6 +111,7 @@ class CipherDES implements Cipher
      * Gets the method.
      *
      * @return int Returns the method.
+     * @since 0.3.5
      */
     public function getMethod() : int
     {
@@ -123,6 +124,7 @@ class CipherDES implements Cipher
      * @param int $method The new method.
      * @return CipherDES Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the method is not supported.
+     * @since 0.3.5
      */
     public function setMethod(int $method) : CipherDES
     {
@@ -137,6 +139,7 @@ class CipherDES implements Cipher
      * Gets the initialization vector.
      *
      * @return string Returns the initialization vector.
+     * @since 0.3.5
      */
     public function getIV() : string
     {
@@ -148,6 +151,7 @@ class CipherDES implements Cipher
      *
      * @param string $iv The new initialization vector.
      * @return CipherDES Returns this instance for fluent interface.
+     * @since 0.3.5
      */
     public function setIV(string $iv) : CipherDES
     {
@@ -159,6 +163,7 @@ class CipherDES implements Cipher
      * Gets the options.
      *
      * @return int Returns the options.
+     * @since 0.3.5
      */
     public function getOptions() : int
     {
@@ -170,6 +175,7 @@ class CipherDES implements Cipher
      *
      * @param int $options The new options.
      * @return CipherDES Returns this instance for fluent interface.
+     * @since 0.3.5
      */
     public function setOptions(int $options) : CipherDES
     {
@@ -181,6 +187,7 @@ class CipherDES implements Cipher
      * Gets the mode.
      *
      * @return int Returns the cipher mode.
+     * @since 0.3.5
      */
     public function getMode() : int
     {
@@ -193,6 +200,7 @@ class CipherDES implements Cipher
      * @param int $mode The new cipher mode.
      * @return CipherDES Returns this instance for fluent interface.
      * @throws InvalidArgumentException when the mode is not supported.
+     * @since 0.3.5
      */
     public function setMode(int $mode) : CipherDES
     {
@@ -266,6 +274,7 @@ class CipherDES implements Cipher
      * Gets the cipher description.
      *
      * @return string Returns the cipher description string.
+     * @since 0.3.5
      */
     public function getCipherDescription() : string
     {
