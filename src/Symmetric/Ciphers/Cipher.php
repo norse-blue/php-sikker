@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3
+ * @version    0.3.5
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -37,6 +37,7 @@ interface Cipher
      * Gets the cipher description.
      *
      * @return string Returns the cipher description string.
+     * @since 0.3.5
      */
     public function getCipherDescription() : string;
 

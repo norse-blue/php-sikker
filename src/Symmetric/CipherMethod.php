@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3
+ * @version    0.3.5
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -135,6 +135,7 @@ abstract class CipherMethod
      *
      * @param array $methods The cipher methods to trim mode from.
      * @return array Returns an array of cipher methods with trimmed mode.
+     * @since 0.3.5
      */
     protected static function trimCipherMode(array $methods)
     {
