@@ -39,12 +39,66 @@ abstract class CipherMode
     const CBC = 1;
 
     /**
+     * @var int The CFB mode.
+     */
+    const CFB = 2;
+
+    /**
+     * @var int The CFB1 mode.
+     */
+    const CFB1 = 3;
+
+    /**
+     * @var int The CFB8 mode.
+     */
+    const CFB8 = 4;
+
+    /**
+     * @var int The CTR mode.
+     */
+    const CTR = 5;
+
+    /**
+     * @var int The OFB mode.
+     */
+    const OFB = 6;
+
+    /**
+     * @var int The XTS mode.
+     */
+    const XTS = 7;
+
+    /**
+     * @var int The CCM mode.
+     */
+    const CCM = 8;
+
+    /**
+     * @var int The GCM mode.
+     */
+    const GCM = 9;
+
+    /**
+     * @var int The WRAP mode.
+     */
+    const WRAP = 10;
+
+    /**
      * @var array Holds the modes names.
      */
     const NAMES = [
         self::UNKNOWN => 'unknown',
         self::ECB => 'ecb',
-        self::CBC => 'cbc'
+        self::CBC => 'cbc',
+        self::CFB => 'cfb',
+        self::CFB1 => 'cfb1',
+        self::CFB8 => 'cfb8',
+        self::CTR => 'ctr',
+        self::OFB => 'ofb',
+        self::XTS => 'xts',
+        self::CCM => 'ccm',
+        self::GCM => 'gcm',
+        self::WRAP => 'wrap'
     ];
 
     /**
