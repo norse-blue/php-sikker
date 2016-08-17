@@ -53,14 +53,24 @@ class CipherDESTest extends Unit
     const ENCRYPTED_PAYLOAD_DES_BASE64_IV = 'eJMcJPPrlUfs4x4kU8sCY3RJhpW8+YknBL3kukoD56e4nHhfOyDoE5hSkZuV1QL4';
 
     /**
-     * @var string The payload encrypted with DES3 and the password.
+     * @var string The payload encrypted with DES-EDE and the password.
      */
-    const ENCRYPTED_PAYLOAD_DES3_BASE64 = 'D0yh2ZxV3j23pFY82CpSR8sS+ATVFkHKeCCRhGnnLXtY3hxroZm7VAPzSxeML7Jb';
+    const ENCRYPTED_PAYLOAD_DES3_2K_BASE64 = 'xvR2NwlcraAkhKC4g+96UlNkHMNuH7XXB5ic1q6rytj8RPidMOD2f2Llrchaxlg5';
 
     /**
-     * @var string The payload encrypted with DES3, the password and the IV.
+     * @var string The payload encrypted with DES-EDE, the password and the IV.
      */
-    const ENCRYPTED_PAYLOAD_DES3_BASE64_IV = '+TbIi6QM4VHYsnR7sFj9WAIILSnjCDwQBHPhk0JHR8Hf/x+p96wXWR5bDq6KP2Ev';
+    const ENCRYPTED_PAYLOAD_DES3_2K_BASE64_IV = 'KbhJv39XAzCVT3kDTcaBzrj/rdQ7YkrYe9B8quHLQ3CTzinPlkbljNCuk4w7J4Hj';
+
+    /**
+     * @var string The payload encrypted with DES-EDE3 and the password.
+     */
+    const ENCRYPTED_PAYLOAD_DES3_3K_BASE64 = 'D0yh2ZxV3j23pFY82CpSR8sS+ATVFkHKeCCRhGnnLXtY3hxroZm7VAPzSxeML7Jb';
+
+    /**
+     * @var string The payload encrypted with DES-EDE3, the password and the IV.
+     */
+    const ENCRYPTED_PAYLOAD_DES3_3K_BASE64_IV = '+TbIi6QM4VHYsnR7sFj9WAIILSnjCDwQBHPhk0JHR8Hf/x+p96wXWR5bDq6KP2Ev';
 
     /**
      * @var string The payload encrypted with DESX and the password.
@@ -70,7 +80,7 @@ class CipherDESTest extends Unit
     /**
      * @var string The payload encrypted with DESX, the password and the IV.
      */
-    const ENCRYPTED_PAYLOAD_DESX_BASE64_IV = '+TbIi6QM4VHYsnR7sFj9WAIILSnjCDwQBHPhk0JHR8Hf/x+p96wXWR5bDq6KP2Ev';
+    const ENCRYPTED_PAYLOAD_DESX_BASE64_IV = '/5Dn9tPg2BgzbrvfsPRziDDxItaokKQ2vkl4Rc5OE1Lnsd2osjA3Wvd/TQXrl99f';
 
     protected function _after()
     {
@@ -141,34 +151,66 @@ class CipherDESTest extends Unit
             }
         });
 
-        $this->specify('Encrypts and decrypts the payload with DES3', function () {
+        $this->specify('Encrypts and decrypts the payload with DES-EDE', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherDES(CipherDES::METHOD_TRIPLE);
+                $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_2KEY);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
-                $this->assertEquals(self::ENCRYPTED_PAYLOAD_DES3_BASE64, $encrypted[0]);
+                $this->assertEquals(self::ENCRYPTED_PAYLOAD_DES3_2K_BASE64, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);
                 $this->assertEquals('', $encrypted[3]);
 
-                $decrypted = $cipher->decrypt(self::ENCRYPTED_PAYLOAD_DES3_BASE64, self::PASSWORD);
+                $decrypted = $cipher->decrypt(self::ENCRYPTED_PAYLOAD_DES3_2K_BASE64, self::PASSWORD);
                 $this->assertEquals(self::PAYLOAD, $decrypted);
             }
         });
 
-        $this->specify('Encrypts and decrypts the payload with DES3 and an IV.', function () {
+        $this->specify('Encrypts and decrypts the payload with DES-EDE and an IV.', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherDES(CipherDES::METHOD_TRIPLE, self::IV);
+                $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_2KEY, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
-                $this->assertEquals(self::ENCRYPTED_PAYLOAD_DES3_BASE64_IV, $encrypted[0]);
+                $this->assertEquals(self::ENCRYPTED_PAYLOAD_DES3_2K_BASE64_IV, $encrypted[0]);
                 $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
                 $this->assertEquals(0, $encrypted[2]);
                 $this->assertEquals(self::IV, $encrypted[3]);
 
-                $decrypted = $cipher->decrypt(self::ENCRYPTED_PAYLOAD_DES3_BASE64_IV, self::PASSWORD);
+                $decrypted = $cipher->decrypt(self::ENCRYPTED_PAYLOAD_DES3_2K_BASE64_IV, self::PASSWORD);
+                $this->assertEquals(self::PAYLOAD, $decrypted);
+            }
+        });
+
+        $this->specify('Encrypts and decrypts the payload with DES-EDE3', function () {
+            if (extension_loaded('openssl')) {
+                $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_3KEY);
+                $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
+                $this->assertInternalType('array', $encrypted);
+                $this->assertEquals(5, count($encrypted));
+                $this->assertEquals(self::ENCRYPTED_PAYLOAD_DES3_3K_BASE64, $encrypted[0]);
+                $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
+                $this->assertEquals(0, $encrypted[2]);
+                $this->assertEquals('', $encrypted[3]);
+
+                $decrypted = $cipher->decrypt(self::ENCRYPTED_PAYLOAD_DES3_3K_BASE64, self::PASSWORD);
+                $this->assertEquals(self::PAYLOAD, $decrypted);
+            }
+        });
+
+        $this->specify('Encrypts and decrypts the payload with DES-EDE3 and an IV.', function () {
+            if (extension_loaded('openssl')) {
+                $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_3KEY, self::IV);
+                $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
+                $this->assertInternalType('array', $encrypted);
+                $this->assertEquals(5, count($encrypted));
+                $this->assertEquals(self::ENCRYPTED_PAYLOAD_DES3_3K_BASE64_IV, $encrypted[0]);
+                $this->assertEquals(strtolower(self::PASSWORD_HEX), strtolower($encrypted[1]));
+                $this->assertEquals(0, $encrypted[2]);
+                $this->assertEquals(self::IV, $encrypted[3]);
+
+                $decrypted = $cipher->decrypt(self::ENCRYPTED_PAYLOAD_DES3_3K_BASE64_IV, self::PASSWORD);
                 $this->assertEquals(self::PAYLOAD, $decrypted);
             }
         });
@@ -191,7 +233,7 @@ class CipherDESTest extends Unit
 
         $this->specify('Encrypts and decrypts the payload with DESX and an IV.', function () {
             if (extension_loaded('openssl')) {
-                $cipher = new CipherDES(CipherDES::METHOD_TRIPLE, self::IV);
+                $cipher = new CipherDES(CipherDES::METHOD_X, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
                 $this->assertEquals(5, count($encrypted));
