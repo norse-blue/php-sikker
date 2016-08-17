@@ -224,7 +224,6 @@ class CipherRC2 implements Cipher
     public function encrypt(string $data, string $password) : array
     {
         OpenSSL::resetErrors();
-
         if (($encrypted = @openssl_encrypt($data, $this->getCipherDescription(), $password, $this->getOptions(),
                 $this->getIV())) === false
         ) {
@@ -252,7 +251,7 @@ class CipherRC2 implements Cipher
         if ($this->getKeySize() == KeySize::_128) {
             return sprintf('RC2-%s', strtoupper(CipherMode::asString($this->getMode())));
         }
-        
+
         return sprintf('RC2-%s-%s', $this->getKeySize(),
             strtoupper(CipherMode::asString($this->getMode())));
     }

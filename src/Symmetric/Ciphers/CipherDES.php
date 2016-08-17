@@ -245,7 +245,6 @@ class CipherDES implements Cipher
     public function encrypt(string $data, string $password) : array
     {
         OpenSSL::resetErrors();
-
         if (($encrypted = @openssl_encrypt($data, $this->getCipherDescription(), $password, $this->getOptions(),
                 $this->getIV())) === false
         ) {
