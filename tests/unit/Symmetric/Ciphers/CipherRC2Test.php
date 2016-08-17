@@ -16,6 +16,7 @@ namespace NorseBlue\Sikker\Tests\Symmetric\Ciphers;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use InvalidArgumentException;
+use NorseBlue\Sikker\Symmetric\CipherMethod;
 use NorseBlue\Sikker\Symmetric\KeySize;
 use NorseBlue\Sikker\Symmetric\Ciphers\CipherRC2;
 
@@ -111,7 +112,7 @@ class CipherRC2Test extends Unit
     public function testEncryptionDecryption()
     {
         $this->specify('Encrypts and decrypts the payload with RC2-128', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::RC2)) {
                 $cipher = new CipherRC2(KeySize::_128);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -127,7 +128,7 @@ class CipherRC2Test extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with RC2-128 and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::RC2)) {
                 $cipher = new CipherRC2(KeySize::_128, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -143,7 +144,7 @@ class CipherRC2Test extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with RC2-64', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::RC2_64)) {
                 $cipher = new CipherRC2(KeySize::_64);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -159,7 +160,7 @@ class CipherRC2Test extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with RC2-64 and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::RC2_64)) {
                 $cipher = new CipherRC2(KeySize::_64, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -175,7 +176,7 @@ class CipherRC2Test extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with RC2-40', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::RC2_40)) {
                 $cipher = new CipherRC2(KeySize::_40);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -191,7 +192,7 @@ class CipherRC2Test extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with RC2-40 and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::RC2_40)) {
                 $cipher = new CipherRC2(KeySize::_40, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);

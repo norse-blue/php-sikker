@@ -16,6 +16,7 @@ namespace NorseBlue\Sikker\Tests\Symmetric\Ciphers;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use InvalidArgumentException;
+use NorseBlue\Sikker\Symmetric\CipherMethod;
 use NorseBlue\Sikker\Symmetric\Ciphers\CipherDES;
 
 class CipherDESTest extends Unit
@@ -120,7 +121,7 @@ class CipherDESTest extends Unit
     public function testEncryptionDecryption()
     {
         $this->specify('Encrypts and decrypts the payload with DES', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DES)) {
                 $cipher = new CipherDES(CipherDES::METHOD_SIMPLE);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -136,7 +137,7 @@ class CipherDESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with DES and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DES)) {
                 $cipher = new CipherDES(CipherDES::METHOD_SIMPLE, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -152,7 +153,7 @@ class CipherDESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with DES-EDE', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DES3_2K)) {
                 $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_2KEY);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -168,7 +169,7 @@ class CipherDESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with DES-EDE and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DES3_2K)) {
                 $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_2KEY, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -184,7 +185,7 @@ class CipherDESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with DES-EDE3', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DES3_3K)) {
                 $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_3KEY);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -200,7 +201,7 @@ class CipherDESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with DES-EDE3 and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DES3_3K)) {
                 $cipher = new CipherDES(CipherDES::METHOD_TRIPLE_3KEY, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -216,7 +217,7 @@ class CipherDESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with DESX', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DESX)) {
                 $cipher = new CipherDES(CipherDES::METHOD_X);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -232,7 +233,7 @@ class CipherDESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with DESX and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::DESX)) {
                 $cipher = new CipherDES(CipherDES::METHOD_X, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);

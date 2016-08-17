@@ -16,6 +16,7 @@ namespace NorseBlue\Sikker\Tests\Symmetric\Ciphers;
 use Codeception\Specify;
 use Codeception\Test\Unit;
 use InvalidArgumentException;
+use NorseBlue\Sikker\Symmetric\CipherMethod;
 use NorseBlue\Sikker\Symmetric\KeySize;
 use NorseBlue\Sikker\Symmetric\Ciphers\CipherAES;
 
@@ -111,7 +112,7 @@ class CipherAESTest extends Unit
     public function testEncryptionDecryption()
     {
         $this->specify('Encrypts and decrypts the payload with AES128', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::AES128)) {
                 $cipher = new CipherAES(KeySize::_128);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -127,7 +128,7 @@ class CipherAESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with AES128 and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::AES128)) {
                 $cipher = new CipherAES(KeySize::_128, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -143,7 +144,7 @@ class CipherAESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with AES192', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::AES192)) {
                 $cipher = new CipherAES(KeySize::_192);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -159,7 +160,7 @@ class CipherAESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with AES192 and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::AES192)) {
                 $cipher = new CipherAES(KeySize::_192, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -175,7 +176,7 @@ class CipherAESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with AES256', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::AES256)) {
                 $cipher = new CipherAES(KeySize::_256);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
@@ -191,7 +192,7 @@ class CipherAESTest extends Unit
         });
 
         $this->specify('Encrypts and decrypts the payload with AES256 and an IV.', function () {
-            if (extension_loaded('openssl')) {
+            if (extension_loaded('openssl') && CipherMethod::isAvailable(CipherMethod::AES256)) {
                 $cipher = new CipherAES(KeySize::_256, self::IV);
                 $encrypted = $cipher->encrypt(self::PAYLOAD, self::PASSWORD);
                 $this->assertInternalType('array', $encrypted);
