@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\Keys;
+namespace NorseBlue\Sikker\Tests\Asymmetric;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;
@@ -32,11 +32,11 @@ class SignatureAlgorithmTest extends Unit
     // tests
 
     /**
-     * Tests the type names
+     * Tests the conversions
      */
-    public function testTypeNames()
+    public function testConversions()
     {
-        $this->specify('Converts the key types to name correctly.', function () {
+        $this->specify('Converts the values to names correctly.', function () {
             $this->assertEquals('sha1', SignatureAlgorithm::toName(SignatureAlgorithm::SHA1));
             $this->assertEquals('md5', SignatureAlgorithm::toName(SignatureAlgorithm::MD5));
             $this->assertEquals('md4', SignatureAlgorithm::toName(SignatureAlgorithm::MD4));
@@ -51,7 +51,7 @@ class SignatureAlgorithmTest extends Unit
             $this->assertEquals('unknown', SignatureAlgorithm::toName(998));
         });
 
-        $this->specify('Converts the key types from name correctly.', function () {
+        $this->specify('Converts the values from names correctly.', function () {
             $this->assertEquals(SignatureAlgorithm::SHA1, SignatureAlgorithm::fromName('sha1'));
             $this->assertEquals(SignatureAlgorithm::MD5, SignatureAlgorithm::fromName('md5'));
             $this->assertEquals(SignatureAlgorithm::MD4, SignatureAlgorithm::fromName('md4'));

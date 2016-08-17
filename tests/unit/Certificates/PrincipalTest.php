@@ -11,7 +11,7 @@
  */
 declare(strict_types = 1);
 
-namespace NorseBlue\Sikker\Tests\OpenSSL;
+namespace NorseBlue\Sikker\Tests\Certificates;
 
 use Codeception\Specify;
 use Codeception\Test\Unit;

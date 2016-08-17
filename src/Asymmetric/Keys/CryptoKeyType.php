@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3
+ * @version    0.3.5
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -59,16 +59,16 @@ abstract class CryptoKeyType
     ];
 
     /**
-     * Gets the the key type as a string.
+     * Gets the key type as a string.
      *
-     * @param int $type The type to get as string.
+     * @param int $value The type to get as string.
      * @return string Returns the key type as a string.
      * @since 0.3
      */
-    public static function toName(int $type) : string
+    public static function toName(int $value) : string
     {
-        if (array_key_exists($type, self::NAMES)) {
-            return self::NAMES[$type];
+        if (array_key_exists($value, self::NAMES)) {
+            return self::NAMES[$value];
         }
         return self::NAMES[self::UNKNOWN];
     }
@@ -82,9 +82,9 @@ abstract class CryptoKeyType
      */
     public static function fromName(string $name) : int
     {
-        $types = array_flip(self::NAMES);
-        if (array_key_exists($name, $types)) {
-            return $types[$name];
+        $items = array_flip(self::NAMES);
+        if (array_key_exists($name, $items)) {
+            return $items[$name];
         }
         return self::UNKNOWN;
     }

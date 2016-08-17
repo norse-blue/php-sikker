@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3
+ * @version    0.3.5
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -20,117 +20,136 @@ use NorseBlue\Sikker\OpenSSL\OpenSSL;
  *
  * @package NorseBlue\Sikker\Symmetric
  * @see http://php.net/manual/en/function.openssl-get-cipher-methods.php openssl_get_cipher_methods function reference.
+ * @see https://www.openssl.org/docs/manmaster/apps/enc.html#SUPPORTED_CIPHERS OpenSSL supported ciphers reference.
  * @since 0.3
  */
 abstract class CipherMethod
 {
-    const AES_128_CBC = 'aes-128-cbc';
-    const AES_128_CCM = 'aes-128-ccm';
-    const AES_128_CFB = 'aes-128-cfb';
-    const AES_128_CFB1 = 'aes-128-cfb1';
-    const AES_128_CFB8 = 'aes-128-cfb8';
-    const AES_128_CTR = 'aes-128-ctr';
-    const AES_128_ECB = 'aes-128-ecb';
-    const AES_128_GCM = 'aes-128-gcm';
-    const AES_128_OFB = 'aes-128-ofb';
-    const AES_128_XTS = 'aes-128-xts';
-    const AES_192_CBC = 'aes-192-cbc';
-    const AES_192_CCM = 'aes-192-ccm';
-    const AES_192_CFB = 'aes-192-cfb';
-    const AES_192_CFB1 = 'aes-192-cfb1';
-    const AES_192_CFB8 = 'aes-192-cfb8';
-    const AES_192_CTR = 'aes-192-ctr';
-    const AES_192_ECB = 'aes-192-ecb';
-    const AES_192_GCM = 'aes-192-gcm';
-    const AES_192_OFB = 'aes-192-ofb';
-    const AES_256_CBC = 'aes-256-cbc';
-    const AES_256_CCM = 'aes-256-ccm';
-    const AES_256_CFB = 'aes-256-cfb';
-    const AES_256_CFB1 = 'aes-256-cfb1';
-    const AES_256_CFB8 = 'aes-256-cfb8';
-    const AES_256_CTR = 'aes-256-ctr';
-    const AES_256_ECB = 'aes-256-ecb';
-    const AES_256_GCM = 'aes-256-gcm';
-    const AES_256_OFB = 'aes-256-ofb';
-    const AES_256_XTS = 'aes-256-xts';
-    const BF_CBC = 'bf-cbc';
-    const BF_CFB = 'bf-cfb';
-    const BF_ECB = 'bf-ecb';
-    const BF_OFB = 'bf-ofb';
-    const CAMELLIA_128_CBC = 'camellia-128-cbc';
-    const CAMELLIA_128_CFB = 'camellia-128-cfb';
-    const CAMELLIA_128_CFB1 = 'camellia-128-cfb1';
-    const CAMELLIA_128_CFB8 = 'camellia-128-cfb8';
-    const CAMELLIA_128_ECB = 'camellia-128-ecb';
-    const CAMELLIA_128_OFB = 'camellia-128-ofb';
-    const CAMELLIA_192_CBC = 'camellia-192-cbc';
-    const CAMELLIA_192_CFB = 'camellia-192-cfb';
-    const CAMELLIA_192_CFB1 = 'camellia-192-cfb1';
-    const CAMELLIA_192_CFB8 = 'camellia-192-cfb8';
-    const CAMELLIA_192_ECB = 'camellia-192-ecb';
-    const CAMELLIA_192_OFB = 'camellia-192-ofb';
-    const CAMELLIA_256_CBC = 'camellia-256-cbc';
-    const CAMELLIA_256_CFB = 'camellia-256-cfb';
-    const CAMELLIA_256_CFB1 = 'camellia-256-cfb1';
-    const CAMELLIA_256_CFB8 = 'camellia-256-cfb8';
-    const CAMELLIA_256_ECB = 'camellia-256-ecb';
-    const CAMELLIA_256_OFB = 'camellia-256-ofb';
-    const CAST5_CBC = 'cast5-cbc';
-    const CAST5_CFB = 'cast5-cfb';
-    const CAST5_ECB = 'cast5-ecb';
-    const CAST5_OFB = 'cast5-ofb';
-    const DES_CBC = 'des-cbc';
-    const DES_CFB = 'des-cfb';
-    const DES_CFB1 = 'des-cfb1';
-    const DES_CFB8 = 'des-cfb8';
-    const DES_ECB = 'des-ecb';
-    const DES_EDE = 'des-ede';
-    const DES_EDE_CBC = 'des-ede-cbc';
-    const DES_EDE_CFB = 'des-ede-cfb';
-    const DES_EDE_OFB = 'des-ede-ofb';
-    const DES_EDE3 = 'des-ede3';
-    const DES_EDE3_CBC = 'des-ede3-cbc';
-    const DES_EDE3_CFB = 'des-ede3-cfb';
-    const DES_EDE3_CFB1 = 'des-ede3-cfb1';
-    const DES_EDE3_CFB8 = 'des-ede3-cfb8';
-    const DES_EDE3_OFB = 'des-ede3-ofb';
-    const DES_OFB = 'des-ofb';
-    const DESX_CBC = 'desx-cbc';
-    const GOST_28147_89 = 'gost 28147-89';
-    const GOST89 = 'gost89';
-    const GOST89_CNT = 'gost89-cnt';
-    const ID_AES128_CCM = 'id-aes128-ccm';
-    const ID_AES128_GCM = 'id-aes128-gcm';
-    const ID_AES128_WRAP = 'id-aes128-wrap';
-    const ID_AES192_CCM = 'id-aes192-ccm';
-    const ID_AES192_GCM = 'id-aes192-gcm';
-    const ID_AES192_WRAP = 'id-aes192-wrap';
-    const ID_AES256_CCM = 'id-aes256-ccm';
-    const ID_AES256_GCM = 'id-aes256-gcm';
-    const ID_AES256_WRAP = 'id-aes256-wrap';
-    const ID_SMIME_ALG_CMS3DESWRAP = 'id-smime-alg-cms3deswrap';
-    const IDEA_CBC = 'idea-cbc';
-    const IDEA_CFB = 'idea-cfb';
-    const IDEA_ECB = 'idea-ecb';
-    const IDEA_OFB = 'idea-ofb';
-    const RC2_40_CBC = 'rc2-40-cbc';
-    const RC2_64_CBC = 'rc2-64-cbc';
-    const RC2_CBC = 'rc2-cbc';
-    const RC2_CFB = 'rc2-cfb';
-    const RC2_ECB = 'rc2-ecb';
-    const RC2_OFB = 'rc2-ofb';
-    const RC4 = 'rc4';
-    const RC4_40 = 'rc4-40';
-    const RC4_HMAC_MD5 = 'rc4-hmac-md5';
-    const SEED_CBC = 'seed-cbc';
-    const SEED_CFB = 'seed-cfb';
-    const SEED_ECB = 'seed-ecb';
-    const SEED_OFB = 'seed-ofb';
+    /**
+     * @var string Cipher method AES 128bit
+     */
+    const AES128 = 'AES128';
+
+    /**
+     * @var string Cipher method AES 192bit
+     */
+    const AES192 = 'AES192';
+
+    /**
+     * @var string Cipher method AES 256bit
+     */
+    const AES256 = 'AES256';
+
+    /**
+     * @var string Cipher method BF
+     */
+    const BF = 'BF';
+
+    /**
+     * @var string Cipher method CAMELLIA 128bit
+     */
+    const CAMELLIA128 = 'CAMELLIA128';
+
+    /**
+     * @var string Cipher method CAMELLIA 192bit
+     */
+    const CAMELLIA192 = 'CAMELLIA192';
+
+    /**
+     * @var string Cipher method CAMELLIA 256bit
+     */
+    const CAMELLIA256 = 'CAMELLIA256';
+
+    /**
+     * @var string  Cipher method CAST
+     */
+    const CAST = 'CAST';
+
+    /**
+     * @var string  Cipher method CAST
+     */
+    const DES = 'DES';
+
+    /**
+     * @var string  Cipher method Triple DES with 2 keys
+     */
+    const DES3_2K = 'DES-EDE';
+
+    /**
+     * @var string  Cipher method Triple DES with 3 keys
+     */
+    const DES3_3K = 'DES-EDE3';
+
+    /**
+     * @var string  Cipher method  DESX
+     */
+    const DESX = 'DESX';
+
+    /**
+     * @var string  Cipher method IDEA
+     */
+    const IDEA = 'IDEA';
+
+    /**
+     * @var string  Cipher method RC2 (128 bits)
+     */
+    const RC2 = 'RC2';
+
+    /**
+     * @var string  Cipher method RC2 (64 bits)
+     */
+    const RC2_64 = 'RC2-64';
+
+    /**
+     * @var string  Cipher method RC2 (40 bits)
+     */
+    const RC2_40 = 'RC2-40';
+
+    /**
+     * @var string  Cipher method RC4 (128 bits)
+     */
+    const RC4 = 'RC4';
+
+    /**
+     * @var string  Cipher method RC4 (64 bits)
+     */
+    const RC4_64 = 'RC4-64';
+
+    /**
+     * @var string  Cipher method RC4 (40 bits)
+     */
+    const RC4_40 = 'RC4-40';
+
+    /**
+     * @var string Cipher method SEED
+     */
+    const SEED = 'SEED';
 
     /**
      * @var null|array List of the available methods or null if not initialized.
      */
     private static $availableMethods = null;
+
+    /**
+     * Trims the cipher mode from the given array of cipher methods.
+     *
+     * @param array $methods The cipher methods to trim mode from.
+     * @return array Returns an array of cipher methods with trimmed mode.
+     * @since 0.3.5
+     */
+    protected static function trimCipherMode(array $methods)
+    {
+        $regexMethods = '';
+        foreach (CipherMode::NAMES as $mode => $modeName) {
+            if ($mode != CipherMode::UNKNOWN) {
+                $regexMethods .= sprintf('|%s', $modeName);
+            }
+        }
+
+        $regex = sprintf('/^(.*)(-(?:%s))$/', trim(strtoupper($regexMethods), '|'));
+        $ciphers = preg_replace($regex, '$1', $methods);
+        return $ciphers ?? [];
+    }
 
     /**
      * Verifies if the given method is available.
@@ -155,7 +174,8 @@ abstract class CipherMethod
     {
         OpenSSL::isAvailable(true);
         if (self::$availableMethods === null) {
-            self::$availableMethods = openssl_get_cipher_methods();
+            $methods = array_unique(array_map('strtoupper', openssl_get_cipher_methods(true)));
+            self::$availableMethods = array_unique(self::trimCipherMode($methods));
         }
 
         return self::$availableMethods;

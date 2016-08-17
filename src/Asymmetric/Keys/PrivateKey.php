@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3
+ * @version    0.3.5
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -17,6 +17,7 @@ use InvalidArgumentException;
 use NorseBlue\Sikker\Asymmetric\SignatureAlgorithm;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
+use NorseBlue\Sikker\Symmetric\InitVector;
 
 /**
  * Class PrivateKey
@@ -160,7 +161,9 @@ class PrivateKey extends CryptoKey
      *
      * @param string $message The message to be signed.
      * @param int $signatureAlgorithm The signature algorithm to be used.
-     * @return array Returns an array with the signature (index 0) and the signature algorithm used (index 1).
+     * @return array Returns an array with the signature along other information.
+     *                  0 => [string] signature
+     *                  1 => [int] signature algorithm used
      * @throws OpenSSLException when the message cannot be signed.
      * @since 0.3
      */
@@ -182,14 +185,16 @@ class PrivateKey extends CryptoKey
      * @param string $envelope The envelope to unseal.
      * @param string $envelopeKey The envelope hash key.
      * @param string $cipherMethod The cipher method used to seal the message.
+     * @param string $iv The optional initialization vector for some cipher methods.
      * @return string The unsealed message.
-     * @throws OpenSSLException when the message cannot be unsealed.
      * @since 0.3
      */
-    public function unseal(string $envelope, string $envelopeKey, string $cipherMethod = null) : string
+    public function unseal(string $envelope, string $envelopeKey, string $cipherMethod = null, string $iv = '') : string
     {
         OpenSSL::resetErrors();
-        if (openssl_open($envelope, $message, $envelopeKey, $this->resource, $cipherMethod) === false) {
+        $paddedIV = InitVector::pad($iv);
+        if (@openssl_open($envelope, $message, $envelopeKey, $this->resource, $cipherMethod, $paddedIV) === false
+        ) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not unseal envelope.');
             // @codeCoverageIgnoreEnd

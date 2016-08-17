@@ -32,11 +32,11 @@ class CryptoKeyTypeTest extends Unit
     // tests
 
     /**
-     * Tests the type names
+     * Tests the conversions
      */
-    public function testTypeNames()
+    public function testConversions()
     {
-        $this->specify('Converts the key types to name correctly.', function () {
+        $this->specify('Converts the values to names correctly.', function () {
             $this->assertEquals('rsa', CryptoKeyType::toName(CryptoKeyType::RSA));
             $this->assertEquals('dsa', CryptoKeyType::toName(CryptoKeyType::DSA));
             $this->assertEquals('dh', CryptoKeyType::toName(CryptoKeyType::DH));
@@ -45,7 +45,7 @@ class CryptoKeyTypeTest extends Unit
             $this->assertEquals('unknown', CryptoKeyType::toName(998));
         });
 
-        $this->specify('Converts the key types from name correctly.', function () {
+        $this->specify('Converts the values from names correctly.', function () {
             $this->assertEquals(CryptoKeyType::RSA, CryptoKeyType::fromName('rsa'));
             $this->assertEquals(CryptoKeyType::DSA, CryptoKeyType::fromName('dsa'));
             $this->assertEquals(CryptoKeyType::DH, CryptoKeyType::fromName('dh'));

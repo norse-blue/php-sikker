@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3
+ * @version    0.3.5
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -12,6 +12,8 @@
 declare(strict_types = 1);
 
 namespace NorseBlue\Sikker\Tokens;
+
+use NorseBlue\Sikker\StringEncoder;
 
 /**
  * Class Tokenizer
@@ -135,7 +137,7 @@ class TokenFactory
     public function forgeHexToken() : string
     {
         $bytes = random_bytes((int) round($this->length / 2, 0, PHP_ROUND_HALF_UP));
-        $token = bin2hex($bytes);
+        $token = StringEncoder::rawToHex($bytes);
 
         return substr($token, 0, $this->length);
     }

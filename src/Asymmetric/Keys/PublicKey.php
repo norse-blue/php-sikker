@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3
+ * @version    0.3.5
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -19,6 +19,7 @@ use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 use NorseBlue\Sikker\Symmetric\CipherMethod;
 use NorseBlue\Sikker\Symmetric\CipherMethodNotAvailableException;
+use NorseBlue\Sikker\Symmetric\InitVector;
 
 /**
  * Class PublicKey
@@ -168,11 +169,14 @@ class PublicKey extends CryptoKey
      *
      * @param string $message The message to be sealed.
      * @param string $cipherMethod The cipher method to use from CipherMethod.
-     * @return array Returns an array containing the envelope (index 0), the envelope key (index 1) and the cipher method used (index 2).
-     * @throws OpenSSLException when the message cannot be sealed.
+     * @param string $iv The optional initialization vector for some cipher methods.
+     * @return array Returns an array containing the envelope along other information like the key and method used.
+     *                  0 => [string] envelope
+     * 1 => [string] envelope key
+     * 2 => [string] cipher method used
      * @since 0.3
      */
-    public function seal(string $message, string $cipherMethod = CipherMethod::RC4) : array
+    public function seal(string $message, string $cipherMethod = CipherMethod::RC4, string $iv = '') : array
     {
         OpenSSL::resetErrors();
         if (!CipherMethod::isAvailable($cipherMethod)) {
@@ -180,7 +184,8 @@ class PublicKey extends CryptoKey
                 'The given cipher method is not available in the current platform stack.');
         }
 
-        if (openssl_seal($message, $envelope, $envelopeKeys, [$this->resource], $cipherMethod) === false) {
+        $paddedIV = InitVector::pad($iv);
+        if (@openssl_seal($message, $envelope, $envelopeKeys, [$this->resource], $cipherMethod, $paddedIV) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not seal message.');
             // @codeCoverageIgnoreEnd
