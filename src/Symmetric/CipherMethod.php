@@ -131,6 +131,26 @@ abstract class CipherMethod
     private static $availableMethods = null;
 
     /**
+     * Trims the cipher mode from the given array of cipher methods.
+     *
+     * @param array $methods The cipher methods to trim mode from.
+     * @return array Returns an array of cipher methods with trimmed mode.
+     */
+    protected static function trimCipherMode(array $methods)
+    {
+        $regexMethods = '';
+        foreach (CipherMode::NAMES as $mode => $modeName) {
+            if ($mode != CipherMode::UNKNOWN) {
+                $regexMethods .= sprintf('|%s', $modeName);
+            }
+        }
+
+        $regex = sprintf('/^(.*)(-(?:%s))$/', trim(strtoupper($regexMethods), '|'));
+        $ciphers = preg_replace($regex, '$1', $methods);
+        return $ciphers ?? [];
+    }
+
+    /**
      * Verifies if the given method is available.
      *
      * @param string $method The method to check for.
@@ -153,13 +173,8 @@ abstract class CipherMethod
     {
         OpenSSL::isAvailable(true);
         if (self::$availableMethods === null) {
-            $ciphers = array_unique(array_map('strtoupper', openssl_get_cipher_methods(true)));
-            self::$availableMethods = [];
-            foreach ($ciphers as $cipher) {
-                if (preg_match('/^(\w+)$/', $cipher)) {
-                    self::$availableMethods[] = $cipher;
-                }
-            }
+            $methods = array_unique(array_map('strtoupper', openssl_get_cipher_methods(true)));
+            self::$availableMethods = array_unique(self::trimCipherMode($methods));
         }
 
         return self::$availableMethods;
