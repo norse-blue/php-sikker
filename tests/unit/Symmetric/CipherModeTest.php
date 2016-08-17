@@ -37,17 +37,17 @@ class CipherModeTest extends Unit
     public function testConversion()
     {
         $this->specify('Converts the values to names correctly.', function () {
-            $this->assertEquals('ecb', CipherMode::toName(CipherMode::ECB));
-            $this->assertEquals('cbc', CipherMode::toName(CipherMode::CBC));
-            $this->assertEquals('unknown', CipherMode::toName(CipherMode::UNKNOWN));
-            $this->assertEquals('unknown', CipherMode::toName(998));
+            $this->assertEquals('ecb', CipherMode::asString(CipherMode::ECB));
+            $this->assertEquals('cbc', CipherMode::asString(CipherMode::CBC));
+            $this->assertEquals('unknown', CipherMode::asString(CipherMode::UNKNOWN));
+            $this->assertEquals('unknown', CipherMode::asString(998));
         });
 
         $this->specify('Converts the values from names correctly.', function () {
-            $this->assertEquals(CipherMode::ECB, CipherMode::fromName('ecb'));
-            $this->assertEquals(CipherMode::CBC, CipherMode::fromName('cbc'));
-            $this->assertEquals(CipherMode::UNKNOWN, CipherMode::fromName('unknown'));
-            $this->assertEquals(CipherMode::UNKNOWN, CipherMode::fromName('not existent key'));
+            $this->assertEquals(CipherMode::ECB, CipherMode::asValue('ecb'));
+            $this->assertEquals(CipherMode::CBC, CipherMode::asValue('cbc'));
+            $this->assertEquals(CipherMode::UNKNOWN, CipherMode::asValue('unknown'));
+            $this->assertEquals(CipherMode::UNKNOWN, CipherMode::asValue('not existent key'));
         });
     }
 }

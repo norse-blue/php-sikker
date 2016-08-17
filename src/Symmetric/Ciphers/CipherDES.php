@@ -271,6 +271,6 @@ class CipherDES implements Cipher
     public function getCipherDescription() : string
     {
         return sprintf('%s-%s', self::SUPPORTED_METHODS[$this->getMethod()],
-            strtoupper(CipherMode::NAMES[$this->getMode()]));
+            strtoupper(CipherMode::asString($this->getMode())));
     }
 }

@@ -248,7 +248,7 @@ class CipherAES implements Cipher
      */
     public function getCipherDescription() : string
     {
-            strtoupper(CipherMode::NAMES[$this->getMode()]));
         return sprintf('AES-%s-%s', $this->getKeySize(),
+            strtoupper(CipherMode::asString($this->getMode())));
     }
 }
