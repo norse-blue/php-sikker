@@ -84,9 +84,9 @@ class CipherAESTest extends Unit
     // tests
 
     /**
-     * Test incorrect block size
+     * Test incorrect key size
      */
-    public function testIncorrectBlockSize()
+    public function testIncorrectKeySize()
     {
         $this->specify('', function () {
             $this->expectException(InvalidArgumentException::class);
