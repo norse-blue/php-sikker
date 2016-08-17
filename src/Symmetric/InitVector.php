@@ -6,7 +6,7 @@
  * Time: 12:35 PM
  */
 
-namespace NorseBlue\Sikker\Symmetric\Ciphers;
+namespace NorseBlue\Sikker\Symmetric;
 
 
 class InitVector

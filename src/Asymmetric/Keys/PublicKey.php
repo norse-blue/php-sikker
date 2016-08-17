@@ -19,7 +19,7 @@ use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 use NorseBlue\Sikker\Symmetric\CipherMethod;
 use NorseBlue\Sikker\Symmetric\CipherMethodNotAvailableException;
-use NorseBlue\Sikker\Symmetric\Ciphers\InitVector;
+use NorseBlue\Sikker\Symmetric\InitVector;
 
 /**
  * Class PublicKey
