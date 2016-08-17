@@ -34,21 +34,27 @@ class CipherDES implements Cipher
     const METHOD_SIMPLE = 0;
 
     /**
-     * @var int Mode DES3.
+     * @var int Mode DES-EDE.
      */
-    const METHOD_TRIPLE = 1;
+    const METHOD_TRIPLE_2KEY = 1;
+
+    /**
+     * @var int Mode DES-EDE3.
+     */
+    const METHOD_TRIPLE_3KEY = 2;
 
     /**
      * @var int Mode DESX.
      */
-    const METHOD_X = 2;
+    const METHOD_X = 3;
 
     /**
      * @var array Holds the supported methods.
      */
     const SUPPORTED_METHODS = [
         self::METHOD_SIMPLE => CipherMethod::DES,
-        self::METHOD_TRIPLE => CipherMethod::DES3,
+        self::METHOD_TRIPLE_2KEY => CipherMethod::DES3_2K,
+        self::METHOD_TRIPLE_3KEY => CipherMethod::DES3_3K,
         self::METHOD_X => CipherMethod::DESX
     ];
 
@@ -83,14 +89,14 @@ class CipherDES implements Cipher
     /**
      * CipherDES constructor.
      *
-     * @param int $method The cipher mode to use.
+     * @param int $method The cipher method to use.
      * @param string $iv The initialization vector to use.
      * @param int $options The options to use for encryption.
      * @param int $mode The mode to be used.
      * @since 0.3.5
      */
     public function __construct(
-        int $method = self::METHOD_TRIPLE,
+        int $method = self::METHOD_TRIPLE_3KEY,
         string $iv = '',
         int $options = 0,
         int $mode = CipherMode::CBC
@@ -116,12 +122,12 @@ class CipherDES implements Cipher
      *
      * @param int $method The new method.
      * @return CipherDES Returns this instance for fluent interface.
-     * @throws InvalidArgumentException when the method is not a valid method.
+     * @throws InvalidArgumentException when the method is not supported.
      */
     public function setMethod(int $method) : CipherDES
     {
         if (!array_key_exists($method, self::SUPPORTED_METHODS)) {
-            throw new InvalidArgumentException('The given method is not valid.');
+            throw new InvalidArgumentException('The given method is not supported.');
         }
         $this->method = $method;
         return $this;
@@ -186,7 +192,7 @@ class CipherDES implements Cipher
      *
      * @param int $mode The new cipher mode.
      * @return CipherDES Returns this instance for fluent interface.
-     * @throws InvalidArgumentException when the mode is not a valid mode.
+     * @throws InvalidArgumentException when the mode is not supported.
      */
     public function setMode(int $mode) : CipherDES
     {

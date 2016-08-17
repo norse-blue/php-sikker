@@ -71,9 +71,14 @@ abstract class CipherMethod
     const DES = 'DES';
 
     /**
-     * @var string  Cipher method Triple DES
+     * @var string  Cipher method Triple DES with 2 keys
      */
-    const DES3 = 'DES-EDE3';
+    const DES3_2K = 'DES-EDE';
+
+    /**
+     * @var string  Cipher method Triple DES with 3 keys
+     */
+    const DES3_3K = 'DES-EDE3';
 
     /**
      * @var string  Cipher method  DESX
