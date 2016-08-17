@@ -17,8 +17,8 @@ use InvalidArgumentException;
 use NorseBlue\Sikker\OpenSSL\OpenSSL;
 use NorseBlue\Sikker\OpenSSL\OpenSSLException;
 use NorseBlue\Sikker\StringEncoder;
-use NorseBlue\Sikker\Symmetric\CipherBlockSize;
 use NorseBlue\Sikker\Symmetric\CipherMode;
+use NorseBlue\Sikker\Symmetric\KeySize;
 
 /**
  * Class CipherRC2
@@ -29,11 +29,12 @@ use NorseBlue\Sikker\Symmetric\CipherMode;
 class CipherRC2 implements Cipher
 {
     /**
-     * @var array Holds the supported block sizes.
+     * @var array Holds the supported key sizes.
      */
-    const SUPPORTED_BLOCK_SIZES = [
-        CipherBlockSize::_40,
-        CipherBlockSize::_64
+    const SUPPORTED_KEY_SIZES = [
+        KeySize::_40,
+        KeySize::_64,
+        KeySize::_128
     ];
 
     /**
@@ -45,9 +46,9 @@ class CipherRC2 implements Cipher
     ];
 
     /**
-     * @var int The block size to use.
+     * @var int The key size to use.
      */
-    protected $blockSize;
+    protected $keySize;
 
     /**
      * @var string The initialization vector to use.
@@ -67,47 +68,47 @@ class CipherRC2 implements Cipher
     /**
      * CipherRC2 constructor.
      *
-     * @param int $blockSize The cipher block size to use.
+     * @param int $keySize The key size to use.
      * @param string $iv The initialization vector to use.
      * @param int $options The options to use for encryption.
      * @param int $mode The mode to be used.
      * @since 0.3.5
      */
     public function __construct(
-        int $blockSize = CipherBlockSize::_64,
+        int $keySize = KeySize::_128,
         string $iv = '',
         int $options = 0,
         int $mode = CipherMode::CBC
     ) {
-        $this->setBlockSize($blockSize);
+        $this->setKeySize($keySize);
         $this->setIV($iv);
         $this->setOptions($options);
         $this->setMode($mode);
     }
 
     /**
-     * Gets the block size.
+     * Gets the key size.
      *
-     * @return int Returns the block size.
+     * @return int Returns the key size.
      */
-    public function getBlockSize() : int
+    public function getKeySize() : int
     {
-        return $this->blockSize;
+        return $this->keySize;
     }
 
     /**
-     * Sets the block size.
+     * Sets the key size.
      *
-     * @param int $blockSize The new block size.
+     * @param int $keySize The new key size.
      * @return CipherRC2 Returns this instance for fluent interface.
-     * @throws InvalidArgumentException when the method is not a valid block size.
+     * @throws InvalidArgumentException when the key size is not supported.
      */
-    public function setBlockSize(int $blockSize) : CipherRC2
+    public function setKeySize(int $keySize) : CipherRC2
     {
-        if (!in_array($blockSize, self::SUPPORTED_BLOCK_SIZES)) {
-            throw new InvalidArgumentException('The given block size is not valid.');
+        if (!in_array($keySize, self::SUPPORTED_KEY_SIZES)) {
+            throw new InvalidArgumentException('The given key size is not supported.');
         }
-        $this->blockSize = $blockSize;
+        $this->keySize = $keySize;
         return $this;
     }
 
@@ -170,7 +171,7 @@ class CipherRC2 implements Cipher
      *
      * @param int $mode The new cipher mode.
      * @return CipherRC2 Returns this instance for fluent interface.
-     * @throws InvalidArgumentException when the mode is not a valid mode.
+     * @throws InvalidArgumentException when the mode is not supported.
      */
     public function setMode(int $mode) : CipherRC2
     {
@@ -237,7 +238,7 @@ class CipherRC2 implements Cipher
             StringEncoder::rawToHex($password),
             $this->getOptions(),
             $this->getIV(),
-            $this->getBlockSize()
+            $this->getKeySize()
         ];
     }
 
@@ -248,7 +249,11 @@ class CipherRC2 implements Cipher
      */
     public function getCipherDescription() : string
     {
-        return sprintf('RC2-%s-%s', CipherBlockSize::NAMES[$this->getBlockSize()],
-            strtoupper(CipherMode::NAMES[$this->getMode()]));
+        if ($this->getKeySize() == KeySize::_128) {
+            return sprintf('RC2-%s', strtoupper(CipherMode::asString($this->getMode())));
+        }
+        
+        return sprintf('RC2-%s-%s', $this->getKeySize(),
+            strtoupper(CipherMode::asString($this->getMode())));
     }
 }
