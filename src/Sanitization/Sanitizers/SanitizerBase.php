@@ -47,7 +47,6 @@ abstract class SanitizerBase implements Sanitizer
      * @param mixed $data The data to be scrubbed.
      * @return mixed Returns the scrubbed data.
      * @throws InvalidArgumentException when the given data type is not supported by the sanitizer.
-     * @throws RuntimeException when no scrub function can be executed.
      */
     public function scrub($data)
     {
@@ -57,15 +56,28 @@ abstract class SanitizerBase implements Sanitizer
 
         $type = gettype($data);
         if (!$this->isTypeSupported($type)) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException('The given data type is not supported by the sanitizer.');
         }
 
-        $func = 'scrub'.($type == 'double') ? 'Float' : ucfirst($type);
-        if (is_callable([$this, $func])) {
-            return $this->{$func}($data);
+        return $this->executeTypedScrub($type, $data);
+    }
+
+    /**
+     * Executes the typed scrub with the given data.
+     *
+     * @param string $type The type of the data.
+     * @param mixed $data The data to scrub.
+     * @return mixed Returns the scrubbed data.
+     * @throws RuntimeException when no scrub function can be executed.
+     */
+    protected function executeTypedScrub(string $type, $data)
+    {
+        $typedScrub = 'scrub'.($type == 'double') ? 'Float' : ucfirst($type);
+        if (is_callable([$this, $typedScrub])) {
+            return $this->{$typedScrub}($data);
         }
 
-        throw new RuntimeException('Scrub operation failed due to an unexpected error.');
+        throw new RuntimeException(sprintf('No %s typed scrub function cannot be executed.', $type));
     }
 
     /**
