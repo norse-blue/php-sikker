@@ -60,7 +60,8 @@ class SanitizerChain
      */
     public function setSanitizers(array $sanitizers) : SanitizerChain
     {
-        for ($i = 0; $i < count($sanitizers); $i++) {
+        $sanitizersCount = count($sanitizers);
+        for ($i = 0; $i < $sanitizersCount; $i++) {
             if (!($sanitizers[$i] instanceof Sanitizer)) {
                 throw new InvalidArgumentException(sprintf('Expected an item of type %s at index %d but type %s found.',
                     Sanitizer::class, $i, gettype($sanitizers[$i])));
@@ -79,9 +80,8 @@ class SanitizerChain
     public function sweep($data)
     {
         $cleanData = $data;
-
-        /** @var Sanitizer $sanitizer */
-        for ($i = 0; $i < count($this->sanitizers); $i++) {
+        $sanitizersCount = count($this->sanitizers);
+        for ($i = 0; $i < $sanitizersCount; $i++) {
             try {
                 $cleanData = $this->sanitizers[$i]->scrub($cleanData);
             } catch (Exception $e) {
