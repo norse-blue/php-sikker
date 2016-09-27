@@ -5,7 +5,7 @@ site_favicon: favicon.ico
 copyright: '2016 © Norse Blue'
 repo_url: https://github.com/NorseBlue/Sikker
 repo_name: 'GitHub'
-theme: flatly
+theme: readthedocs
 pages:
   - Home: 'index.md'
   - About:
