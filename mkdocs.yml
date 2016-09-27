@@ -1,0 +1,8 @@
+site_name: Sikker PHP Package
+theme: readthedocs
+pages:
+  - Home: 'index.md'
+  - About:
+    - License: 'about/license.md'
+  - Package:
+    - Installation: 'package/installation.md'
