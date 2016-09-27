@@ -1,14 +1,15 @@
-site_name: 'Sikker PHP Package'
+site_name: 'Sikker'
 site_url: http://norse.blue
 site_author: 'Norse Blue'
 site_favicon: favicon.ico
-copyright: '2016 © Norse Blue'
+copyright: 'Copyright © 2016 NorseBlue'
 repo_url: https://github.com/NorseBlue/Sikker
 repo_name: 'GitHub'
 theme: readthedocs
 pages:
-  - Home: 'index.md'
+  - Getting Started:
+    - Introduction: 'index.md'
+    - Installation: 'getting-started/installation.md'
+    - Usage: 'getting-started/usage.md'
   - About:
     - License: 'about/license.md'
-  - Package:
-    - Installation: 'package/installation.md'
