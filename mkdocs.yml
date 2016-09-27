@@ -1,5 +1,11 @@
-site_name: Sikker PHP Package
-theme: readthedocs
+site_name: 'Sikker PHP Package'
+site_url: http://norse.blue
+site_author: 'Norse Blue'
+site_favicon: favicon.ico
+copyright: '2016 © Norse Blue'
+repo_url: https://github.com/NorseBlue/Sikker
+repo_name: 'GitHub'
+theme: flatly
 pages:
   - Home: 'index.md'
   - About:
