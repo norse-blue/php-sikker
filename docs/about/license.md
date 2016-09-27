@@ -1,6 +1,6 @@
 # License
 
-This package is released under the MIT license.
+This package is released under the [MIT license](https://opensource.org/licenses/MIT).
 
 The MIT License (MIT)
 

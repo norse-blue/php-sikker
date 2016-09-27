@@ -4,7 +4,7 @@ To install the Sikker package using [Composer](http://getcomposer.org) use the f
 
 1. Download composer if you haven't already done so (use your preferred method). Example:
 
-   ```shell
+   ```bash
    curl -s https://getcomposer.org/installer | php
    ```
 
@@ -20,7 +20,7 @@ To install the Sikker package using [Composer](http://getcomposer.org) use the f
 
 3. Run composer update to resolve dependencies and download the packages. Example:
 
-   ```shell
+   ```bash
      php composer.phar update
    ```
 
