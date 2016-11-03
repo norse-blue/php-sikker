@@ -25,12 +25,12 @@ use NorseBlue\Sikker\OpenSSL\OpenSSLNotAvailableException;
 
 class CryptoKeySubclass extends CryptoKey
 {
-    public function decrypt(string $encryptedData) : string
+    public function decrypt(string $encryptedData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string
     {
         return '';
     }
 
-    public function encrypt(string $rawData) : string
+    public function encrypt(string $rawData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string
     {
         return '';
     }

@@ -52,14 +52,14 @@ class PublicKey extends CryptoKey
      * Decrypts the given data.
      *
      * @param string $encryptedData The data to decrypt.
+     * @param int $padding The padding to use for decryption.
      * @return string Returns the decrypted data.
-     * @throws OpenSSLException when the given data cannot be decrypted.
      * @since 0.3
      */
-    public function decrypt(string $encryptedData) : string
+    public function decrypt(string $encryptedData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string
     {
         OpenSSL::resetErrors();
-        if (openssl_public_decrypt($encryptedData, $decrypted, $this->resource) === false) {
+        if (openssl_public_decrypt($encryptedData, $decrypted, $this->resource, $padding) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not decrypt the given data with this public key.');
             // @codeCoverageIgnoreEnd
@@ -72,14 +72,14 @@ class PublicKey extends CryptoKey
      * Encrypts the given data.
      *
      * @param string $rawData The data to encrypt.
+     * @param int $padding The padding to use for encryption.
      * @return string Returns the encrypted data.
-     * @throws OpenSSLException when the given data cannot be encrypted.
      * @since 0.3
      */
-    public function encrypt(string $rawData) : string
+    public function encrypt(string $rawData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string
     {
         OpenSSL::resetErrors();
-        if (openssl_public_encrypt($rawData, $encrypted, $this->resource) === false) {
+        if (openssl_public_encrypt($rawData, $encrypted, $this->resource, $padding) === false) {
             // @codeCoverageIgnoreStart
             throw new OpenSSLException(OpenSSL::getErrors(), 'Could not encrypt the given data with this public key.');
             // @codeCoverageIgnoreEnd
