@@ -41,9 +41,9 @@ abstract class CipherMethod
     const AES256 = 'AES256';
 
     /**
-     * @var string Cipher method BF
+     * @var string Cipher method BLOWFISH
      */
-    const BF = 'BF';
+    const BLOWFISH = 'BF';
 
     /**
      * @var string Cipher method CAMELLIA 128bit
