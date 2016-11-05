@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  pre_tasks:
+    - name: Dist Upgrade Server
+      apt: upgrade=dist update_cache=yes
+  roles:
+    - axelitus.common
+    - axelitus.php
+    - axelitus.composer
