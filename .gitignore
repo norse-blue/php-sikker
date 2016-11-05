@@ -1,6 +1,10 @@
-.idea/
-vendor/
-composer.lock
+/.ansible/*.log
+/.ansible/*.retry
+/.ansible/roles
+/.idea
+/.vagrant
+/vendor
+/*.log
 
 # codeception
 tests/_output/
