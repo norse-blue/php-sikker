@@ -271,17 +271,19 @@ abstract class CryptoKey
      * Encrypts the given data.
      *
      * @param string $rawData The data to encrypt.
+     * @param int $padding The padding to use for encryption.
      * @return string Returns the encrypted data.
      * @since 0.3
      */
-    abstract public function encrypt(string $rawData) : string;
+    abstract public function encrypt(string $rawData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string;
 
     /**
      * Decrypts the given data.
      *
      * @param string $encryptedData The data to decrypt.
+     * @param int $padding The padding to use for decryption.
      * @return string Returns the decrypted data.
      * @since 0.3
      */
-    abstract public function decrypt(string $encryptedData) : string;
+    abstract public function decrypt(string $encryptedData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string;
 }
