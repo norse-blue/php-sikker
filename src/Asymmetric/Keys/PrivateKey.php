@@ -85,7 +85,7 @@ class PrivateKey extends CryptoKey
      * @param int $padding The padding to use for encryption.
      * @return string when the given data cannot be encrypted.
      */
-    public function encrypt(string $rawData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string
+    public function encrypt(string $rawData, int $padding = OPENSSL_PKCS1_PADDING) : string
     {
         OpenSSL::resetErrors();
         if (openssl_private_encrypt($rawData, $encrypted, $this->resource, $padding) === false) {

@@ -56,7 +56,7 @@ class PublicKey extends CryptoKey
      * @return string Returns the decrypted data.
      * @since 0.3
      */
-    public function decrypt(string $encryptedData, int $padding = OPENSSL_PKCS1_OAEP_PADDING) : string
+    public function decrypt(string $encryptedData, int $padding = OPENSSL_PKCS1_PADDING) : string
     {
         OpenSSL::resetErrors();
         if (openssl_public_decrypt($encryptedData, $decrypted, $this->resource, $padding) === false) {
