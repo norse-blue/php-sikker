@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3.6
+ * @version    0.3.7
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -41,9 +41,9 @@ abstract class CipherMethod
     const AES256 = 'AES256';
 
     /**
-     * @var string Cipher method BF
+     * @var string Cipher method BLOWFISH
      */
-    const BF = 'BF';
+    const BLOWFISH = 'BF';
 
     /**
      * @var string Cipher method CAMELLIA 128bit

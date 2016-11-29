@@ -1,11 +1,11 @@
 # Sikker
-Sikker is a PHP 7.0+ Security package that contains security related implementations.
+Sikker is an open source PHP 7.0+ Security package that contains security related implementations.
 
 ## Package Information
 
-The Source Code can be found at [GitHub/NorseBlue/Sikker]().
+The Source Code can be found at [GitHub/NorseBlue/Sikker][github-link].
 
-[![Latest Stable Release][packagist-release-badge]][scrutinizer-buildstatus-develop-link]
+[![Latest Stable Release][packagist-release-badge]][packagist-release-link]
 [![Downloads][packagist-downloads-badge]][packagist-downloads-link]
 [![License][opensource-license-badge]][opensource-license-link]
 
@@ -21,6 +21,7 @@ The Source Code can be found at [GitHub/NorseBlue/Sikker]().
 [![Scrutinizer Code Quality][scrutinizer-quality-develop-badge]][scrutinizer-quality-develop-link]
 [![Code Coverage][scrutinizer-codecoverage-develop-badge]][scrutinizer-codecoverage-develop-link]
 
+[github-link]: https://github.com/NorseBlue/Sikker/
 [opensource-license-link]: https://opensource.org/licenses/MIT
 [opensource-license-badge]: https://img.shields.io/github/license/NorseBlue/Sikker.svg
 [packagist-downloads-link]: https://github.com/NorseBlue/Sikker/releases

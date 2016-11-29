@@ -1,0 +1,15 @@
+site_name: 'Sikker'
+site_url: http://norse.blue
+site_author: 'NorseBlue'
+site_favicon: favicon.ico
+copyright: 'Copyright © 2016 NorseBlue'
+repo_url: https://github.com/NorseBlue/Sikker
+repo_name: 'GitHub'
+theme: readthedocs
+pages:
+  - Getting Started:
+    - Introduction: 'index.md'
+    - Installation: 'getting-started/installation.md'
+    - Usage: 'getting-started/usage.md'
+  - About:
+    - License: 'about/license.md'
