@@ -3,7 +3,7 @@
  * Sikker is a PHP 7.0+ Security package that contains security related implementations.
  *
  * @package    NorseBlue\Sikker
- * @version    0.3.6
+ * @version    0.3.7
  * @author     NorseBlue
  * @license    MIT License
  * @copyright  2016 NorseBlue
@@ -24,7 +24,7 @@ abstract class Sikker
     /**
      * @var string Sikker package version.
      */
-    const VERSION = '0.3.6';
+    const VERSION = '0.3.7';
 
     /**
      * Get string length. Uses multi-byte function if exists.
