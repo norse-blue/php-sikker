@@ -14,14 +14,14 @@ declare(strict_types = 1);
 namespace NorseBlue\Sikker\SaltShakers;
 
 use InvalidArgumentException;
-use NorseBlue\Sikker\Tokens\TokenFactory;
+use NorseBlue\Sikker\Tokens\Tokenizer;
 
 /**
  * Class SaltShakerStdDES
  *
  * @package NorseBlue\Sikker\SaltShakers
  * @see http://php.net/manual/en/function.crypt.php PHP crypt function reference.
- * @uses NorseBlue\Sikker\Tokens\TokenFactory
+ * @uses NorseBlue\Sikker\Tokens\Tokenizer
  * @since 0.1
  */
 class SaltShakerStdDES implements SaltShaker
@@ -56,16 +56,14 @@ class SaltShakerStdDES implements SaltShaker
     public function encode(string $salt = null) : string
     {
         if ($salt === null) {
-            $tokenFactory = new TokenFactory(self::LENGTH, self::ALPHABET);
-            $encoded = $tokenFactory->forgeToken();
+            $encoded = Tokenizer::generate(self::LENGTH, self::ALPHABET);
         } else {
             if (preg_match('/[^'.preg_quote(self::ALPHABET, '/').']/', $salt) !== 0) {
                 throw new InvalidArgumentException('The given salt has characters that are not part of the supported alphabet.');
             }
 
             if (($len = strlen($salt)) < self::LENGTH) {
-                $tokenFactory = new TokenFactory(self::LENGTH - $len, self::ALPHABET);
-                $encoded = $salt.$tokenFactory->forgeToken();
+                $encoded = $salt.Tokenizer::generate(self::LENGTH - $len, self::ALPHABET);
             } else {
                 $encoded = substr($salt, 0, min(self::LENGTH, $len));
             }
