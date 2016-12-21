@@ -25,6 +25,11 @@ use NorseBlue\Sikker\SaltShakers\SaltShakerSHA256;
 class Password
 {
     /**
+     * @var string The plain password value.
+     */
+    protected $plain;
+
+    /**
      * @var SaltShaker The salt shaker to use for hashing the passwords.
      */
     protected $saltShaker;
@@ -32,11 +37,13 @@ class Password
     /**
      * Password constructor.
      *
+     * @param string $plain The plain password value.
      * @param SaltShaker $saltShaker The salt shaker to use for hashing the passwords.
      * @since 0.2
      */
-    public function __construct(SaltShaker $saltShaker = null)
+    public function __construct(string $plain = null, SaltShaker $saltShaker = null)
     {
+        $this->setPlain($plain);
         $this->setSaltShaker($saltShaker);
     }
 
@@ -51,6 +58,40 @@ class Password
     public static function verify(string $password, string $hashedPwd) : bool
     {
         return password_verify($password, $hashedPwd);
+    }
+
+    /**
+     * Gets the plain password value.
+     *
+     * @return string
+     * @since 0.3.8
+     */
+    public function getPlain() : string
+    {
+        return $this->plain;
+    }
+
+    /**
+     * Sets the plain password value.
+     *
+     * @param string $plain The plain password value.
+     * @since 0.3.8
+     */
+    public function setPlain(string $plain = null)
+    {
+        $this->plain = $plain ?? '';
+    }
+
+    /**
+     * Gets the hashed password with the given salt using the current SaltShaker.
+     *
+     * @param string|null $salt The salt to use for hashing the password.
+     * @return string Returns the hashed password.
+     * @since 0.3.8
+     */
+    public function getHashed(string $salt = null) : string
+    {
+        return $this->hash($this->plain, $salt);
     }
 
     /**
@@ -74,6 +115,7 @@ class Password
     public function setSaltShaker(SaltShaker $saltShaker = null) : Password
     {
         $this->saltShaker = $saltShaker ?? new SaltShakerSHA256();
+
         return $this;
     }
 
@@ -88,6 +130,7 @@ class Password
     public function hash(string $password, string $salt = null) : string
     {
         $encodedSalt = $this->saltShaker->encode($salt);
+
         return crypt($password, $encodedSalt);
     }
 }
