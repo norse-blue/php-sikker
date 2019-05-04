@@ -3,7 +3,7 @@ Sikker is an open source PHP 7.0+ Security package that contains security relate
 
 ## Package Information
 
-The Source Code can be found at [GitHub/NorseBlue/Sikker][github-link].
+The Source Code can be found at [GitHub/norse-blue/php-sikker][github-link].
 
 [![Latest Stable Release][packagist-release-badge]][packagist-release-link]
 [![Downloads][packagist-downloads-badge]][packagist-downloads-link]
@@ -21,22 +21,22 @@ The Source Code can be found at [GitHub/NorseBlue/Sikker][github-link].
 [![Scrutinizer Code Quality][scrutinizer-quality-develop-badge]][scrutinizer-quality-develop-link]
 [![Code Coverage][scrutinizer-codecoverage-develop-badge]][scrutinizer-codecoverage-develop-link]
 
-[github-link]: https://github.com/NorseBlue/Sikker/
+[github-link]: https://github.com/norse-blue/php-sikker/
 [opensource-license-link]: https://opensource.org/licenses/MIT
-[opensource-license-badge]: https://img.shields.io/github/license/NorseBlue/Sikker.svg
-[packagist-downloads-link]: https://github.com/NorseBlue/Sikker/releases
-[packagist-downloads-badge]: https://img.shields.io/packagist/dt/NorseBlue/Sikker.svg
-[packagist-release-link]: https://packagist.org/packages/norseblue/sikker
-[packagist-release-badge]: https://img.shields.io/packagist/v/NorseBlue/Sikker.svg?style=flat
-[scrutinizer-buildstatus-master-link]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/build-status/master
-[scrutinizer-buildstatus-master-badge]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/badges/build.png?b=master
-[scrutinizer-quality-master-link]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/?branch=master
-[scrutinizer-quality-master-badge]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/badges/quality-score.png?b=master
-[scrutinizer-codecoverage-master-link]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/?branch=master
-[scrutinizer-codecoverage-master-badge]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/badges/coverage.png?b=master
-[scrutinizer-buildstatus-develop-link]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/build-status/develop
-[scrutinizer-buildstatus-develop-badge]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/badges/build.png?b=develop
-[scrutinizer-quality-develop-link]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/?branch=develop
-[scrutinizer-quality-develop-badge]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/badges/quality-score.png?b=develop
-[scrutinizer-codecoverage-develop-link]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/?branch=develop
-[scrutinizer-codecoverage-develop-badge]: https://scrutinizer-ci.com/g/NorseBlue/Sikker/badges/coverage.png?b=develop
+[opensource-license-badge]: https://img.shields.io/github/license/norse-blue/php-ikker.svg
+[packagist-downloads-link]: https://github.com/norse-blue/php-sikker/releases
+[packagist-downloads-badge]: https://img.shields.io/packagist/dt/norse-blue/php-sikker.svg
+[packagist-release-link]: https://packagist.org/packages/norse-blue/sikker
+[packagist-release-badge]: https://img.shields.io/packagist/v/norse-blue/php-sikker.svg?style=flat
+[scrutinizer-buildstatus-master-link]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/build-status/master
+[scrutinizer-buildstatus-master-badge]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/badges/build.png?b=master
+[scrutinizer-quality-master-link]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/?branch=master
+[scrutinizer-quality-master-badge]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/badges/quality-score.png?b=master
+[scrutinizer-codecoverage-master-link]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/?branch=master
+[scrutinizer-codecoverage-master-badge]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/badges/coverage.png?b=master
+[scrutinizer-buildstatus-develop-link]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/build-status/develop
+[scrutinizer-buildstatus-develop-badge]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/badges/build.png?b=develop
+[scrutinizer-quality-develop-link]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/?branch=develop
+[scrutinizer-quality-develop-badge]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/badges/quality-score.png?b=develop
+[scrutinizer-codecoverage-develop-link]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/?branch=develop
+[scrutinizer-codecoverage-develop-badge]: https://scrutinizer-ci.com/g/norse-blue/php-sikker/badges/coverage.png?b=develop

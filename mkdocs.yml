@@ -3,7 +3,7 @@ site_url: http://norse.blue
 site_author: 'NorseBlue'
 site_favicon: favicon.ico
 copyright: 'Copyright © 2016 NorseBlue'
-repo_url: https://github.com/NorseBlue/Sikker
+repo_url: https://github.com/norse-blue/php-sikker
 repo_name: 'GitHub'
 theme: readthedocs
 pages:

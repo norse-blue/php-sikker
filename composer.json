@@ -1,5 +1,5 @@
 {
-	"name": "norseblue/sikker",
+	"name": "norse-blue/sikker",
 	"description": "Sikker is a PHP 7.0+ Security package that contains security related implementations.",
 	"keywords": ["security", "hash", "token", "password", "crypt", "encryption"],
 	"homepage": "http://opensource.norse.blue/sikker",
@@ -13,9 +13,9 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/NorseBlue/Sikker/issues",
-		"wiki": "https://github.com/NorseBlue/Sikker/wiki",
-		"source": "https://github.com/NorseBlue/Sikker",
+		"issues": "https://github.com/norse-blue/php-sikker/issues",
+		"wiki": "https://github.com/norse-blue/php-sikker/wiki",
+		"source": "https://github.com/norse-blue/php-sikker",
 		"docs": "https://readthedocs.org/projects/sikker/"
 	},
 	"require": {
